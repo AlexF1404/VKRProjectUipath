@@ -33,6 +33,16 @@ namespace VKRProjectUipath
                 MessageBox.Show("Путь сохранен", "Путь к директориям", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
         }
-        
+       
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnOpenAddAndEdit_Click(object sender, EventArgs e)
+        {
+            FrmForGroup frmForGroup = new FrmForGroup();
+            frmForGroup.Show();
+        }
     }
 }

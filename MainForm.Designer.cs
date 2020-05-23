@@ -36,9 +36,12 @@
             this.mainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnWordPdf = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExcel
@@ -108,14 +111,36 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Multiselect = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnWordPdf);
+            this.groupBox2.Location = new System.Drawing.Point(21, 173);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(575, 115);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Сортировка курсовых работ и проектов";
+            // 
+            // btnWordPdf
+            // 
+            this.btnWordPdf.Location = new System.Drawing.Point(6, 58);
+            this.btnWordPdf.Name = "btnWordPdf";
+            this.btnWordPdf.Size = new System.Drawing.Size(262, 35);
+            this.btnWordPdf.TabIndex = 0;
+            this.btnWordPdf.Text = "Выбор Word/PDF файлов курсовых";
+            this.btnWordPdf.UseVisualStyleBackColor = true;
+            this.btnWordPdf.Click += new System.EventHandler(this.btnWordPdf_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1031, 576);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.menuStrip2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "VKRs&CourseWorks Automation";
@@ -124,6 +149,7 @@
             this.groupBox1.ResumeLayout(false);
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,6 +165,8 @@
         private System.Windows.Forms.ToolStripMenuItem settingsItem;
         private System.Windows.Forms.ToolStripMenuItem mainMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnWordPdf;
     }
 }
 

@@ -34,5 +34,16 @@ namespace VKRProjectUipath.Properties {
                 this["PathStringFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Hashtable StringKeysGroup {
+            get {
+                return ((global::System.Collections.Hashtable)(this["StringKeysGroup"]));
+            }
+            set {
+                this["StringKeysGroup"] = value;
+            }
+        }
     }
 }
