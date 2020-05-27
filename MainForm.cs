@@ -24,6 +24,7 @@ namespace VKRProjectUipath
         List<string> pathsExcel = new List<string>();
         List<string> pathsWordPdf = new List<string>();
         List<string> jsonAnswer = new List<string>();
+        private string json = "";
         
       
         public MainForm()
@@ -34,28 +35,26 @@ namespace VKRProjectUipath
       
         
         private void BtnExcel_Click(object sender, EventArgs e)
-        {    
+        {
+            InitializeComponent();
             pathsExcel.Clear();                  
             InitializeOpenFileDialog("Файлы Excel (*.xl*;*.xlsx;*.xlsm;*.xlsb;*.xlam;*.xltx;*.xltm;*.xls;*.xla;*.xlt;*.xlm;*.xlw;)|*.xl*;*.xlsx;*.xlsm;*.xlsb;*.xlam;*.xltx;*.xltm;*.xls;*.xla;*.xlt;*.xlm;*.xlw;", "Выберите Excel файлы учебных планов");          
             pathsExcel = selectListOfPathsInOpenFileDialog();
           
             if (pathsExcel.Count > 0)
             {
+               // VRKExcelAndClearList();
                 Task<string> task = CompliteCmdAsync();
                 var awaiter = task.GetAwaiter();
                 awaiter.OnCompleted(() =>
                 {
                     string result = awaiter.GetResult();
-                    Console.WriteLine("222"+ result);
-                    var json = JsonConvert.DeserializeObject<RootObject>(result.ToString());
+                    Console.WriteLine("222"+ json);
+                    var jsons = JsonConvert.DeserializeObject<RootObject>(json);
+                    AddDBNameOfDirection(jsons.stringNameNapr);
                     
-                   /* jsonAnswer = json.stringNameNapr;
-                    if (awaiter.IsCompleted)
-                    {
-                        AddDBNameOfDirection(jsonAnswer);
-                    }*/
                 }
-                );                                             
+                );                                           
             }
            
             else return;
@@ -181,11 +180,9 @@ namespace VKRProjectUipath
 
                 }
             }
-        }
-        
-        
+        }                      
         public class RootObject
-        {           
+        {          
             public List<string> stringNameNapr { get; set; }
         }
         private List<string> selectListOfPathsInOpenFileDialog(){
@@ -238,21 +235,30 @@ namespace VKRProjectUipath
                procCommand.Start();
                procCommand.WaitForExit();           
             StreamReader srIncoming = procCommand.StandardOutput;
-            Console.WriteLine("wwww+   "+srIncoming.ReadToEnd().ToString());
+            Console.WriteLine("wwww+   "+srIncoming.ReadToEnd().ToString());                                                       
+            
             return srIncoming.ReadToEnd();
         }
-        private void ProcessOutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        private static void ProcessOutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
             {
                 if (!String.IsNullOrEmpty(outLine.Data));
             }
-        Task<string> CompliteCmdAsync() 
+        async Task<string> CompliteCmdAsync() 
         {
-            return Task.Run(() => VRKExcelAndClearList());
+            string ans = await Task.Run(() => VRKExcelAndClearList());
+            Console.WriteLine(ans);
+            json = ans;
+            return json;
         }
        
         private void VRKWordPdfSort(Dictionary<string,string> keysForGroup,List<string> namePredmetsList)
         {            
             string cmd = @"UiRobot.exe connect --url https://cloud.uipath.com/alexcompany/AlexCompanyDefault --key 51595987-ee0a-426e-9cae-bd63f34311be";
+            /* Dictionary<string, string> keys = new Dictionary<string, string>();
+             //keys.Add("ИТ", "Информационные системы и технологии");
+             keys.Add("ит", "Информационные системы и технологии");*/
+            /*List<string> newstring = new List<string>();
+            newstring.Add("Управление IT-проектами");*/
             string dictionaryabrv = JsonConvert.SerializeObject(keysForGroup, Formatting.None);
             string pathFolder = JsonConvert.SerializeObject(Properties.Settings.Default.PathStringFolder, Formatting.None);
             string PathStringFileWordPdf = JsonConvert.SerializeObject(pathsWordPdf, Formatting.None);
@@ -336,7 +342,7 @@ namespace VKRProjectUipath
                 {                   
                     for (int i = 0; i < dTable.Rows.Count; i++)
                     {
-                        keys.Add(dTable.Rows[i].ItemArray[0].ToString(), dTable.Rows[i].ItemArray[1].ToString());
+                        keys.Add(dTable.Rows[i].ItemArray[0].ToString().ToLower(), dTable.Rows[i].ItemArray[1].ToString().ToLower());
                     }
                     return keys;
                 }
