@@ -32,11 +32,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Clmlittle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClmGrBig = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.Clmlittle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClmGrBig = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.settingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.settingsBindingSource)).BeginInit();
@@ -57,6 +57,29 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(750, 376);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            // 
+            // Clmlittle
+            // 
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Clmlittle.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Clmlittle.Frozen = true;
+            this.Clmlittle.HeaderText = "Сокращение группы";
+            this.Clmlittle.MinimumWidth = 6;
+            this.Clmlittle.Name = "Clmlittle";
+            this.Clmlittle.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Clmlittle.Width = 125;
+            // 
+            // ClmGrBig
+            // 
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ClmGrBig.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ClmGrBig.Frozen = true;
+            this.ClmGrBig.HeaderText = "Полное название группы";
+            this.ClmGrBig.MinimumWidth = 6;
+            this.ClmGrBig.Name = "ClmGrBig";
+            this.ClmGrBig.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ClmGrBig.Width = 650;
             // 
             // btnSave
             // 
@@ -87,27 +110,6 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Пример:          ит                         Информационные системы и технологии  " +
     "     ";
-            // 
-            // Clmlittle
-            // 
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Clmlittle.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Clmlittle.Frozen = true;
-            this.Clmlittle.HeaderText = "Сокращение группы";
-            this.Clmlittle.MinimumWidth = 6;
-            this.Clmlittle.Name = "Clmlittle";
-            this.Clmlittle.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // ClmGrBig
-            // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ClmGrBig.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ClmGrBig.Frozen = true;
-            this.ClmGrBig.HeaderText = "Полное название группы";
-            this.ClmGrBig.MinimumWidth = 6;
-            this.ClmGrBig.Name = "ClmGrBig";
-            this.ClmGrBig.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ClmGrBig.Width = 650;
             // 
             // settingsBindingSource
             // 

@@ -19,12 +19,16 @@ namespace VKRProjectUipath
         private String dbFileName;
         private SQLiteConnection m_dbConn;
         private SQLiteCommand m_sqlCmd;
+        private DataTable thisDT = new DataTable();
+        private DataTable dTable = new DataTable();
+
         public FrmForGroup()
         {
             InitializeComponent();
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.Columns[0].Frozen = true;
+            btnSave.Enabled = false;
         }
         private void FrmForGroup_Load(object sender, EventArgs e)
         {
@@ -46,7 +50,7 @@ namespace VKRProjectUipath
             {                
                 MessageBox.Show("Ошибка соединения с базой данных: " + ex.Message);
             }
-            DataTable dTable = new DataTable();
+           
             String sqlQuery;
 
             if (m_dbConn.State != ConnectionState.Open)
@@ -57,15 +61,18 @@ namespace VKRProjectUipath
             try
             {
                 sqlQuery = "SELECT little, big FROM namegroup";
-                SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, m_dbConn);
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, m_dbConn);                
                 adapter.Fill(dTable);
-
+                thisDT = dTable;
                 if (dTable.Rows.Count > 0)
                 {
                     dataGridView1.Rows.Clear();
 
                     for (int i = 0; i < dTable.Rows.Count; i++)
+                    {
                         dataGridView1.Rows.Add(dTable.Rows[i].ItemArray);
+                        //Console.WriteLine(dTable.Rows[i].ItemArray);
+                    }
                 }
                 else
                     MessageBox.Show("Добавьте записи в таблицу или загрузите из файла.");
@@ -84,13 +91,15 @@ namespace VKRProjectUipath
             for (int i = 0; i < dataGridView1.Rows.Count-1; i++) 
             {
                 sqlGo += "( '" + dataGridView1.Rows[i].Cells[0].Value.ToString() + "' , '" + dataGridView1.Rows[i].Cells[1].Value.ToString()+"' ),";
+                
             }
             sqlGo = sqlGo.Remove(sqlGo.Length - 1);
             try
             {
                 m_sqlCmd.CommandText = sqlGo;
-                m_sqlCmd.ExecuteNonQuery();
-                m_dbConn.Close();
+                m_sqlCmd.ExecuteNonQuery();             
+                dTable.AcceptChanges();
+                thisDT = dTable;
             }
             catch (SQLiteException) 
             {
@@ -108,22 +117,31 @@ namespace VKRProjectUipath
 
         }
         private void FrmForGroup_Closing(object sender, FormClosingEventArgs e)
-        {            
-            DialogResult result = MessageBox.Show(
-            "Закрыть без сохранения?",
-            "Все данные будут утеряны!",
-            MessageBoxButtons.OKCancel,
-            MessageBoxIcon.Information,
-            MessageBoxDefaultButton.Button1,
-            MessageBoxOptions.DefaultDesktopOnly);
-            if (result == DialogResult.OK)
+        {
+            //thisDT = dTable.GetChanges();
+            if (thisDT != dTable)
             {
-                e.Cancel = false ;               
+                DialogResult result = MessageBox.Show(
+                "Закрыть без сохранения?",
+                "Все данные будут утеряны!",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.OK)
+                {
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
-            else 
-            {
-                e.Cancel = true;
-            }
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            btnSave.Enabled = true;
         }
     }
 }
