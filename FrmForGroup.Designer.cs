@@ -37,7 +37,11 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.bnt_SaveInFile = new System.Windows.Forms.Button();
+            this.btn_GivOutFile = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.settingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.settingsBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +61,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(750, 376);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
             // 
             // Clmlittle
             // 
@@ -89,17 +93,17 @@
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(13, 412);
+            this.btnDel.Location = new System.Drawing.Point(547, 412);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(87, 29);
             this.btnDel.TabIndex = 3;
             this.btnDel.Text = "Удалить строку";
             this.btnDel.UseVisualStyleBackColor = true;
-            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+            this.btnDel.Click += new System.EventHandler(this.BtnDel_Click);
             // 
             // label1
             // 
@@ -110,6 +114,30 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Пример:          ит                         Информационные системы и технологии  " +
     "     ";
+            // 
+            // bnt_SaveInFile
+            // 
+            this.bnt_SaveInFile.Location = new System.Drawing.Point(12, 412);
+            this.bnt_SaveInFile.Name = "bnt_SaveInFile";
+            this.bnt_SaveInFile.Size = new System.Drawing.Size(143, 29);
+            this.bnt_SaveInFile.TabIndex = 5;
+            this.bnt_SaveInFile.Text = "Сохранить в файл";
+            this.bnt_SaveInFile.UseVisualStyleBackColor = true;
+            this.bnt_SaveInFile.Click += new System.EventHandler(this.Bnt_SaveInFile_Click);
+            // 
+            // btn_GivOutFile
+            // 
+            this.btn_GivOutFile.Location = new System.Drawing.Point(161, 412);
+            this.btn_GivOutFile.Name = "btn_GivOutFile";
+            this.btn_GivOutFile.Size = new System.Drawing.Size(190, 29);
+            this.btn_GivOutFile.TabIndex = 6;
+            this.btn_GivOutFile.Text = "Загрузить из файла";
+            this.btn_GivOutFile.UseVisualStyleBackColor = true;
+            this.btn_GivOutFile.Click += new System.EventHandler(this.Btn_GivOutFile_Click);
+            // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.SelectedPath = "C:\\Users\\Алексей\\Desktop";
             // 
             // settingsBindingSource
             // 
@@ -122,12 +150,15 @@
             this.AutoScroll = true;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(772, 448);
+            this.Controls.Add(this.btn_GivOutFile);
+            this.Controls.Add(this.bnt_SaveInFile);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnDel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FrmForGroup";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Добавление и изменение сокращений групп";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmForGroup_Closing);
             this.Load += new System.EventHandler(this.FrmForGroup_Load);
@@ -147,5 +178,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Clmlittle;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmGrBig;
+        private System.Windows.Forms.Button bnt_SaveInFile;
+        private System.Windows.Forms.Button btn_GivOutFile;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

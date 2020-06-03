@@ -8,5 +8,17 @@
     <Setting Name="StringKeysGroup" Type="System.Collections.Hashtable" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="PathUIPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CMDPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="URLUiPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="KeyMachine" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

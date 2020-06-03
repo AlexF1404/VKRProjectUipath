@@ -22,27 +22,32 @@ namespace VKRProjectUipath
             Properties.Settings.Default.Save();
         }
 
-        private void btnChoosePathFolder_Click(object sender, EventArgs e)
+        private void BtnChoosePathFolder_Click(object sender, EventArgs e)
         {
            
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 txtPathFolder.Text = folderBrowserDialog1.SelectedPath + @"\";              
                 Properties.Settings.Default.PathStringFolder = txtPathFolder.Text;
-                Properties.Settings.Default.Save();
-                MessageBox.Show("Путь сохранен", "Путь к директориям", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                Properties.Settings.Default.Save();               
             }
         }
        
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnOpenAddAndEdit_Click(object sender, EventArgs e)
+        private void BtnOpenAddAndEdit_Click(object sender, EventArgs e)
         {
             FrmForGroup frmForGroup = new FrmForGroup();
             frmForGroup.Show();
+        }
+
+        private void BtnUipathSettings_Click(object sender, EventArgs e)
+        {
+            UiPathSettings settings = new UiPathSettings();
+            settings.Show();
         }
     }
 }

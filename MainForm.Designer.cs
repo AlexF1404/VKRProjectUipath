@@ -97,18 +97,17 @@
             this.mainMenuItem.Name = "mainMenuItem";
             this.mainMenuItem.Size = new System.Drawing.Size(124, 24);
             this.mainMenuItem.Text = "Главное меню";
-            this.mainMenuItem.Click += new System.EventHandler(this.mainMenuItem_Click);
+            this.mainMenuItem.Click += new System.EventHandler(this.MainMenuItem_Click);
             // 
             // settingsItem
             // 
             this.settingsItem.Name = "settingsItem";
             this.settingsItem.Size = new System.Drawing.Size(98, 24);
             this.settingsItem.Text = "Настройки";
-            this.settingsItem.Click += new System.EventHandler(this.settingsItem_Click);
+            this.settingsItem.Click += new System.EventHandler(this.SettingsItem_Click);
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Multiselect = true;
             // 
             // groupBox2
@@ -129,7 +128,7 @@
             this.btnWordPdf.TabIndex = 0;
             this.btnWordPdf.Text = "Выбор Word/PDF файлов курсовых";
             this.btnWordPdf.UseVisualStyleBackColor = true;
-            this.btnWordPdf.Click += new System.EventHandler(this.btnWordPdf_Click);
+            this.btnWordPdf.Click += new System.EventHandler(this.BtnWordPdf_Click);
             // 
             // MainForm
             // 
@@ -143,6 +142,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VKRs&CourseWorks Automation";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

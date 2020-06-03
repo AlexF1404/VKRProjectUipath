@@ -45,5 +45,53 @@ namespace VKRProjectUipath.Properties {
                 this["StringKeysGroup"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PathUIPath {
+            get {
+                return ((string)(this["PathUIPath"]));
+            }
+            set {
+                this["PathUIPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CMDPath {
+            get {
+                return ((string)(this["CMDPath"]));
+            }
+            set {
+                this["CMDPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string URLUiPath {
+            get {
+                return ((string)(this["URLUiPath"]));
+            }
+            set {
+                this["URLUiPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string KeyMachine {
+            get {
+                return ((string)(this["KeyMachine"]));
+            }
+            set {
+                this["KeyMachine"] = value;
+            }
+        }
     }
 }
