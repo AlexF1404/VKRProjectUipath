@@ -38,6 +38,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnWordPdf = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -46,7 +47,7 @@
             // 
             // btnExcel
             // 
-            this.btnExcel.Location = new System.Drawing.Point(6, 33);
+            this.btnExcel.Location = new System.Drawing.Point(6, 21);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(119, 35);
             this.btnExcel.TabIndex = 0;
@@ -75,7 +76,7 @@
             this.groupBox1.Controls.Add(this.btnExcel);
             this.groupBox1.Location = new System.Drawing.Point(21, 64);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(575, 82);
+            this.groupBox1.Size = new System.Drawing.Size(575, 64);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Создание директорий (папок) для курсовых проектов и работ по учебным планам";
@@ -113,16 +114,16 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnWordPdf);
-            this.groupBox2.Location = new System.Drawing.Point(21, 173);
+            this.groupBox2.Location = new System.Drawing.Point(21, 145);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(575, 115);
+            this.groupBox2.Size = new System.Drawing.Size(575, 70);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Сортировка курсовых работ и проектов";
             // 
             // btnWordPdf
             // 
-            this.btnWordPdf.Location = new System.Drawing.Point(6, 58);
+            this.btnWordPdf.Location = new System.Drawing.Point(6, 21);
             this.btnWordPdf.Name = "btnWordPdf";
             this.btnWordPdf.Size = new System.Drawing.Size(262, 35);
             this.btnWordPdf.TabIndex = 0;
@@ -130,11 +131,21 @@
             this.btnWordPdf.UseVisualStyleBackColor = true;
             this.btnWordPdf.Click += new System.EventHandler(this.BtnWordPdf_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(21, 221);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(192, 31);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Загрузить из приказа";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1031, 576);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
@@ -167,6 +178,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnWordPdf;
+        private System.Windows.Forms.Button button1;
     }
 }
 

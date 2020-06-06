@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
+
 namespace VKRProjectUipath
 {
     public partial class UiPathSettings : Form
@@ -22,6 +23,7 @@ namespace VKRProjectUipath
             TxtBxKey.Clear();
             TxtBxURL.Text = Properties.Settings.Default.URLUiPath;
             TxtBxKey.Text = Properties.Settings.Default.KeyMachine;
+            
            
         }
         private void Save_Click(object sender, EventArgs e)
@@ -30,6 +32,7 @@ namespace VKRProjectUipath
         }
         public string UiPathConnection() 
         {
+           
             string cmd = @"UiRobot.exe connect --url " + TxtBxURL.Text + " --key "+ TxtBxKey.Text;
             var proc = new ProcessStartInfo()
             {
@@ -102,6 +105,7 @@ namespace VKRProjectUipath
         {
             try
             {
+                label3.Text = "Загрузка...";
                 string ans = await Task.Run(() => UiPathConnection());
                 return ans;
                 
@@ -116,5 +120,7 @@ namespace VKRProjectUipath
                 return "err";
             }
         }
+
+       
     }
 }

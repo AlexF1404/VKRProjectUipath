@@ -36,7 +36,10 @@
             this.grBxForExcel = new System.Windows.Forms.GroupBox();
             this.btnOpenAddAndEdit = new System.Windows.Forms.Button();
             this.BtnUipathSettings = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.grBxForExcel.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnChoosePathFolder
@@ -106,17 +109,35 @@
             // 
             this.BtnUipathSettings.Location = new System.Drawing.Point(12, 378);
             this.BtnUipathSettings.Name = "BtnUipathSettings";
-            this.BtnUipathSettings.Size = new System.Drawing.Size(150, 31);
+            this.BtnUipathSettings.Size = new System.Drawing.Size(174, 31);
             this.BtnUipathSettings.TabIndex = 5;
-            this.BtnUipathSettings.Text = "Настройки UiPath";
+            this.BtnUipathSettings.Text = "Подключение UiPath";
             this.BtnUipathSettings.UseVisualStyleBackColor = true;
             this.BtnUipathSettings.Click += new System.EventHandler(this.BtnUipathSettings_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Location = new System.Drawing.Point(21, 177);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(573, 155);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Пути";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(13, 36);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(227, 22);
+            this.textBox1.TabIndex = 0;
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(607, 421);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.BtnUipathSettings);
             this.Controls.Add(this.grBxForExcel);
             this.Controls.Add(this.BtnExit);
@@ -126,6 +147,8 @@
             this.Text = "Настройки";
             this.grBxForExcel.ResumeLayout(false);
             this.grBxForExcel.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -140,5 +163,7 @@
         private System.Windows.Forms.GroupBox grBxForExcel;
         private System.Windows.Forms.Button btnOpenAddAndEdit;
         private System.Windows.Forms.Button BtnUipathSettings;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

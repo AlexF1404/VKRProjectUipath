@@ -205,6 +205,9 @@
     <Reference Include="UiPath.Robot.Api, Version=19.10.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\UiPath.Robot.Api.19.10.1\lib\net461\UiPath.Robot.Api.dll</HintPath>
     </Reference>
+    <Reference Include="VKRStudent, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\VKRStudent.1.0.0\lib\VKRStudent.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrmForGroup.cs">

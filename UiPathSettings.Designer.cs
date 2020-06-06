@@ -35,7 +35,6 @@
             this.TxtBxKey = new System.Windows.Forms.TextBox();
             this.BtnConnect = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.chBxRemember = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Save
@@ -98,22 +97,11 @@
             this.label3.Size = new System.Drawing.Size(0, 17);
             this.label3.TabIndex = 6;
             // 
-            // chBxRemember
-            // 
-            this.chBxRemember.AutoSize = true;
-            this.chBxRemember.Location = new System.Drawing.Point(339, 133);
-            this.chBxRemember.Name = "chBxRemember";
-            this.chBxRemember.Size = new System.Drawing.Size(102, 21);
-            this.chBxRemember.TabIndex = 7;
-            this.chBxRemember.Text = "Запомнить";
-            this.chBxRemember.UseVisualStyleBackColor = true;
-            // 
             // UiPathSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(453, 207);
-            this.Controls.Add(this.chBxRemember);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.BtnConnect);
             this.Controls.Add(this.TxtBxKey);
@@ -139,6 +127,5 @@
         private System.Windows.Forms.TextBox TxtBxKey;
         private System.Windows.Forms.Button BtnConnect;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox chBxRemember;
     }
 }
