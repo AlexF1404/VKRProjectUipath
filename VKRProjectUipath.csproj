@@ -239,6 +239,12 @@
     <Compile Include="UiPathSettings.Designer.cs">
       <DependentUpon>UiPathSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="WordVkrForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WordVkrForm.Designer.cs">
+      <DependentUpon>WordVkrForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FrmForGroup.resx">
       <DependentUpon>FrmForGroup.cs</DependentUpon>
     </EmbeddedResource>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UiPathSettings.resx">
       <DependentUpon>UiPathSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WordVkrForm.resx">
+      <DependentUpon>WordVkrForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -216,7 +216,7 @@ namespace VKRProjectUipath
                 using (StreamReader sw = new StreamReader(SelectFolder))
                 {
                      jsonpath = sw.ReadToEnd();
-                    Console.WriteLine(jsonpath);
+                   
                 }
                 Group group = JsonConvert.DeserializeObject<Group>(jsonpath);
                 dataGridView1.Rows.Clear();

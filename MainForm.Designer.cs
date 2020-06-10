@@ -40,11 +40,13 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnWordPdf = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnVKRPr = new System.Windows.Forms.Button();
+            this.groupVkr = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupVkr.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExcel
@@ -62,9 +64,9 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 28);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 30);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1031, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1031, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -91,7 +93,7 @@
             this.settingsItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(1031, 28);
+            this.menuStrip2.Size = new System.Drawing.Size(1031, 30);
             this.menuStrip2.TabIndex = 3;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -120,7 +122,7 @@
             this.groupBox2.Controls.Add(this.btnWordPdf);
             this.groupBox2.Location = new System.Drawing.Point(21, 145);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(575, 129);
+            this.groupBox2.Size = new System.Drawing.Size(652, 129);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Сортировка курсовых работ и проектов";
@@ -156,21 +158,32 @@
             this.btnWordPdf.UseVisualStyleBackColor = true;
             this.btnWordPdf.Click += new System.EventHandler(this.BtnWordPdf_Click);
             // 
-            // button1
+            // BtnVKRPr
             // 
-            this.button1.Location = new System.Drawing.Point(21, 297);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(192, 31);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Загрузить из приказа";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnVKRPr.Location = new System.Drawing.Point(6, 37);
+            this.BtnVKRPr.Name = "BtnVKRPr";
+            this.BtnVKRPr.Size = new System.Drawing.Size(192, 31);
+            this.BtnVKRPr.TabIndex = 5;
+            this.BtnVKRPr.Text = "Работа с ВКР";
+            this.BtnVKRPr.UseVisualStyleBackColor = true;
+            this.BtnVKRPr.Click += new System.EventHandler(this.BtnVKRPr_Click);
+            // 
+            // groupVkr
+            // 
+            this.groupVkr.Controls.Add(this.BtnVKRPr);
+            this.groupVkr.Location = new System.Drawing.Point(21, 292);
+            this.groupVkr.Name = "groupVkr";
+            this.groupVkr.Size = new System.Drawing.Size(652, 90);
+            this.groupVkr.TabIndex = 6;
+            this.groupVkr.TabStop = false;
+            this.groupVkr.Text = "ВКР";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1031, 576);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.groupVkr);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
@@ -187,6 +200,7 @@
             this.menuStrip2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupVkr.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,9 +218,10 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnWordPdf;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnVKRPr;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupVkr;
     }
 }
 

@@ -13,7 +13,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Linq;
-using VKRStudents = VKRStudent.VKRStudent;
 using System.Security.Permissions;
 using System.Security;
 
@@ -225,7 +224,7 @@ namespace VKRProjectUipath
              {
                  UseShellExecute = true,
                  WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
-                 FileName = @"C:\Windows\System32\cmd.exe",
+                 FileName = "cmd.exe",
                  Arguments = "/c " + cmd,
                  WindowStyle = ProcessWindowStyle.Hidden
              };
@@ -236,7 +235,7 @@ namespace VKRProjectUipath
                 startInfo.RedirectStandardError = true;
                 startInfo.RedirectStandardError = true;
                 startInfo.WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio";      
-                startInfo.FileName  = @"C:\Windows\System32\cmd.exe";
+                startInfo.FileName  = "cmd.exe";
                 startInfo.Arguments = "/c " + cmd1;
                 startInfo.CreateNoWindow = true;              
                 startInfo.StandardOutputEncoding = Encoding.GetEncoding(866);
@@ -249,12 +248,13 @@ namespace VKRProjectUipath
                 procCommand.Start();
                 procCommand.WaitForExit();
                 StreamReader srIncoming = procCommand.StandardOutput;
-                string json = srIncoming.ReadToEnd().ToString(); 
+                string json = srIncoming.ReadToEnd().ToString();
+                Console.WriteLine(json);
                 return json;
             }
             catch (System.ComponentModel.Win32Exception)
             {
-                MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio или Cmd");
+                MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio");
                 return "err";
             }
            
@@ -382,7 +382,12 @@ namespace VKRProjectUipath
         {
             btnWordPdf.Enabled = true;
         }
-       
+
+        private void BtnVKRPr_Click(object sender, EventArgs e)
+        {
+            WordVkrForm wordVkr = new WordVkrForm();
+            wordVkr.Show();
+        }
     }
 
 }
