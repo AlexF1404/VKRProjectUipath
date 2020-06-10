@@ -70,14 +70,18 @@ namespace VKRProjectUipath
         }
          public void LoadDataGrid(ListVKRStudent json) 
         
-         {           
-            
+         {
+            int i = 0;
+            //dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             foreach (VKRStudents rootObject in json.ListVKRStudents) 
             {
-                Console.WriteLine(rootObject.FIO+"  123");
-                dataGridView1.Rows.Add(rootObject.FIO,rootObject.Group,rootObject.VKRTheme,rootObject.VKRManager);
-              
+               
+                dataGridView1.Rows.Add(i+1,rootObject.FIO,rootObject.Group,rootObject.VKRTheme,rootObject.VKRManager);
+                i++;
             }
+            File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");
          }
         public class ListVKRStudent
         {
@@ -174,5 +178,6 @@ namespace VKRProjectUipath
 
         }
 
+       
     }
 }

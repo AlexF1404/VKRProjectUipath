@@ -32,6 +32,7 @@
             this.btnloadDoc = new System.Windows.Forms.Button();
             this.CheckVkr = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VkrTheme = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,24 +44,27 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.number,
             this.FIO,
             this.Group,
             this.VkrTheme,
             this.Vkrmanager});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 67);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 54);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1104, 531);
+            this.dataGridView1.Size = new System.Drawing.Size(986, 567);
             this.dataGridView1.TabIndex = 0;
             // 
             // btnloadDoc
             // 
             this.btnloadDoc.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnloadDoc.Location = new System.Drawing.Point(16, 20);
+            this.btnloadDoc.Location = new System.Drawing.Point(16, 12);
             this.btnloadDoc.Name = "btnloadDoc";
             this.btnloadDoc.Size = new System.Drawing.Size(250, 28);
             this.btnloadDoc.TabIndex = 1;
@@ -70,7 +74,7 @@
             // 
             // CheckVkr
             // 
-            this.CheckVkr.Location = new System.Drawing.Point(293, 20);
+            this.CheckVkr.Location = new System.Drawing.Point(713, 12);
             this.CheckVkr.Name = "CheckVkr";
             this.CheckVkr.Size = new System.Drawing.Size(289, 28);
             this.CheckVkr.TabIndex = 2;
@@ -82,51 +86,66 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // number
+            // 
+            this.number.Frozen = true;
+            this.number.HeaderText = "№";
+            this.number.MinimumWidth = 30;
+            this.number.Name = "number";
+            this.number.ReadOnly = true;
+            this.number.Width = 30;
+            // 
             // FIO
             // 
+            this.FIO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.FIO.Frozen = true;
             this.FIO.HeaderText = "Ф.И.О.";
-            this.FIO.MinimumWidth = 6;
+            this.FIO.MinimumWidth = 226;
             this.FIO.Name = "FIO";
             this.FIO.ReadOnly = true;
-            this.FIO.Width = 125;
+            this.FIO.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.FIO.Width = 226;
             // 
             // Group
             // 
+            this.Group.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Group.Frozen = true;
             this.Group.HeaderText = "Учебная группа";
-            this.Group.MinimumWidth = 6;
+            this.Group.MinimumWidth = 226;
             this.Group.Name = "Group";
             this.Group.ReadOnly = true;
-            this.Group.Width = 125;
+            this.Group.Width = 226;
             // 
             // VkrTheme
             // 
+            this.VkrTheme.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.VkrTheme.Frozen = true;
             this.VkrTheme.HeaderText = "Тема";
-            this.VkrTheme.MinimumWidth = 6;
+            this.VkrTheme.MinimumWidth = 226;
             this.VkrTheme.Name = "VkrTheme";
             this.VkrTheme.ReadOnly = true;
-            this.VkrTheme.Width = 125;
+            this.VkrTheme.Width = 226;
             // 
             // Vkrmanager
             // 
+            this.Vkrmanager.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Vkrmanager.Frozen = true;
             this.Vkrmanager.HeaderText = "Руководитель";
-            this.Vkrmanager.MinimumWidth = 6;
+            this.Vkrmanager.MinimumWidth = 226;
             this.Vkrmanager.Name = "Vkrmanager";
             this.Vkrmanager.ReadOnly = true;
-            this.Vkrmanager.Width = 125;
+            this.Vkrmanager.Width = 226;
             // 
             // WordVkrForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1128, 610);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(1016, 633);
             this.Controls.Add(this.CheckVkr);
             this.Controls.Add(this.btnloadDoc);
             this.Controls.Add(this.dataGridView1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "WordVkrForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Работа с ВКР";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -139,6 +158,7 @@
         private System.Windows.Forms.Button btnloadDoc;
         private System.Windows.Forms.Button CheckVkr;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn number;
         private System.Windows.Forms.DataGridViewTextBoxColumn FIO;
         private System.Windows.Forms.DataGridViewTextBoxColumn Group;
         private System.Windows.Forms.DataGridViewTextBoxColumn VkrTheme;
