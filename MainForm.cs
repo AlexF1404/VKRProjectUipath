@@ -13,6 +13,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Linq;
+using VKRStudents = VKRStudent.VKRStudent;
+using System.Security.Permissions;
+using System.Security;
 
 namespace VKRProjectUipath
 {
@@ -22,11 +25,15 @@ namespace VKRProjectUipath
         private SQLiteConnection m_dbConn;
         private SQLiteCommand m_sqlCmd;
         List<string> pathsExcel = new List<string>();
-        List<string> pathsWordPdf = new List<string>();                      
+        List<string> pathsWordPdf = new List<string>();
+        
+       
         public MainForm()
         {
-            InitializeComponent();           
-        }              
+            InitializeComponent();
+            comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            btnWordPdf.Enabled = false;
+        }
         private void BtnExcel_Click(object sender, EventArgs e)
         {
             pathsExcel.Clear();                  
@@ -45,6 +52,7 @@ namespace VKRProjectUipath
                         if (result == "err") { return; }
                         else
                         {
+                            Console.WriteLine(result);
                             var jsons = JsonConvert.DeserializeObject<RootObject>(result);
                             AddDBNameOfDirection(jsons.stringNameNapr);
                         }
@@ -66,17 +74,26 @@ namespace VKRProjectUipath
         }        
         private void BtnWordPdf_Click(object sender, EventArgs e)
         {
-            if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
+            bool session = true;
+            if (comboBox1.SelectedIndex == 0)
+            {
+                session = false;
+            }
+            else {
+               session = true;
+            }
+            Console.WriteLine(session.ToString());
+           if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
             { MessageBox.Show("Укажите URL Uipath и MachineKey в настройках UiPath", "Настройка Uipath"); }                    
             else
             {
-                InitializeOpenFileDialog("Все документы Word и Pdf (*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.htm;*.html;*.rtf;*.mht;*.mhtml;*.xml;*.odt;*.pdf;)|*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.htm;*.html;*.rtf;*.mht;*.mhtml;*.xml;*.odt;*.pdf;", "Выберите Word/Pdf файлы курсовых работ");
+                InitializeOpenFileDialog("Все документы Word и Pdf (*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.htm;*.html;*.rtf;*.mht;*.mhtml;*.xml;*.odt;*.pdf;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.htm;*.html;*.rtf;*.mht;*.mhtml;*.xml;*.odt;*.pdf;", "Выберите Word/Pdf файлы курсовых работ");
                 SelectListOfPathsInOpenFileDialog(out pathsWordPdf);
                 if (pathsWordPdf.Count > 0)
                 {
                     Dictionary<string, string> keysforGr = GoDBForDictionary();
                     List<string> nameOfPredmets = GetNameOfPredmets();
-                    VRKWordPdfSort(keysforGr, nameOfPredmets);
+                    VRKWordPdfSort(keysforGr, nameOfPredmets, session);
                 }
                 else return;
             }
@@ -136,11 +153,10 @@ namespace VKRProjectUipath
                 List<string> namePredmetsToBe = GetNameOfPredmets();
                 foreach (string item in addNameOfPredmets)
                 {
-                    if (!namePredmetsToBe.Contains(item))
-                    {
                         namePredmetsToBe.Add(item);
-                    }
+                    
                 }
+                var data = new HashSet<string>(namePredmetsToBe, StringComparer.OrdinalIgnoreCase);
 
                 try
                 {
@@ -153,7 +169,7 @@ namespace VKRProjectUipath
                     m_sqlCmd.CommandText = sqlrefresh;
                     m_sqlCmd.ExecuteNonQuery();
                     string sqlGo = "INSERT INTO namedirect (name) VALUES ";
-                    foreach (string item in namePredmetsToBe)
+                    foreach (string item in data)
                     {
                         sqlGo += "( '" + item + "' ),";                      
                     }
@@ -190,10 +206,10 @@ namespace VKRProjectUipath
                 {
                     listFiles.Add(file);
                 }
-                //return out listFiles;
+               
             }
             else return;
-           // return listFiles;
+          
         }
         private void InitializeOpenFileDialog(string Filter, string Title) {
             this.openFileDialog1.Filter = Filter;
@@ -265,36 +281,34 @@ namespace VKRProjectUipath
                 return "err";
             }
         }       
-        private void VRKWordPdfSort(Dictionary<string,string> keysForGroup,List<string> namePredmetsList)
+        private void VRKWordPdfSort(Dictionary<string,string> keysForGroup,List<string> namePredmetsList,bool session)
         {            
             string cmd = @"UiRobot.exe connect --url "+Properties.Settings.Default.URLUiPath+" --key "+ Properties.Settings.Default.KeyMachine;         
-            string dictionaryabrv = JsonConvert.SerializeObject(keysForGroup, Formatting.None);
-            string pathFolder = JsonConvert.SerializeObject(Properties.Settings.Default.PathStringFolder, Formatting.None);
-            string PathStringFileWordPdf = JsonConvert.SerializeObject(pathsWordPdf, Formatting.None);
-            string NameOfDisciplinString = JsonConvert.SerializeObject(namePredmetsList, Formatting.None);           
+            string dabr = JsonConvert.SerializeObject(keysForGroup, Formatting.None);
+            string pF = JsonConvert.SerializeObject(Properties.Settings.Default.PathStringFolder, Formatting.None);
+            string wpF = JsonConvert.SerializeObject(pathsWordPdf, Formatting.None);
+            string ses = JsonConvert.SerializeObject(!session,Formatting.Indented);
+            string nOfD = JsonConvert.SerializeObject(namePredmetsList, Formatting.None);
+        
             var proc = new ProcessStartInfo()
             {
                 UseShellExecute = true,
                 WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
-                FileName = @"C:\Windows\System32\cmd.exe",
-                Arguments = "/c " + cmd,
+                FileName = "cmd.exe",
+                Arguments = "/C " + cmd,
                 WindowStyle = ProcessWindowStyle.Hidden
             };
-           // Process.Start(proc);
-                       string cmd1 = @"UiRobot.exe execute --process VKRWord --input " + "\"" + "{" +
-                "\'" + "dictionaryabrv" + "\'" + ": " + dictionaryabrv.Replace("\"", "'").Replace("\\x22", "\\\"") + ", " + 
-                "\'" + "pathFolder" + "\'" + ": " + pathFolder.Replace("\"", "'").Replace("\\x22", "\\\"")+ ", " + 
-                "\'" + "wordpathsFiles" + "\'" + ": " + PathStringFileWordPdf.Replace("\"", "'").Replace("\\x22", "\\\"") + ", " 
-                + "\'" + "nameOfDisciplin" + "\'" + ": " + NameOfDisciplinString.Replace("\"", "'").Replace("\\x22", "\\\"") 
-                + "}\"";                    
+           
+            Process.Start(proc);
+             string cmd1 = @"UiRobot.exe execute --process VKRWord --input " + "\"" + "{" +"\'" + "dabr" + "\'" + ": " + dabr.Replace("\"", "'").Replace("\\x22", "\\\"") + ", " +"\'" + "pF" + "\'" + ": " + pF.Replace("\"", "'").Replace("\\x22", "\\\"") + ", " +"\'" + "wpF" + "\'" + ": " + wpF.Replace("\"", "'").Replace("\\x22", "\\\"") + ", "+ "\'" + "nOfD" + "\'" + ": " + nOfD.Replace("\"", "'").Replace("\\x22", "\\\"") + ", "+ "\'" + "ses" + "\'" + ": " + ses.Replace("\"", "'").Replace("\\x22", "\\\"")+ "}\"";                             
             var proc1 = new ProcessStartInfo()
             {
-                UseShellExecute = true,
+                UseShellExecute = true,                
                 WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
-                FileName = @"C:\Windows\System32\cmd.exe",
-                Arguments = "/c " + cmd1,
+                FileName = "cmd.exe",
+                Arguments = "/C " + cmd1,
                 WindowStyle = ProcessWindowStyle.Hidden
-            };
+            };           
             Process.Start(proc1);           
         }     
         private Dictionary<string,string> GoDBForDictionary()
@@ -363,5 +377,12 @@ namespace VKRProjectUipath
             Settings settings = new Settings();
             settings.Show();
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnWordPdf.Enabled = true;
+        }
+       
     }
+
 }

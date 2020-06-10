@@ -37,6 +37,8 @@
             this.settingsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnWordPdf = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
@@ -76,7 +78,7 @@
             this.groupBox1.Controls.Add(this.btnExcel);
             this.groupBox1.Location = new System.Drawing.Point(21, 64);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(575, 64);
+            this.groupBox1.Size = new System.Drawing.Size(652, 64);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Создание директорий (папок) для курсовых проектов и работ по учебным планам";
@@ -113,17 +115,40 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.btnWordPdf);
             this.groupBox2.Location = new System.Drawing.Point(21, 145);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(575, 70);
+            this.groupBox2.Size = new System.Drawing.Size(575, 129);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Сортировка курсовых работ и проектов";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Летняя сессия",
+            "Зимняя сессия"});
+            this.comboBox1.Location = new System.Drawing.Point(9, 38);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(172, 24);
+            this.comboBox1.TabIndex = 2;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(253, 17);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Выберите вид сессии (обязательно):";
+            // 
             // btnWordPdf
             // 
-            this.btnWordPdf.Location = new System.Drawing.Point(6, 21);
+            this.btnWordPdf.Location = new System.Drawing.Point(6, 79);
             this.btnWordPdf.Name = "btnWordPdf";
             this.btnWordPdf.Size = new System.Drawing.Size(262, 35);
             this.btnWordPdf.TabIndex = 0;
@@ -133,7 +158,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(21, 221);
+            this.button1.Location = new System.Drawing.Point(21, 297);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(192, 31);
             this.button1.TabIndex = 5;
@@ -161,6 +186,7 @@
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,6 +205,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnWordPdf;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
