@@ -28,10 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnloadDoc = new System.Windows.Forms.Button();
             this.CheckVkr = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,6 +50,14 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.number,
@@ -56,6 +68,15 @@
             this.dataGridView1.Location = new System.Drawing.Point(16, 54);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(986, 567);
@@ -78,13 +99,21 @@
             this.CheckVkr.Name = "CheckVkr";
             this.CheckVkr.Size = new System.Drawing.Size(289, 28);
             this.CheckVkr.TabIndex = 2;
-            this.CheckVkr.Text = "Проверка ВКР на соответствие приказу\r\n";
+            this.CheckVkr.Text = "Проверка ВКР";
             this.CheckVkr.UseVisualStyleBackColor = true;
             this.CheckVkr.Click += new System.EventHandler(this.CheckVkr_Click);
             // 
-            // openFileDialog1
+            // label1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(464, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 17);
+            this.label1.TabIndex = 3;
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.FileName = "openFileDialog2";
             // 
             // number
             // 
@@ -111,35 +140,36 @@
             this.Group.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Group.Frozen = true;
             this.Group.HeaderText = "Учебная группа";
-            this.Group.MinimumWidth = 226;
+            this.Group.MinimumWidth = 113;
             this.Group.Name = "Group";
             this.Group.ReadOnly = true;
-            this.Group.Width = 226;
+            this.Group.Width = 130;
             // 
             // VkrTheme
             // 
             this.VkrTheme.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.VkrTheme.Frozen = true;
             this.VkrTheme.HeaderText = "Тема";
-            this.VkrTheme.MinimumWidth = 226;
+            this.VkrTheme.MinimumWidth = 435;
             this.VkrTheme.Name = "VkrTheme";
             this.VkrTheme.ReadOnly = true;
-            this.VkrTheme.Width = 226;
+            this.VkrTheme.Width = 435;
             // 
             // Vkrmanager
             // 
             this.Vkrmanager.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Vkrmanager.Frozen = true;
             this.Vkrmanager.HeaderText = "Руководитель";
-            this.Vkrmanager.MinimumWidth = 226;
+            this.Vkrmanager.MinimumWidth = 179;
             this.Vkrmanager.Name = "Vkrmanager";
             this.Vkrmanager.ReadOnly = true;
-            this.Vkrmanager.Width = 226;
+            this.Vkrmanager.Width = 179;
             // 
             // WordVkrForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1016, 633);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.CheckVkr);
             this.Controls.Add(this.btnloadDoc);
             this.Controls.Add(this.dataGridView1);
@@ -149,6 +179,7 @@
             this.Text = "Работа с ВКР";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -158,6 +189,8 @@
         private System.Windows.Forms.Button btnloadDoc;
         private System.Windows.Forms.Button CheckVkr;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.DataGridViewTextBoxColumn number;
         private System.Windows.Forms.DataGridViewTextBoxColumn FIO;
         private System.Windows.Forms.DataGridViewTextBoxColumn Group;

@@ -39,7 +39,7 @@ namespace VKRProjectUipath
                 UseShellExecute = false,
                 WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
                 FileName = @"C:\Windows\System32\cmd.exe",
-                Arguments = "/c" + cmd,
+                Arguments = "/C" + cmd,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true,
@@ -54,8 +54,8 @@ namespace VKRProjectUipath
                 procCommand.Start();
                  procCommand.WaitForExit();
                 StreamReader srIncoming = procCommand.StandardError;
-            string ans = srIncoming.ReadToEnd().ToString();
-            string error = srIncoming.ReadToEnd().ToString();                  
+            string ans = srIncoming.ReadToEnd().ToString();            
+            string error = srIncoming.ReadToEnd().ToString();            
             string code = Convert.ToString(procCommand.ExitCode);
             return ans+error+code;
             }

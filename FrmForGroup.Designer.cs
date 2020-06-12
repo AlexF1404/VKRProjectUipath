@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Clmlittle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClmGrBig = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +57,7 @@
             this.dataGridView1.GridColor = System.Drawing.Color.Black;
             this.dataGridView1.Location = new System.Drawing.Point(13, 30);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(750, 376);
@@ -65,8 +66,8 @@
             // 
             // Clmlittle
             // 
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Clmlittle.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Clmlittle.DefaultCellStyle = dataGridViewCellStyle3;
             this.Clmlittle.Frozen = true;
             this.Clmlittle.HeaderText = "Сокращение группы";
             this.Clmlittle.MinimumWidth = 6;
@@ -76,8 +77,8 @@
             // 
             // ClmGrBig
             // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ClmGrBig.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ClmGrBig.DefaultCellStyle = dataGridViewCellStyle4;
             this.ClmGrBig.Frozen = true;
             this.ClmGrBig.HeaderText = "Полное название группы";
             this.ClmGrBig.MinimumWidth = 6;
@@ -110,10 +111,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(516, 17);
+            this.label1.Size = new System.Drawing.Size(484, 17);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Пример:          ит                         Информационные системы и технологии  " +
-    "     ";
+            this.label1.Text = "Пример:  ит                         Информационные системы и технологии       ";
             // 
             // bnt_SaveInFile
             // 

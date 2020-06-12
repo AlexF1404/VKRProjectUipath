@@ -18,6 +18,7 @@ namespace VKRProjectUipath
     {
         public string VKRPath="";
         public string JsonVkrStudents = "";
+        List<string> PathsVkr = new List<string>();
         public WordVkrForm()
         {
             InitializeComponent();
@@ -27,9 +28,9 @@ namespace VKRProjectUipath
             this.openFileDialog1.Filter = Filter;
             this.openFileDialog1.Title = Title;
         }
+        //загрузка приказа
         private void btnloadDoc_Click(object sender, EventArgs e)
-        {
-            //dataGridView1.Rows.Add("123", "asd", "sad", "erc");
+        {           
             if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
             { MessageBox.Show("Укажите URL Uipath и MachineKey в настройках UiPath", "Настройка Uipath"); }
             else
@@ -40,15 +41,20 @@ namespace VKRProjectUipath
                 {
                     try
                     {
+                       
                         Task<string> task = CompliteCmdAsync();
                         var awaiter = task.GetAwaiter();
                         awaiter.OnCompleted(() =>
                         {
                             string result = awaiter.GetResult();
-                           
-                            Console.WriteLine(result+"123123");
-                            var jsons = JsonConvert.DeserializeObject<ListVKRStudent>(result);                               
-                                LoadDataGrid(jsons);                           
+
+                            try
+                            {
+                                var jsons = JsonConvert.DeserializeObject<ListVKRStudent>(result);
+                                LoadDataGrid(jsons);    
+                            }
+                            catch(Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла","Ошибка"); }
+                                                       
                         }
                         );
 
@@ -68,46 +74,95 @@ namespace VKRProjectUipath
                 else return;
             }
         }
+        //заполнение таблицы по приказу
          public void LoadDataGrid(ListVKRStudent json) 
         
          {
-            int i = 0;
-            //dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            foreach (VKRStudents rootObject in json.ListVKRStudents) 
+            JsonVkrStudents = JsonConvert.SerializeObject(json);          
+            int i = 0;           
+            try
             {
-               
-                dataGridView1.Rows.Add(i+1,rootObject.FIO,rootObject.Group,rootObject.VKRTheme,rootObject.VKRManager);
-                i++;
+
+                dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                if (json != null)
+                {
+                    dataGridView1.Rows.Clear();
+                    foreach (VKRStudents rootObject in json.ListVKRStudents)
+                    {
+
+                        dataGridView1.Rows.Add(i + 1, rootObject.FIO, (rootObject.Group.Split('&'))[0], rootObject.VKRTheme, rootObject.VKRManager);
+                        i++;
+                    }
+                }
+                else { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла", "Ошибка"); }
+                File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");               
             }
-            File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");
-         }
+            catch (Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла.", "Ошибка"); }
+            catch (IOException)
+            {
+                MessageBox.Show("Возможно был удален файл с данными.", "Ошибка файла");
+            }
+            catch (NullReferenceException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла.", "Ошибка"); }
+
+        }
         public class ListVKRStudent
         {
             public List<VKRStudents> ListVKRStudents { get; set; }
         }
-       
+        public class ListError
+        { 
+            public List<List<string>> ListErrors { get; set; }
+        }
         async Task<string> CompliteCmdAsync()
         {
             try
-            { 
+            {
+                label1.Text = "Загрузка..";
                 string line;
                 string ans = await Task.Run(() => VKRListStudent());
                 using (StreamReader sr = new StreamReader(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt", Encoding.GetEncoding(866)))
                 {
-
                     line = sr.ReadToEnd();
                 }
+                label1.Text = "";
                 return line;
             }
             catch (System.NullReferenceException)
             {
+                label1.Text = "";
                 MessageBox.Show("Ошибка ответа, попробуйте еще раз");
                 return "err";
             }
             catch (Exception)
             {
+                label1.Text = "";
+                MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                return "err";
+            }
+        }
+        async Task<string> CompliteSecondTask()
+        {
+            try
+            {
+                label1.Text = "Загрузка..";
+                string line;
+                string ans = await Task.Run(() => VKRCheck());
+                using (StreamReader sr = new StreamReader(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt", Encoding.GetEncoding(866)))
+                {
+                    line = sr.ReadToEnd();
+                }
+                label1.Text = "";
+                return line;
+            }
+            catch (System.NullReferenceException)
+            {
+                label1.Text = "";
+                MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                return "err";
+            }
+            catch (Exception)
+            {
+                label1.Text = "";
                 MessageBox.Show("Ошибка ответа, попробуйте еще раз");
                 return "err";
             }
@@ -123,10 +178,77 @@ namespace VKRProjectUipath
             else return;
 
         }
-        private void CheckVkr_Click(object sender, EventArgs e)
+        private void SelectListOfPathsInOpenFileVKR(out List<string> listFiles)
         {
+            listFiles = new List<string>();
+            DialogResult dr = this.openFileDialog2.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                foreach (string file in openFileDialog2.FileNames)
+                {
+                    listFiles.Add(file);
+                }
+            }
+            else return;
 
         }
+        //кнопка проверка ВКР
+        private void CheckVkr_Click(object sender, EventArgs e)
+        {
+            List<string> listPathsVkr = new List<string>();
+            if (JsonVkrStudents == null) { MessageBox.Show("Для начала проверки ВКР загрузите приказ", "Ошибка"); return; }
+            if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
+            { MessageBox.Show("Укажите URL Uipath и MachineKey в настройках UiPath", "Настройка Uipath"); }
+            else
+            {
+                InitializeOpenFileDialog("Все документы Word и Pdf (*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;", "Выберите файл ВКР");
+                SelectListOfPathsInOpenFileVKR(out listPathsVkr);
+                if (listPathsVkr.Count > 0)
+                {
+                    try
+                    {
+                        if (JsonVkrStudents != "")
+                        {
+                            using (StreamWriter sw = new StreamWriter(Properties.Settings.Default.PathStringFolder + "tempJson.txt", false, Encoding.Default))
+                            {
+                                sw.WriteLine(JsonVkrStudents);
+                            }
+
+                            Task<string> task = CompliteSecondTask();
+                            var awaiter = task.GetAwaiter();
+                            awaiter.OnCompleted(() =>
+                            {
+                                string result = awaiter.GetResult();
+                               
+                                try
+                                {
+                                    var jsons = JsonConvert.DeserializeObject<ListError>(result);
+                                    Console.WriteLine(jsons);
+                                }
+                                catch (Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла", "Ошибка"); }
+                            }
+                            );
+                        }
+                        else { MessageBox.Show("Ошибка загрузки приказа ВКР. Попробуйте еще раз","Ошибка"); }
+
+
+                    }
+                    catch (System.NullReferenceException)
+                    {
+                        MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                        return;
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                        return;
+                    }
+
+                }
+                else return;
+            }
+        }
+
         private static void ProcessOutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
             if (!String.IsNullOrEmpty(outLine.Data));
@@ -167,7 +289,50 @@ namespace VKRProjectUipath
                 procCommand.Start();
                 procCommand.WaitForExit();
                 StreamReader srIncoming = procCommand.StandardOutput;               
-                Console.WriteLine(json);
+                return json;
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio");
+                return "err";
+            }
+
+        }
+        private string VKRCheck()
+        {            
+            string cmd = @"UiRobot.exe connect --url " + Properties.Settings.Default.URLUiPath + " --key " + Properties.Settings.Default.KeyMachine;
+            string pathStringWord = Newtonsoft.Json.JsonConvert.SerializeObject(PathsVkr, Formatting.None);
+            string pathFolder = JsonConvert.SerializeObject(Properties.Settings.Default.PathStringFolder, Formatting.None);
+            string cmd1 = @"UiRobot.exe execute --process CheckVKRs --input " + "\"" + "{" + "\'" + "ListPaths" + "\'" + ": " + pathStringWord.Replace("\"", "'").Replace("\\x22", "\\\"") + ", " + "\'" + "pF" + "\'" + ": " + pathFolder.Replace("\"", "'").Replace("\\x22", "\\\"") + "}\"";
+            var proc = new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
+                FileName = "cmd.exe",
+                Arguments = "/C " + cmd,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+            Process.Start(proc);
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardError = true;
+            startInfo.RedirectStandardError = true;
+            startInfo.WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio";
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C " + cmd1;
+            startInfo.CreateNoWindow = true;
+            startInfo.StandardOutputEncoding = Encoding.GetEncoding(850);
+            try
+            {
+                Process procCommand = new Process();
+                procCommand.OutputDataReceived += new DataReceivedEventHandler(ProcessOutputHandler);
+                procCommand.ErrorDataReceived += new DataReceivedEventHandler(ProcessOutputHandler);
+                procCommand.StartInfo = startInfo;
+                procCommand.Start();
+                procCommand.WaitForExit();
+                StreamReader srIncoming = procCommand.StandardOutput;
+                string json = srIncoming.ReadToEnd();
                 return json;
             }
             catch (System.ComponentModel.Win32Exception)
@@ -178,6 +343,6 @@ namespace VKRProjectUipath
 
         }
 
-       
+
     }
 }

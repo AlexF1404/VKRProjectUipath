@@ -51,22 +51,24 @@
             // 
             // btnExcel
             // 
+            this.btnExcel.BackColor = System.Drawing.Color.White;
             this.btnExcel.Location = new System.Drawing.Point(6, 21);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(119, 35);
             this.btnExcel.TabIndex = 0;
             this.btnExcel.Text = "Выбор планов";
-            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 30);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 28);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1031, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1100, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -87,13 +89,14 @@
             // 
             // menuStrip2
             // 
+            this.menuStrip2.BackColor = System.Drawing.Color.White;
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainMenuItem,
             this.settingsItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(1031, 30);
+            this.menuStrip2.Size = new System.Drawing.Size(1100, 28);
             this.menuStrip2.TabIndex = 3;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -150,22 +153,24 @@
             // 
             // btnWordPdf
             // 
+            this.btnWordPdf.BackColor = System.Drawing.Color.White;
             this.btnWordPdf.Location = new System.Drawing.Point(6, 79);
             this.btnWordPdf.Name = "btnWordPdf";
             this.btnWordPdf.Size = new System.Drawing.Size(262, 35);
             this.btnWordPdf.TabIndex = 0;
             this.btnWordPdf.Text = "Выбор Word/PDF файлов курсовых";
-            this.btnWordPdf.UseVisualStyleBackColor = true;
+            this.btnWordPdf.UseVisualStyleBackColor = false;
             this.btnWordPdf.Click += new System.EventHandler(this.BtnWordPdf_Click);
             // 
             // BtnVKRPr
             // 
-            this.BtnVKRPr.Location = new System.Drawing.Point(6, 37);
+            this.BtnVKRPr.BackColor = System.Drawing.Color.White;
+            this.BtnVKRPr.Location = new System.Drawing.Point(9, 30);
             this.BtnVKRPr.Name = "BtnVKRPr";
-            this.BtnVKRPr.Size = new System.Drawing.Size(192, 31);
+            this.BtnVKRPr.Size = new System.Drawing.Size(192, 35);
             this.BtnVKRPr.TabIndex = 5;
             this.BtnVKRPr.Text = "Работа с ВКР";
-            this.BtnVKRPr.UseVisualStyleBackColor = true;
+            this.BtnVKRPr.UseVisualStyleBackColor = false;
             this.BtnVKRPr.Click += new System.EventHandler(this.BtnVKRPr_Click);
             // 
             // groupVkr
@@ -173,16 +178,17 @@
             this.groupVkr.Controls.Add(this.BtnVKRPr);
             this.groupVkr.Location = new System.Drawing.Point(21, 292);
             this.groupVkr.Name = "groupVkr";
-            this.groupVkr.Size = new System.Drawing.Size(652, 90);
+            this.groupVkr.Size = new System.Drawing.Size(652, 82);
             this.groupVkr.TabIndex = 6;
             this.groupVkr.TabStop = false;
-            this.groupVkr.Text = "ВКР";
+            this.groupVkr.Text = "Загрузка списка студентов, сдающих ВКР. Проверка ВКР на соответствие приказу.";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1031, 576);
+            this.BackColor = System.Drawing.Color.LightGray;
+            this.ClientSize = new System.Drawing.Size(1100, 537);
             this.Controls.Add(this.groupVkr);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

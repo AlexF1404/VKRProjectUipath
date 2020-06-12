@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 using System.Linq;
 using System.Security.Permissions;
 using System.Security;
+using System.Net;
 
 namespace VKRProjectUipath
 {
@@ -29,7 +30,7 @@ namespace VKRProjectUipath
        
         public MainForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
             comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             btnWordPdf.Enabled = false;
         }
@@ -51,9 +52,26 @@ namespace VKRProjectUipath
                         if (result == "err") { return; }
                         else
                         {
-                            Console.WriteLine(result);
-                            var jsons = JsonConvert.DeserializeObject<RootObject>(result);
-                            AddDBNameOfDirection(jsons.stringNameNapr);
+                            try
+                            {
+                                if (ConnectionAvailable() == false)
+                                {
+                                    MessageBox.Show("Возможно отсутствует подключение к Интернету. Для нормальной работы с приложением требуется подключение.", "Предупреждение");
+                                }
+                                else {
+                                    var jsons = JsonConvert.DeserializeObject<RootObject>(result);
+                                    if (jsons != null)
+                                    {
+                                        AddDBNameOfDirection(jsons.stringNameNapr);
+                                    } 
+                                    else  {MessageBox.Show("Неверный формат Excel-файла.", "Ошибка"); }
+                                }
+                               
+                            }
+                            catch (NullReferenceException)
+                            {
+                            MessageBox.Show("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету.", "Ошибка");
+                            }
                         }
                     }
                     );
@@ -99,12 +117,14 @@ namespace VKRProjectUipath
         }
         private List<string> GetNameOfPredmets() 
         {
+            try
+            {
                 string dbFileNames = "dbForNameGroup";
                 string tableName = "namedirect";
-                SQLiteConnection m_dbConn = OpenOrCreateDataBase(dbFileNames,tableName);
+                SQLiteConnection m_dbConn = OpenOrCreateDataBase(dbFileNames, tableName);
                 DataTable dTable = new DataTable();
                 List<string> nameofDirectionToBe = new List<string>();
-                string sqlQuery = "SELECT * FROM namedirect";         
+                string sqlQuery = "SELECT * FROM namedirect";
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, m_dbConn);
                 adapter.Fill(dTable);
                 m_dbConn.Close();
@@ -112,11 +132,17 @@ namespace VKRProjectUipath
                 {
                     for (int i = 0; i < dTable.Rows.Count; i++)
                     {
-                        nameofDirectionToBe.Add(dTable.Rows[i].Field<string>(1));                       
+                        nameofDirectionToBe.Add(dTable.Rows[i].Field<string>(1));
                     }
                     return nameofDirectionToBe;
                 }
                 return nameofDirectionToBe;
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Ошибка соединения с базой данных.", "Ошибка");
+                return null;
+            }
 
         }
         private SQLiteConnection OpenOrCreateDataBase(string DbName,string TableName)
@@ -146,49 +172,59 @@ namespace VKRProjectUipath
         }
         private void AddDBNameOfDirection(List<string> addNameOfPredmets)
         {
-            if (addNameOfPredmets != null)
+            try
             {
-
-                List<string> namePredmetsToBe = GetNameOfPredmets();
-                foreach (string item in addNameOfPredmets)
+                if (addNameOfPredmets != null)
                 {
-                        namePredmetsToBe.Add(item);
-                    
-                }
-                var data = new HashSet<string>(namePredmetsToBe, StringComparer.OrdinalIgnoreCase);
-
-                try
-                {
-                    string dbFileNames = "dbForNameGroup";
-                    string tableName = "namedirect";
-                    SQLiteConnection m_dbConn = OpenOrCreateDataBase(dbFileNames, tableName);
-                    SQLiteCommand m_sqlCmd = new SQLiteCommand();
-                    m_sqlCmd.Connection = m_dbConn;
-                    string sqlrefresh = "DELETE FROM namedirect";
-                    m_sqlCmd.CommandText = sqlrefresh;
-                    m_sqlCmd.ExecuteNonQuery();
-                    string sqlGo = "INSERT INTO namedirect (name) VALUES ";
-                    foreach (string item in data)
-                    {
-                        sqlGo += "( '" + item + "' ),";                      
-                    }
-                    sqlGo = sqlGo.Remove(sqlGo.Length - 1);
                     try
                     {
-                        m_sqlCmd.CommandText = sqlGo;
+                        List<string> namePredmetsToBe = GetNameOfPredmets();
+                        foreach (string item in addNameOfPredmets)
+                        {
+                            namePredmetsToBe.Add(item);
+
+                        }
+                        var data = new HashSet<string>(namePredmetsToBe, StringComparer.OrdinalIgnoreCase);
+                  
+                        string dbFileNames = "dbForNameGroup";
+                        string tableName = "namedirect";
+                        SQLiteConnection m_dbConn = OpenOrCreateDataBase(dbFileNames, tableName);
+                        SQLiteCommand m_sqlCmd = new SQLiteCommand();
+                        m_sqlCmd.Connection = m_dbConn;
+                        string sqlrefresh = "DELETE FROM namedirect";
+                        m_sqlCmd.CommandText = sqlrefresh;
                         m_sqlCmd.ExecuteNonQuery();
-                        m_dbConn.Close();
+                        string sqlGo = "INSERT INTO namedirect (name) VALUES ";
+                        foreach (string item in data)
+                        {
+                            sqlGo += "( '" + item + "' ),";
+                        }
+                        sqlGo = sqlGo.Remove(sqlGo.Length - 1);
+                        try
+                        {
+                            m_sqlCmd.CommandText = sqlGo;
+                            m_sqlCmd.ExecuteNonQuery();
+                            m_dbConn.Close();
+                        }
+                        catch (SQLiteException)
+                        {
+                            MessageBox.Show("Ошибка при заполнении бд.");
+                        }
                     }
+                    catch (NullReferenceException)
+                    {
+                        MessageBox.Show("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету.", "Ошибка");
+                    }
+
                     catch (SQLiteException)
                     {
-                        MessageBox.Show("Ошибка при заполнении бд");
+                        MessageBox.Show("Ошибка соединения с базой данных.", "Ошибка");
                     }
                 }
-
-                catch (SQLiteException ex)
-                {
-                    MessageBox.Show("Ошибка соединения с базой данных", "Error: " + ex);
-                }
+            }
+            catch (NullReferenceException) 
+            {
+                MessageBox.Show("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету.", "Ошибка");
             }
         }                      
         public class RootObject
@@ -388,6 +424,30 @@ namespace VKRProjectUipath
             WordVkrForm wordVkr = new WordVkrForm();
             wordVkr.Show();
         }
+        public bool ConnectionAvailable()
+        {
+            try
+            {
+                HttpWebRequest reqFP = (HttpWebRequest)HttpWebRequest.Create("http://www.google.com");  
+                HttpWebResponse rspFP = (HttpWebResponse)reqFP.GetResponse();
+                if (HttpStatusCode.OK == rspFP.StatusCode)
+                {                    
+                    rspFP.Close();
+                    return true;
+                }
+                else
+                {
+                   
+                    rspFP.Close();
+                    return false;
+                }
+            }
+            catch (WebException)
+            {                
+                return false;
+            }
+        }
+
     }
 
 }
