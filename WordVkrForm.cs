@@ -90,7 +90,7 @@ namespace VKRProjectUipath
                     foreach (VKRStudents rootObject in json.ListVKRStudents)
                     {
 
-                        dataGridView1.Rows.Add(i + 1, rootObject.FIO, (rootObject.Group.Split('&'))[0], rootObject.VKRTheme, rootObject.VKRManager);
+                        dataGridView1.Rows.Add(i + 1, rootObject.FIO, (rootObject.Group.Split('&'))[0], rootObject.VKRTheme, rootObject.GetInitialsManager());
                         i++;
                     }
                 }
@@ -111,7 +111,7 @@ namespace VKRProjectUipath
         }
         public class ListError
         { 
-            public List<List<string>> ListErrors { get; set; }
+            public List<List<string>> listError { get; set; }
         }
         async Task<string> CompliteCmdAsync()
         {
@@ -151,6 +151,7 @@ namespace VKRProjectUipath
                 {
                     line = sr.ReadToEnd();
                 }
+                File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");
                 label1.Text = "";
                 return line;
             }
@@ -203,13 +204,14 @@ namespace VKRProjectUipath
             {
                 InitializeOpenFileDialog("Все документы Word и Pdf (*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;", "Выберите файл ВКР");
                 SelectListOfPathsInOpenFileVKR(out listPathsVkr);
+                PathsVkr = listPathsVkr;
                 if (listPathsVkr.Count > 0)
                 {
                     try
                     {
                         if (JsonVkrStudents != "")
                         {
-                            using (StreamWriter sw = new StreamWriter(Properties.Settings.Default.PathStringFolder + "tempJson.txt", false, Encoding.Default))
+                            using (StreamWriter sw = new StreamWriter(Properties.Settings.Default.PathStringFolder + "tempJson.doc", false, Encoding.Default))
                             {
                                 sw.WriteLine(JsonVkrStudents);
                             }
@@ -222,14 +224,22 @@ namespace VKRProjectUipath
                                
                                 try
                                 {
+
                                     var jsons = JsonConvert.DeserializeObject<ListError>(result);
-                                    Console.WriteLine(jsons);
+                                    foreach (List<string> item in jsons.listError) 
+                                    {
+                                        foreach (string error in item) 
+                                        {
+                                            MessageBox.Show(error,"Ошибка");
+                                        }
+                                    }
+                                    
                                 }
                                 catch (Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла", "Ошибка"); }
                             }
                             );
                         }
-                        else { MessageBox.Show("Ошибка загрузки приказа ВКР. Попробуйте еще раз","Ошибка"); }
+                        else { MessageBox.Show("Для начала работы загрузите приказ","Ошибка"); }
 
 
                     }
@@ -320,7 +330,7 @@ namespace VKRProjectUipath
             startInfo.RedirectStandardError = true;
             startInfo.WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio";
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C " + cmd1;
+            startInfo.Arguments = "/C " + cmd1 + @">" + Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt";
             startInfo.CreateNoWindow = true;
             startInfo.StandardOutputEncoding = Encoding.GetEncoding(850);
             try
