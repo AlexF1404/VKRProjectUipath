@@ -64,7 +64,7 @@ namespace VKRProjectUipath
                                     {
                                         AddDBNameOfDirection(jsons.stringNameNapr);
                                     } 
-                                    else  {MessageBox.Show("Неверный формат Excel-файла.", "Ошибка"); }
+                                    else  {MessageBox.Show("Неверный формат Excel-файла или ошибка подключения UiPath", "Ошибка"); }
                                 }
                                
                             }
@@ -259,7 +259,7 @@ namespace VKRProjectUipath
             var proc = new ProcessStartInfo()
              {
                  UseShellExecute = true,
-                 WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
+                 WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString(),
                  FileName = "cmd.exe",
                  Arguments = "/c " + cmd,
                  WindowStyle = ProcessWindowStyle.Hidden
@@ -270,7 +270,7 @@ namespace VKRProjectUipath
                 startInfo.UseShellExecute = false;
                 startInfo.RedirectStandardError = true;
                 startInfo.RedirectStandardError = true;
-                startInfo.WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio";      
+                startInfo.WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString();      
                 startInfo.FileName  = "cmd.exe";
                 startInfo.Arguments = "/c " + cmd1;
                 startInfo.CreateNoWindow = true;              
@@ -329,7 +329,7 @@ namespace VKRProjectUipath
             var proc = new ProcessStartInfo()
             {
                 UseShellExecute = true,
-                WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
+                WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString(),
                 FileName = "cmd.exe",
                 Arguments = "/C " + cmd,
                 WindowStyle = ProcessWindowStyle.Hidden
@@ -340,7 +340,7 @@ namespace VKRProjectUipath
             var proc1 = new ProcessStartInfo()
             {
                 UseShellExecute = true,                
-                WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
+                WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString(),
                 FileName = "cmd.exe",
                 Arguments = "/C " + cmd1,
                 WindowStyle = ProcessWindowStyle.Hidden

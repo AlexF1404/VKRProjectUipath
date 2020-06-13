@@ -37,6 +37,7 @@ namespace VKRProjectUipath
             { MessageBox.Show("Укажите URL Uipath и MachineKey в настройках UiPath", "Настройка Uipath"); }
             else
             {
+                VKRPath = "";
                 InitializeOpenFileDialog("Все документы Word и Pdf (*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;", "Выберите файл приказа");
                 SelectListOfPathsInOpenFileDialog();
                 if (VKRPath!="")
@@ -96,7 +97,7 @@ namespace VKRProjectUipath
                         i++;
                     }
                 }
-                else { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла", "Ошибка"); }
+                else { MessageBox.Show("Возможно в пути к UiPath допущена ошибка", "Ошибка"); }
                 File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");               
             }
             catch (Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла.", "Ошибка"); }
@@ -147,11 +148,19 @@ namespace VKRProjectUipath
             try
             {
                 label1.Text = "Загрузка..";
-                string line;
+                string line="";
                 string ans = await System.Threading.Tasks.Task.Run(() => VKRCheck());
-                using (StreamReader sr = new StreamReader(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt", Encoding.GetEncoding(866)))
+                if (ans == "err")
                 {
-                    line = sr.ReadToEnd();
+                    MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла.");
+
+                }
+                else
+                {
+                    using (StreamReader sr = new StreamReader(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt", Encoding.GetEncoding(866)))
+                    {
+                        line = sr.ReadToEnd();
+                    }
                 }
                 File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");
                 label1.Text = "";
@@ -232,8 +241,12 @@ namespace VKRProjectUipath
                                     pathsWordIndex.Clear();
                                     foreach (List<string> item in jsons.listError) 
                                     {
+                                        string FullError="";
+                                        string[] mass= { };
+                                        string names = "";
                                         foreach (string error in item) 
                                         {
+
                                             if (error.Contains("!@"))
                                             {
                                                 string[] chars = { "!@" };
@@ -247,33 +260,36 @@ namespace VKRProjectUipath
                                                         break;
                                                     }
                                                 }
+                                                break;
                                             }
                                             else 
-                                            {
-                                                string[] chars = { "ВКР(" };
-                                                if (error.Contains("ВКР(")) 
-                                                {
-                                                    pathsWordIndex.Clear();
-                                                    string[] namestud = error.Split(chars,StringSplitOptions.RemoveEmptyEntries);
+                                            {                                                                                                   
+                                                if (error.Contains("ВКР("))
+                                                {                                                          
+                                                    string[] chars = { "ВКР(" };
+                                                    string[] namestud = error.Split(chars, StringSplitOptions.RemoveEmptyEntries);
                                                     namestud = namestud[0].Split(')');
-                                                   
-                                                    foreach (DataGridViewRow dataRow in dataGridView1.Rows)
-                                                    {
-                                                        if (dataRow.Cells[1].Value.ToString() == namestud[0])
-                                                        {
-                                                            string st = error.Replace("ВКР(" + namestud[0] + "):", "");
-                                                            string[] s = { "**" };
-                                                            string[] mass = st.Split(s, StringSplitOptions.None);
-                                                            dataRow.DefaultCellStyle.BackColor = Color.FromArgb(255, 124, 129);
-                                                            dataRow.Cells[1].ToolTipText = mass[1];                                                                                                                     
-                                                            pathsWordIndex.Add(dataRow.Index, mass[0]);
-                                                            break;
-                                                        }
-                                                    }
-                                                }
+                                                    names = namestud[0];
+                                                    string st = error.Replace("ВКР(" + namestud[0] + "):", "");
+                                                    string[] s = { "**" };
+                                                     mass = st.Split(s, StringSplitOptions.None);
+                                                    FullError = FullError + mass[1] + "\n";                                                                                                   
+                                                }   
+                                            
                                             }
                                             
                                         }
+                                            foreach (DataGridViewRow dataRow in dataGridView1.Rows)
+                                            {
+                                                if (dataRow.Cells[1].Value.ToString() == names)
+                                                {
+
+                                                    dataRow.DefaultCellStyle.BackColor = Color.FromArgb(255, 124, 129);
+                                                    dataRow.Cells[1].ToolTipText = FullError;                                                    
+                                                    pathsWordIndex.Add(dataRow.Index, mass[0]);
+                                                    break;
+                                                }
+                                            }
                                     }
                                     
                                 }
@@ -316,7 +332,7 @@ namespace VKRProjectUipath
             var proc = new ProcessStartInfo()
             {
                 UseShellExecute = true,
-                WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
+                WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString(),
                 FileName = "cmd.exe",
                 Arguments = "/C " + cmd,
                 WindowStyle = ProcessWindowStyle.Hidden
@@ -327,7 +343,7 @@ namespace VKRProjectUipath
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardError = true;
             startInfo.RedirectStandardError = true;
-            startInfo.WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio";
+            startInfo.WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString();
             startInfo.FileName = "cmd.exe";
             startInfo.Arguments = "/C " + cmd1+ @">"+ Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt";
             startInfo.CreateNoWindow = true;
@@ -345,7 +361,7 @@ namespace VKRProjectUipath
             }
             catch (System.ComponentModel.Win32Exception)
             {
-                MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio");
+                MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла.");
                 return "err";
             }
 
@@ -359,7 +375,7 @@ namespace VKRProjectUipath
             var proc = new ProcessStartInfo()
             {
                 UseShellExecute = true,
-                WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
+                WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString(),
                 FileName = "cmd.exe",
                 Arguments = "/C " + cmd,
                 WindowStyle = ProcessWindowStyle.Hidden
@@ -370,7 +386,7 @@ namespace VKRProjectUipath
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardError = true;
             startInfo.RedirectStandardError = true;
-            startInfo.WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio";
+            startInfo.WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString();
             startInfo.FileName = "cmd.exe";
             startInfo.Arguments = "/C " + cmd1 + @">" + Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt";
             startInfo.CreateNoWindow = true;
@@ -407,8 +423,7 @@ namespace VKRProjectUipath
             catch (Exception) { return; }
             try
             {
-                //Microsoft.Office.Interop.Word.Application ap = new Microsoft.Office.Interop.Word.Application();
-                //Document document = ap.Documents.Open(path.Trim());
+                
                 System.Diagnostics.Process.Start(path.Trim());
             }
             catch (Exception) { return; }

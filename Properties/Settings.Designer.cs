@@ -48,7 +48,7 @@ namespace VKRProjectUipath.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\UiPath\\Studio")]
         public string PathUIPath {
             get {
                 return ((string)(this["PathUIPath"]));

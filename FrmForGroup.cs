@@ -213,19 +213,23 @@ namespace VKRProjectUipath
                 {
                     SelectFolder = openFileDialog1.FileName;
                 }
-                using (StreamReader sw = new StreamReader(SelectFolder))
+                if (SelectFolder != "")
                 {
-                     jsonpath = sw.ReadToEnd();
-                   
-                }
-                Group group = JsonConvert.DeserializeObject<Group>(jsonpath);
-                dataGridView1.Rows.Clear();
-                foreach (KeyValuePair<string, string> entry in group.nameGr)
-                {
+                    using (StreamReader sw = new StreamReader(SelectFolder))
+                    {
+                        jsonpath = sw.ReadToEnd();
 
-                    dataGridView1.Rows.Add(entry.Key,entry.Value);
+                    }
+                    Group group = JsonConvert.DeserializeObject<Group>(jsonpath);
+                    dataGridView1.Rows.Clear();
+                    foreach (KeyValuePair<string, string> entry in group.nameGr)
+                    {
+
+                        dataGridView1.Rows.Add(entry.Key, entry.Value);
+                    }
+                    SaveInDataBase();
                 }
-                SaveInDataBase();
+                else { return; }
             }
             else
             {

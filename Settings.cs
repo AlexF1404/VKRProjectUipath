@@ -49,5 +49,15 @@ namespace VKRProjectUipath
             UiPathSettings settings = new UiPathSettings();
             settings.Show();
         }
+
+        private void BtnChoosePath_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog2.ShowDialog() == DialogResult.OK)
+            {
+                txtPathFolder.Text = folderBrowserDialog1.SelectedPath + @"\";
+                Properties.Settings.Default.PathUIPath = txtPathFolder.Text;
+                Properties.Settings.Default.Save();
+            }
+        }
     }
 }

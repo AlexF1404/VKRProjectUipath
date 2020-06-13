@@ -38,6 +38,8 @@
             this.BtnUipathSettings = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.folderBrowserDialog2 = new System.Windows.Forms.FolderBrowserDialog();
+            this.BtnChoosePath = new System.Windows.Forms.Button();
             this.grBxForExcel.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -74,7 +76,7 @@
             // BtnExit
             // 
             this.BtnExit.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.BtnExit.Location = new System.Drawing.Point(498, 378);
+            this.BtnExit.Location = new System.Drawing.Point(491, 271);
             this.BtnExit.Name = "BtnExit";
             this.BtnExit.Size = new System.Drawing.Size(97, 31);
             this.BtnExit.TabIndex = 3;
@@ -84,20 +86,19 @@
             // 
             // grBxForExcel
             // 
-            this.grBxForExcel.Controls.Add(this.btnOpenAddAndEdit);
             this.grBxForExcel.Controls.Add(this.label1);
             this.grBxForExcel.Controls.Add(this.txtPathFolder);
             this.grBxForExcel.Controls.Add(this.btnChoosePathFolder);
-            this.grBxForExcel.Location = new System.Drawing.Point(19, 14);
+            this.grBxForExcel.Location = new System.Drawing.Point(12, 12);
             this.grBxForExcel.Name = "grBxForExcel";
-            this.grBxForExcel.Size = new System.Drawing.Size(576, 153);
+            this.grBxForExcel.Size = new System.Drawing.Size(576, 105);
             this.grBxForExcel.TabIndex = 4;
             this.grBxForExcel.TabStop = false;
             this.grBxForExcel.Text = "Настройки учебных планов";
             // 
             // btnOpenAddAndEdit
             // 
-            this.btnOpenAddAndEdit.Location = new System.Drawing.Point(9, 101);
+            this.btnOpenAddAndEdit.Location = new System.Drawing.Point(12, 227);
             this.btnOpenAddAndEdit.Name = "btnOpenAddAndEdit";
             this.btnOpenAddAndEdit.Size = new System.Drawing.Size(331, 28);
             this.btnOpenAddAndEdit.TabIndex = 5;
@@ -107,7 +108,7 @@
             // 
             // BtnUipathSettings
             // 
-            this.BtnUipathSettings.Location = new System.Drawing.Point(12, 378);
+            this.BtnUipathSettings.Location = new System.Drawing.Point(12, 271);
             this.BtnUipathSettings.Name = "BtnUipathSettings";
             this.BtnUipathSettings.Size = new System.Drawing.Size(174, 31);
             this.BtnUipathSettings.TabIndex = 5;
@@ -117,26 +118,41 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BtnChoosePath);
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(21, 177);
+            this.groupBox1.Location = new System.Drawing.Point(12, 123);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(573, 155);
+            this.groupBox1.Size = new System.Drawing.Size(576, 85);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Пути";
+            this.groupBox1.Text = "Путь к UiPath (по умолчанию C:\\Program Files (x86)\\UiPath\\Studio)";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 36);
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F);
+            this.textBox1.Location = new System.Drawing.Point(7, 36);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(227, 22);
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(255, 24);
             this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "C:\\Program Files (x86)\\UiPath\\Studio";
+            // 
+            // BtnChoosePath
+            // 
+            this.BtnChoosePath.Location = new System.Drawing.Point(268, 34);
+            this.BtnChoosePath.Name = "BtnChoosePath";
+            this.BtnChoosePath.Size = new System.Drawing.Size(95, 27);
+            this.BtnChoosePath.TabIndex = 1;
+            this.BtnChoosePath.Text = "Выбрать";
+            this.BtnChoosePath.UseVisualStyleBackColor = true;
+            this.BtnChoosePath.Click += new System.EventHandler(this.BtnChoosePath_Click);
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(607, 421);
+            this.ClientSize = new System.Drawing.Size(607, 322);
+            this.Controls.Add(this.btnOpenAddAndEdit);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.BtnUipathSettings);
             this.Controls.Add(this.grBxForExcel);
@@ -165,5 +181,7 @@
         private System.Windows.Forms.Button BtnUipathSettings;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button BtnChoosePath;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog2;
     }
 }

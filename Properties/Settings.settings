@@ -9,7 +9,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="PathUIPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">C:\Program Files (x86)\UiPath\Studio</Value>
     </Setting>
     <Setting Name="CMDPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

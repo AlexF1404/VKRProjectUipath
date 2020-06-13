@@ -37,8 +37,8 @@ namespace VKRProjectUipath
             var proc = new ProcessStartInfo()
             {
                 UseShellExecute = false,
-                WorkingDirectory = @"C:\Program Files (x86)\UiPath\Studio",
-                FileName = @"C:\Windows\System32\cmd.exe",
+                WorkingDirectory = Properties.Settings.Default.PathUIPath,
+                FileName = "cmd.exe",
                 Arguments = "/C" + cmd,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
