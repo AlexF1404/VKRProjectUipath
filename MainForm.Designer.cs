@@ -67,7 +67,7 @@
             this.menuStrip2.Location = new System.Drawing.Point(21, 60);
             this.menuStrip2.MinimumSize = new System.Drawing.Size(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(728, 30);
+            this.menuStrip2.Size = new System.Drawing.Size(728, 26);
             this.menuStrip2.TabIndex = 3;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -140,22 +140,30 @@
             // 
             // BtnExcel
             // 
+            this.BtnExcel.BackColor = System.Drawing.Color.White;
+            this.BtnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnExcel.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.BtnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnExcel.Location = new System.Drawing.Point(12, 41);
             this.BtnExcel.Name = "BtnExcel";
             this.BtnExcel.Size = new System.Drawing.Size(188, 36);
             this.BtnExcel.TabIndex = 2;
             this.BtnExcel.Text = "Выбор планов";
-            this.BtnExcel.UseVisualStyleBackColor = true;
+            this.BtnExcel.UseVisualStyleBackColor = false;
             this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
             // btnWordPdf
             // 
+            this.btnWordPdf.BackColor = System.Drawing.Color.White;
+            this.btnWordPdf.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnWordPdf.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnWordPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnWordPdf.Location = new System.Drawing.Point(9, 98);
             this.btnWordPdf.Name = "btnWordPdf";
             this.btnWordPdf.Size = new System.Drawing.Size(235, 36);
             this.btnWordPdf.TabIndex = 7;
             this.btnWordPdf.Text = "Выбор Word/PDF файлов курсовых";
-            this.btnWordPdf.UseVisualStyleBackColor = true;
+            this.btnWordPdf.UseVisualStyleBackColor = false;
             this.btnWordPdf.Click += new System.EventHandler(this.BtnWordPdf_Click);
             // 
             // MainForm

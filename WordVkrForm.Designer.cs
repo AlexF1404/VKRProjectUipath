@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,14 +51,14 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.number,
@@ -65,17 +66,25 @@
             this.Group,
             this.VkrTheme,
             this.Vkrmanager});
-            this.dataGridView1.Location = new System.Drawing.Point(16, 54);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 101);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Akrobat ExtraBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -111,7 +120,7 @@
             this.Group.MinimumWidth = 113;
             this.Group.Name = "Group";
             this.Group.ReadOnly = true;
-            this.Group.Width = 130;
+            this.Group.Width = 126;
             // 
             // VkrTheme
             // 
@@ -135,31 +144,43 @@
             // 
             // btnloadDoc
             // 
+            this.btnloadDoc.BackColor = System.Drawing.Color.White;
+            this.btnloadDoc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnloadDoc.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnloadDoc.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnloadDoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnloadDoc.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
             this.btnloadDoc.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnloadDoc.Location = new System.Drawing.Point(16, 12);
+            this.btnloadDoc.Location = new System.Drawing.Point(6, 63);
             this.btnloadDoc.Name = "btnloadDoc";
             this.btnloadDoc.Size = new System.Drawing.Size(250, 28);
             this.btnloadDoc.TabIndex = 1;
             this.btnloadDoc.Text = "Загрузить список из приказа";
-            this.btnloadDoc.UseVisualStyleBackColor = true;
+            this.btnloadDoc.UseVisualStyleBackColor = false;
             this.btnloadDoc.Click += new System.EventHandler(this.btnloadDoc_Click);
             // 
             // CheckVkr
             // 
-            this.CheckVkr.Location = new System.Drawing.Point(713, 12);
+            this.CheckVkr.BackColor = System.Drawing.Color.White;
+            this.CheckVkr.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckVkr.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.CheckVkr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CheckVkr.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            this.CheckVkr.Location = new System.Drawing.Point(742, 62);
             this.CheckVkr.Name = "CheckVkr";
-            this.CheckVkr.Size = new System.Drawing.Size(289, 28);
+            this.CheckVkr.Size = new System.Drawing.Size(250, 28);
             this.CheckVkr.TabIndex = 2;
             this.CheckVkr.Text = "Проверка ВКР";
-            this.CheckVkr.UseVisualStyleBackColor = true;
+            this.CheckVkr.UseVisualStyleBackColor = false;
             this.CheckVkr.Click += new System.EventHandler(this.CheckVkr_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(464, 18);
+            this.label1.Font = new System.Drawing.Font("Akrobat ExtraBold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(416, 46);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 17);
+            this.label1.Size = new System.Drawing.Size(0, 44);
             this.label1.TabIndex = 3;
             // 
             // openFileDialog2
@@ -169,16 +190,16 @@
             // WordVkrForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1016, 633);
+            this.ClientSize = new System.Drawing.Size(998, 674);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CheckVkr);
             this.Controls.Add(this.btnloadDoc);
             this.Controls.Add(this.dataGridView1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WordVkrForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Resizable = false;
+            this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Работа с ВКР";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

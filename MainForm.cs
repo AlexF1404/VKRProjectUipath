@@ -38,7 +38,9 @@ namespace VKRProjectUipath
         WordVkrForm vkrform;
         public MainForm()
         {
-           
+          
+
+
             InitializeComponent();
            
             comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;

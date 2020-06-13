@@ -9,18 +9,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Components;
+using MetroFramework.Forms;
+using MetroFramework.Fonts;
+using MetroFramework.Drawing;
 
 
 
 namespace VKRProjectUipath
 {
-    public partial class UiPathSettings : Form
+    public partial class UiPathSettings : MetroForm
     {
-        public UiPathSettings()
+        Settings set;
+        public UiPathSettings(Settings set)
         {
             InitializeComponent();
             TxtBxURL.Clear();
             TxtBxKey.Clear();
+            this.set = set;
             TxtBxURL.Text = Properties.Settings.Default.URLUiPath;
             TxtBxKey.Text = Properties.Settings.Default.KeyMachine;
             
@@ -28,6 +34,7 @@ namespace VKRProjectUipath
         }
         private void Save_Click(object sender, EventArgs e)
         {
+            set.uipathsettings = this;
            Close();           
         }
         public string UiPathConnection() 
@@ -121,6 +128,15 @@ namespace VKRProjectUipath
             }
         }
 
-       
+        private void UiPathSettings_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            set.uipathsettings = this;
+
+        }
+
+        private void metroLabel3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

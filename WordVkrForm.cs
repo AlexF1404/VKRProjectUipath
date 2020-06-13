@@ -12,10 +12,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VKRStudents = VKRStudent.VKRStudent;
 using Microsoft.Office.Interop.Word;
+using MetroFramework.Components;
+using MetroFramework.Forms;
+using MetroFramework.Fonts;
+using MetroFramework.Drawing;
 
 namespace VKRProjectUipath
 {
-    public partial class WordVkrForm : Form
+    public partial class WordVkrForm : MetroForm
     {
         public string VKRPath="";
         public string JsonVkrStudents = "";

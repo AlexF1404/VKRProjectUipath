@@ -11,11 +11,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
+using MetroFramework.Components;
+using MetroFramework.Forms;
+using MetroFramework.Fonts;
+using MetroFramework.Drawing;
 
 
 namespace VKRProjectUipath
 {
-    public partial class FrmForGroup : Form
+    public partial class FrmForGroup : MetroForm
     {
         private String dbFileName;
         private SQLiteConnection m_dbConn;
@@ -132,7 +136,7 @@ namespace VKRProjectUipath
             {
                 DialogResult result = MessageBox.Show(
                 "Закрыть без сохранения?",
-                "Все данные будут утеряны!",
+                "Все несохраненные данные будут утеряны!",
                 MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Information,
                 MessageBoxDefaultButton.Button1
@@ -238,6 +242,11 @@ namespace VKRProjectUipath
                 return;
             }
             
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
 
         }
     }

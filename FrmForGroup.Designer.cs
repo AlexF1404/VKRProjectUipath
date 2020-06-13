@@ -29,33 +29,42 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Clmlittle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClmGrBig = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.bnt_SaveInFile = new System.Windows.Forms.Button();
             this.btn_GivOutFile = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.settingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.settingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.settingsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.RaisedHorizontal;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Clmlittle,
             this.ClmGrBig});
             this.dataGridView1.GridColor = System.Drawing.Color.Black;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 30);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 110);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
@@ -66,8 +75,8 @@
             // 
             // Clmlittle
             // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Clmlittle.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Clmlittle.DefaultCellStyle = dataGridViewCellStyle5;
             this.Clmlittle.Frozen = true;
             this.Clmlittle.HeaderText = "Сокращение группы";
             this.Clmlittle.MinimumWidth = 6;
@@ -77,8 +86,8 @@
             // 
             // ClmGrBig
             // 
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ClmGrBig.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ClmGrBig.DefaultCellStyle = dataGridViewCellStyle6;
             this.ClmGrBig.Frozen = true;
             this.ClmGrBig.HeaderText = "Полное название группы";
             this.ClmGrBig.MinimumWidth = 6;
@@ -88,56 +97,77 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(659, 412);
+            this.btnSave.BackColor = System.Drawing.Color.White;
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            this.btnSave.Location = new System.Drawing.Point(664, 492);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(101, 29);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Сохранить";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(547, 412);
+            this.btnDel.BackColor = System.Drawing.Color.White;
+            this.btnDel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDel.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDel.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            this.btnDel.Location = new System.Drawing.Point(550, 492);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(87, 29);
             this.btnDel.TabIndex = 3;
             this.btnDel.Text = "Удалить строку";
-            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.UseVisualStyleBackColor = false;
             this.btnDel.Click += new System.EventHandler(this.BtnDel_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(484, 17);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Пример:  ит                         Информационные системы и технологии       ";
             // 
             // bnt_SaveInFile
             // 
-            this.bnt_SaveInFile.Location = new System.Drawing.Point(12, 412);
+            this.bnt_SaveInFile.BackColor = System.Drawing.Color.White;
+            this.bnt_SaveInFile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bnt_SaveInFile.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bnt_SaveInFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bnt_SaveInFile.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            this.bnt_SaveInFile.Location = new System.Drawing.Point(15, 492);
             this.bnt_SaveInFile.Name = "bnt_SaveInFile";
             this.bnt_SaveInFile.Size = new System.Drawing.Size(143, 29);
             this.bnt_SaveInFile.TabIndex = 5;
             this.bnt_SaveInFile.Text = "Сохранить в файл";
-            this.bnt_SaveInFile.UseVisualStyleBackColor = true;
+            this.bnt_SaveInFile.UseVisualStyleBackColor = false;
             this.bnt_SaveInFile.Click += new System.EventHandler(this.Bnt_SaveInFile_Click);
             // 
             // btn_GivOutFile
             // 
-            this.btn_GivOutFile.Location = new System.Drawing.Point(161, 412);
+            this.btn_GivOutFile.BackColor = System.Drawing.Color.White;
+            this.btn_GivOutFile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_GivOutFile.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btn_GivOutFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_GivOutFile.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            this.btn_GivOutFile.Location = new System.Drawing.Point(175, 492);
             this.btn_GivOutFile.Name = "btn_GivOutFile";
             this.btn_GivOutFile.Size = new System.Drawing.Size(190, 29);
             this.btn_GivOutFile.TabIndex = 6;
             this.btn_GivOutFile.Text = "Загрузить из файла";
-            this.btn_GivOutFile.UseVisualStyleBackColor = true;
+            this.btn_GivOutFile.UseVisualStyleBackColor = false;
             this.btn_GivOutFile.Click += new System.EventHandler(this.Btn_GivOutFile_Click);
             // 
             // folderBrowserDialog1
             // 
             this.folderBrowserDialog1.SelectedPath = "C:\\Users\\Алексей\\Desktop";
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(15, 60);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(489, 40);
+            this.metroLabel1.TabIndex = 7;
+            this.metroLabel1.Text = "Пример:                       \r\n          ИТ                               Информ" +
+    "ационные системы и технологии       ";
             // 
             // settingsBindingSource
             // 
@@ -145,20 +175,20 @@
             // 
             // FrmForGroup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(772, 448);
+            this.ClientSize = new System.Drawing.Size(775, 530);
+            this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.btn_GivOutFile);
             this.Controls.Add(this.bnt_SaveInFile);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnDel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dataGridView1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmForGroup";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Resizable = false;
+            this.Style = MetroFramework.MetroColorStyle.Yellow;
             this.Text = "Добавление и изменение сокращений групп";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmForGroup_Closing);
             this.Load += new System.EventHandler(this.FrmForGroup_Load);
@@ -175,12 +205,12 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.BindingSource settingsBindingSource;
         private System.Windows.Forms.Button btnDel;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Clmlittle;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmGrBig;
         private System.Windows.Forms.Button bnt_SaveInFile;
         private System.Windows.Forms.Button btn_GivOutFile;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
     }
 }

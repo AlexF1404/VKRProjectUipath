@@ -9,12 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Components;
+using MetroFramework.Forms;
+using MetroFramework.Fonts;
+using MetroFramework.Drawing;
 
 namespace VKRProjectUipath
 {
-    public partial class Settings : Form
+    public partial class Settings : MetroForm
     {
         public FrmForGroup frmForGroup;
+        public UiPathSettings uipathsettings;
         public Settings()
         {           
             InitializeComponent();
@@ -57,8 +62,19 @@ namespace VKRProjectUipath
 
         private void BtnUipathSettings_Click(object sender, EventArgs e)
         {
-            UiPathSettings settings = new UiPathSettings();
-            settings.Show();
+          
+            if ((Application.OpenForms.OfType<UiPathSettings>().Count() != 1))
+            {
+                uipathsettings = new UiPathSettings(this);
+                uipathsettings.Show();
+            }
+            else
+            {
+                if (uipathsettings != null)
+                {
+                    uipathsettings.Focus();
+                }
+            }
         }
 
         private void BtnChoosePath_Click(object sender, EventArgs e)
