@@ -230,7 +230,40 @@ namespace VKRProjectUipath
                                     {
                                         foreach (string error in item) 
                                         {
-                                            MessageBox.Show(error,"Ошибка");
+                                            if (error.Contains("!@"))
+                                            {
+                                                string[] chars = { "!@" };
+                                                string[] namestud = error.Split(chars, StringSplitOptions.RemoveEmptyEntries);
+                                                foreach (DataGridViewRow dataRow in dataGridView1.Rows)
+                                                {
+                                                    if (dataRow.Cells[1].Value.ToString() == namestud[0])
+                                                    {
+                                                        dataRow.DefaultCellStyle.BackColor = Color.FromArgb(0, 255, 115);
+                                                        dataRow.Cells[1].ToolTipText="";
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else 
+                                            {
+                                                string[] chars = { "ВКР(" };
+                                                if (error.Contains("ВКР(")) 
+                                                {
+                                                    string[] namestud = error.Split(chars,StringSplitOptions.RemoveEmptyEntries);
+                                                    namestud = namestud[0].Split(')');
+                                                   
+                                                    foreach (DataGridViewRow dataRow in dataGridView1.Rows)
+                                                    {
+                                                        if (dataRow.Cells[1].Value.ToString() == namestud[0])
+                                                        {
+                                                            dataRow.DefaultCellStyle.BackColor = Color.FromArgb(255, 124, 129);
+                                                            dataRow.Cells[1].ToolTipText = error.Replace("ВКР(" + namestud[0] + "):","");
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
                                         }
                                     }
                                     

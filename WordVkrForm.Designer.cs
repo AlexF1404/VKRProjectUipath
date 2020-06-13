@@ -31,16 +31,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnloadDoc = new System.Windows.Forms.Button();
-            this.CheckVkr = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.label1 = new System.Windows.Forms.Label();
-            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VkrTheme = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vkrmanager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnloadDoc = new System.Windows.Forms.Button();
+            this.CheckVkr = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,39 +81,6 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(986, 567);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // btnloadDoc
-            // 
-            this.btnloadDoc.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnloadDoc.Location = new System.Drawing.Point(16, 12);
-            this.btnloadDoc.Name = "btnloadDoc";
-            this.btnloadDoc.Size = new System.Drawing.Size(250, 28);
-            this.btnloadDoc.TabIndex = 1;
-            this.btnloadDoc.Text = "Загрузить список из приказа";
-            this.btnloadDoc.UseVisualStyleBackColor = true;
-            this.btnloadDoc.Click += new System.EventHandler(this.btnloadDoc_Click);
-            // 
-            // CheckVkr
-            // 
-            this.CheckVkr.Location = new System.Drawing.Point(713, 12);
-            this.CheckVkr.Name = "CheckVkr";
-            this.CheckVkr.Size = new System.Drawing.Size(289, 28);
-            this.CheckVkr.TabIndex = 2;
-            this.CheckVkr.Text = "Проверка ВКР";
-            this.CheckVkr.UseVisualStyleBackColor = true;
-            this.CheckVkr.Click += new System.EventHandler(this.CheckVkr_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(464, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 17);
-            this.label1.TabIndex = 3;
-            // 
-            // openFileDialog2
-            // 
-            this.openFileDialog2.FileName = "openFileDialog2";
             // 
             // number
             // 
@@ -164,6 +131,39 @@
             this.Vkrmanager.Name = "Vkrmanager";
             this.Vkrmanager.ReadOnly = true;
             this.Vkrmanager.Width = 179;
+            // 
+            // btnloadDoc
+            // 
+            this.btnloadDoc.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnloadDoc.Location = new System.Drawing.Point(16, 12);
+            this.btnloadDoc.Name = "btnloadDoc";
+            this.btnloadDoc.Size = new System.Drawing.Size(250, 28);
+            this.btnloadDoc.TabIndex = 1;
+            this.btnloadDoc.Text = "Загрузить список из приказа";
+            this.btnloadDoc.UseVisualStyleBackColor = true;
+            this.btnloadDoc.Click += new System.EventHandler(this.btnloadDoc_Click);
+            // 
+            // CheckVkr
+            // 
+            this.CheckVkr.Location = new System.Drawing.Point(713, 12);
+            this.CheckVkr.Name = "CheckVkr";
+            this.CheckVkr.Size = new System.Drawing.Size(289, 28);
+            this.CheckVkr.TabIndex = 2;
+            this.CheckVkr.Text = "Проверка ВКР";
+            this.CheckVkr.UseVisualStyleBackColor = true;
+            this.CheckVkr.Click += new System.EventHandler(this.CheckVkr_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(464, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 17);
+            this.label1.TabIndex = 3;
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.Multiselect = true;
             // 
             // WordVkrForm
             // 
