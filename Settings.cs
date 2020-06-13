@@ -14,7 +14,7 @@ namespace VKRProjectUipath
 {
     public partial class Settings : Form
     {
-        
+        public FrmForGroup frmForGroup;
         public Settings()
         {           
             InitializeComponent();
@@ -41,8 +41,18 @@ namespace VKRProjectUipath
 
         private void BtnOpenAddAndEdit_Click(object sender, EventArgs e)
         {
-            FrmForGroup frmForGroup = new FrmForGroup();
-            frmForGroup.Show();
+            if ((Application.OpenForms.OfType<FrmForGroup>().Count() != 1))
+            {
+                frmForGroup = new FrmForGroup(this);
+                frmForGroup.Show();
+            }
+            else
+            {
+                if (frmForGroup != null)
+                {
+                    frmForGroup.Focus();
+                }
+            }
         }
 
         private void BtnUipathSettings_Click(object sender, EventArgs e)
@@ -59,6 +69,11 @@ namespace VKRProjectUipath
                 Properties.Settings.Default.PathUIPath = textBox1.Text;
                 Properties.Settings.Default.Save();
             }
+        }
+
+        private void Settings_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
         }
     }
 }

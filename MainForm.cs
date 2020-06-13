@@ -18,6 +18,9 @@ using System.Security;
 using System.Net;
 using MetroFramework.Components;
 using MetroFramework.Forms;
+using MetroFramework.Fonts;
+using MetroFramework.Drawing;
+
 
 
 namespace VKRProjectUipath
@@ -29,14 +32,19 @@ namespace VKRProjectUipath
         private SQLiteCommand m_sqlCmd;
         List<string> pathsExcel = new List<string>();
         List<string> pathsWordPdf = new List<string>();
-        
-       
+
+
+        Settings settings;
+        WordVkrForm vkrform;
         public MainForm()
         {
-            InitializeComponent();            
+           
+            InitializeComponent();
+           
             comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             btnWordPdf.Enabled = false;
-
+             
+            
         }
         private void BtnExcel_Click(object sender, EventArgs e)
         {
@@ -414,8 +422,17 @@ namespace VKRProjectUipath
         }
         private void SettingsItem_Click(object sender, EventArgs e)
         {
-            Settings settings = new Settings();
-            settings.Show();
+           
+           if ((Application.OpenForms.OfType<Settings>().Count() != 1))
+           {
+              settings = new Settings();
+              settings.Show();                 
+           }
+           else
+           {
+               settings.Focus();
+           }
+            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -453,8 +470,15 @@ namespace VKRProjectUipath
 
         private void WorkVKRToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            WordVkrForm wordVkr = new WordVkrForm();
-            wordVkr.Show();
+            if ((Application.OpenForms.OfType<WordVkrForm>().Count() != 1))
+            {
+                vkrform = new WordVkrForm();
+                vkrform.Show();
+            }
+            else
+            {
+                vkrform.Focus();
+            }
         }
     }
 

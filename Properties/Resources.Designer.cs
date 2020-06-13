@@ -59,5 +59,15 @@ namespace VKRProjectUipath.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ExitImageBtn {
+            get {
+                object obj = ResourceManager.GetObject("ExitImageBtn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

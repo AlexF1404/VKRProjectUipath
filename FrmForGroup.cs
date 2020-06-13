@@ -22,11 +22,12 @@ namespace VKRProjectUipath
         private SQLiteCommand m_sqlCmd;
         private DataTable thisDT = new DataTable();
         private DataTable dTable = new DataTable();
-        
+        Settings settings;
 
-        public FrmForGroup()
+        public FrmForGroup(Settings set)
         {
             InitializeComponent();
+            settings = set;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.Columns[0].Frozen = true;
@@ -139,6 +140,7 @@ namespace VKRProjectUipath
                 if (result == DialogResult.OK)
                 {
                     e.Cancel = false;
+                    settings.frmForGroup = this;
                 }
                 else
                 {

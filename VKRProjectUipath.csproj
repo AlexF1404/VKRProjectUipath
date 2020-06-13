@@ -52,6 +52,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BitMiracle.Docotic.Pdf, Version=7.0.10637.0, Culture=neutral, PublicKeyToken=221650e173990c07, processorArchitecture=MSIL">
       <HintPath>packages\BitMiracle.Docotic.Pdf.7.0.10637\lib\net46\BitMiracle.Docotic.Pdf.dll</HintPath>
@@ -284,6 +287,7 @@
     <EmbeddedResource Include="WordVkrForm.resx">
       <DependentUpon>WordVkrForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -313,6 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MetroFramework.txt" />
+    <None Include="Resources\584b98b289004158e74c7981.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\UiPath.9.0.6736.25739\build\UiPath.targets" Condition="Exists('packages\UiPath.9.0.6736.25739\build\UiPath.targets')" />

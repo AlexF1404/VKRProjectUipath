@@ -37,9 +37,9 @@
             this.btnOpenAddAndEdit = new System.Windows.Forms.Button();
             this.BtnUipathSettings = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnChoosePath = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog2 = new System.Windows.Forms.FolderBrowserDialog();
-            this.BtnChoosePath = new System.Windows.Forms.Button();
             this.grBxForExcel.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -127,16 +127,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Путь к UiPath (по умолчанию C:\\Program Files (x86)\\UiPath\\Studio)";
             // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F);
-            this.textBox1.Location = new System.Drawing.Point(7, 36);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(255, 24);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "C:\\Program Files (x86)\\UiPath\\Studio";
-            // 
             // BtnChoosePath
             // 
             this.BtnChoosePath.Location = new System.Drawing.Point(268, 34);
@@ -146,6 +136,16 @@
             this.BtnChoosePath.Text = "Выбрать";
             this.BtnChoosePath.UseVisualStyleBackColor = true;
             this.BtnChoosePath.Click += new System.EventHandler(this.BtnChoosePath_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F);
+            this.textBox1.Location = new System.Drawing.Point(7, 36);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(255, 24);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "C:\\Program Files (x86)\\UiPath\\Studio";
             // 
             // Settings
             // 
@@ -158,9 +158,12 @@
             this.Controls.Add(this.grBxForExcel);
             this.Controls.Add(this.BtnExit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Settings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Settings_FormClosed);
             this.grBxForExcel.ResumeLayout(false);
             this.grBxForExcel.PerformLayout();
             this.groupBox1.ResumeLayout(false);

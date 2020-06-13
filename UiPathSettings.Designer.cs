@@ -110,6 +110,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Save);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "UiPathSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки UiPath";
