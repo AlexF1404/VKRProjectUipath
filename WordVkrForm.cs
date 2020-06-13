@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VKRStudents = VKRStudent.VKRStudent;
+using Microsoft.Office.Interop.Word;
 
 namespace VKRProjectUipath
 {
@@ -19,6 +20,7 @@ namespace VKRProjectUipath
         public string VKRPath="";
         public string JsonVkrStudents = "";
         List<string> PathsVkr = new List<string>();
+        Dictionary<int, string> pathsWordIndex = new Dictionary<int, string>();
         public WordVkrForm()
         {
             InitializeComponent();
@@ -119,7 +121,7 @@ namespace VKRProjectUipath
             {
                 label1.Text = "Загрузка..";
                 string line;
-                string ans = await Task.Run(() => VKRListStudent());
+                string ans = await System.Threading.Tasks.Task.Run(() => VKRListStudent());
                 using (StreamReader sr = new StreamReader(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt", Encoding.GetEncoding(866)))
                 {
                     line = sr.ReadToEnd();
@@ -146,7 +148,7 @@ namespace VKRProjectUipath
             {
                 label1.Text = "Загрузка..";
                 string line;
-                string ans = await Task.Run(() => VKRCheck());
+                string ans = await System.Threading.Tasks.Task.Run(() => VKRCheck());
                 using (StreamReader sr = new StreamReader(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt", Encoding.GetEncoding(866)))
                 {
                     line = sr.ReadToEnd();
@@ -168,6 +170,7 @@ namespace VKRProjectUipath
                 return "err";
             }
         }
+        
         private void SelectListOfPathsInOpenFileDialog()
         {
             
@@ -226,6 +229,7 @@ namespace VKRProjectUipath
                                 {
 
                                     var jsons = JsonConvert.DeserializeObject<ListError>(result);
+                                    pathsWordIndex.Clear();
                                     foreach (List<string> item in jsons.listError) 
                                     {
                                         foreach (string error in item) 
@@ -249,6 +253,7 @@ namespace VKRProjectUipath
                                                 string[] chars = { "ВКР(" };
                                                 if (error.Contains("ВКР(")) 
                                                 {
+                                                    pathsWordIndex.Clear();
                                                     string[] namestud = error.Split(chars,StringSplitOptions.RemoveEmptyEntries);
                                                     namestud = namestud[0].Split(')');
                                                    
@@ -256,8 +261,12 @@ namespace VKRProjectUipath
                                                     {
                                                         if (dataRow.Cells[1].Value.ToString() == namestud[0])
                                                         {
+                                                            string st = error.Replace("ВКР(" + namestud[0] + "):", "");
+                                                            string[] s = { "**" };
+                                                            string[] mass = st.Split(s, StringSplitOptions.None);
                                                             dataRow.DefaultCellStyle.BackColor = Color.FromArgb(255, 124, 129);
-                                                            dataRow.Cells[1].ToolTipText = error.Replace("ВКР(" + namestud[0] + "):","");
+                                                            dataRow.Cells[1].ToolTipText = mass[1];                                                                                                                     
+                                                            pathsWordIndex.Add(dataRow.Index, mass[0]);
                                                             break;
                                                         }
                                                     }
@@ -386,6 +395,26 @@ namespace VKRProjectUipath
 
         }
 
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index;
+            string path="";
+            try
+            {
+                index = e.RowIndex;
+                path = pathsWordIndex[index];
+            }
+            catch (Exception) { return; }
+            try
+            {
+                //Microsoft.Office.Interop.Word.Application ap = new Microsoft.Office.Interop.Word.Application();
+                //Document document = ap.Documents.Open(path.Trim());
+                System.Diagnostics.Process.Start(path.Trim());
+            }
+            catch (Exception) { return; }
+        }
+
+      
 
     }
 }
