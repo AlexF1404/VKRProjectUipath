@@ -38,7 +38,7 @@ namespace VKRProjectUipath
             else
             {
                 VKRPath = "";
-                InitializeOpenFileDialog("Все документы Word и Pdf (*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;", "Выберите файл приказа");
+                InitializeOpenFileDialog("Все документы Word(*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;", "Выберите файл приказа");
                 SelectListOfPathsInOpenFileDialog();
                 if (VKRPath!="")
                 {
@@ -53,8 +53,17 @@ namespace VKRProjectUipath
 
                             try
                             {
+                               
                                 var jsons = JsonConvert.DeserializeObject<ListVKRStudent>(result);
-                                LoadDataGrid(jsons);    
+                                if (jsons.ListVKRStudents.Count == 0)
+                                {
+                                    { MessageBox.Show("Загружен неверный формат файла. Ошибка также может возникать, если файл открыт.", "Ошибка"); }
+                                    return;
+                                }
+                                else
+                                {
+                                    LoadDataGrid(jsons);
+                                }
                             }
                             catch(Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла","Ошибка"); }
                                                        
@@ -97,7 +106,7 @@ namespace VKRProjectUipath
                         i++;
                     }
                 }
-                else { MessageBox.Show("Возможно в пути к UiPath допущена ошибка", "Ошибка"); }
+                else { MessageBox.Show("Неверный формат файла или же в пути к UiPath допущена ошибка.", "Ошибка"); }
                 File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");               
             }
             catch (Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла.", "Ошибка"); }

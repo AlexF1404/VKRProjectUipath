@@ -19,6 +19,7 @@ namespace VKRProjectUipath
         {           
             InitializeComponent();
             txtPathFolder.Text = Properties.Settings.Default.PathStringFolder;
+            textBox1.Text = Properties.Settings.Default.PathUIPath;
             Properties.Settings.Default.Save();
         }
 
@@ -54,8 +55,8 @@ namespace VKRProjectUipath
         {
             if (folderBrowserDialog2.ShowDialog() == DialogResult.OK)
             {
-                txtPathFolder.Text = folderBrowserDialog1.SelectedPath + @"\";
-                Properties.Settings.Default.PathUIPath = txtPathFolder.Text;
+                textBox1.Text = folderBrowserDialog2.SelectedPath;            
+                Properties.Settings.Default.PathUIPath = textBox1.Text;
                 Properties.Settings.Default.Save();
             }
         }

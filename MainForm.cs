@@ -16,10 +16,13 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Security;
 using System.Net;
+using MetroFramework.Components;
+using MetroFramework.Forms;
+
 
 namespace VKRProjectUipath
 {
-    public partial class MainForm : Form
+    public partial class MainForm : MetroForm
     {         
         private String dbFileName;
         private SQLiteConnection m_dbConn;
@@ -33,6 +36,7 @@ namespace VKRProjectUipath
             InitializeComponent();            
             comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             btnWordPdf.Enabled = false;
+
         }
         private void BtnExcel_Click(object sender, EventArgs e)
         {
@@ -421,8 +425,7 @@ namespace VKRProjectUipath
 
         private void BtnVKRPr_Click(object sender, EventArgs e)
         {
-            WordVkrForm wordVkr = new WordVkrForm();
-            wordVkr.Show();
+           
         }
         public bool ConnectionAvailable()
         {
@@ -448,6 +451,11 @@ namespace VKRProjectUipath
             }
         }
 
+        private void WorkVKRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WordVkrForm wordVkr = new WordVkrForm();
+            wordVkr.Show();
+        }
     }
 
 }

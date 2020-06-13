@@ -28,59 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnExcel = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.mainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.WorkVKRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnWordPdf = new System.Windows.Forms.Button();
-            this.BtnVKRPr = new System.Windows.Forms.Button();
-            this.groupVkr = new System.Windows.Forms.GroupBox();
-            this.menuStrip1.SuspendLayout();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.BtnExcel = new MetroFramework.Controls.MetroButton();
             this.groupBox1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupVkr.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnExcel
-            // 
-            this.btnExcel.BackColor = System.Drawing.Color.White;
-            this.btnExcel.Location = new System.Drawing.Point(6, 21);
-            this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(119, 35);
-            this.btnExcel.TabIndex = 0;
-            this.btnExcel.Text = "Выбор планов";
-            this.btnExcel.UseVisualStyleBackColor = false;
-            this.btnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.Color.White;
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 28);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1100, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(14, 20);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnExcel);
-            this.groupBox1.Location = new System.Drawing.Point(21, 64);
+            this.groupBox1.Controls.Add(this.BtnExcel);
+            this.groupBox1.Location = new System.Drawing.Point(8, 30);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(652, 64);
             this.groupBox1.TabIndex = 2;
@@ -92,20 +60,20 @@
             this.menuStrip2.BackColor = System.Drawing.Color.White;
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainMenuItem,
+            this.WorkVKRToolStripMenuItem,
             this.settingsItem});
-            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip2.Location = new System.Drawing.Point(20, 60);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(1100, 28);
+            this.menuStrip2.Size = new System.Drawing.Size(688, 28);
             this.menuStrip2.TabIndex = 3;
             this.menuStrip2.Text = "menuStrip2";
             // 
-            // mainMenuItem
+            // WorkVKRToolStripMenuItem
             // 
-            this.mainMenuItem.Name = "mainMenuItem";
-            this.mainMenuItem.Size = new System.Drawing.Size(124, 24);
-            this.mainMenuItem.Text = "Главное меню";
-            this.mainMenuItem.Click += new System.EventHandler(this.MainMenuItem_Click);
+            this.WorkVKRToolStripMenuItem.Name = "WorkVKRToolStripMenuItem";
+            this.WorkVKRToolStripMenuItem.Size = new System.Drawing.Size(112, 24);
+            this.WorkVKRToolStripMenuItem.Text = "Работа с ВКР";
+            this.WorkVKRToolStripMenuItem.Click += new System.EventHandler(this.WorkVKRToolStripMenuItem_Click);
             // 
             // settingsItem
             // 
@@ -123,7 +91,8 @@
             this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.btnWordPdf);
-            this.groupBox2.Location = new System.Drawing.Point(21, 145);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox2.Location = new System.Drawing.Point(8, 100);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(652, 129);
             this.groupBox2.TabIndex = 4;
@@ -145,6 +114,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(6, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(253, 17);
@@ -154,6 +124,7 @@
             // btnWordPdf
             // 
             this.btnWordPdf.BackColor = System.Drawing.Color.White;
+            this.btnWordPdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnWordPdf.Location = new System.Drawing.Point(6, 79);
             this.btnWordPdf.Name = "btnWordPdf";
             this.btnWordPdf.Size = new System.Drawing.Size(262, 35);
@@ -162,72 +133,63 @@
             this.btnWordPdf.UseVisualStyleBackColor = false;
             this.btnWordPdf.Click += new System.EventHandler(this.BtnWordPdf_Click);
             // 
-            // BtnVKRPr
+            // groupBox3
             // 
-            this.BtnVKRPr.BackColor = System.Drawing.Color.White;
-            this.BtnVKRPr.Location = new System.Drawing.Point(9, 30);
-            this.BtnVKRPr.Name = "BtnVKRPr";
-            this.BtnVKRPr.Size = new System.Drawing.Size(192, 35);
-            this.BtnVKRPr.TabIndex = 5;
-            this.BtnVKRPr.Text = "Работа с ВКР";
-            this.BtnVKRPr.UseVisualStyleBackColor = false;
-            this.BtnVKRPr.Click += new System.EventHandler(this.BtnVKRPr_Click);
+            this.groupBox3.Controls.Add(this.groupBox2);
+            this.groupBox3.Controls.Add(this.groupBox1);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox3.Location = new System.Drawing.Point(20, 91);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(679, 257);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Работа с Excel-планами и Курсовыми";
             // 
-            // groupVkr
+            // BtnExcel
             // 
-            this.groupVkr.Controls.Add(this.BtnVKRPr);
-            this.groupVkr.Location = new System.Drawing.Point(21, 292);
-            this.groupVkr.Name = "groupVkr";
-            this.groupVkr.Size = new System.Drawing.Size(652, 82);
-            this.groupVkr.TabIndex = 6;
-            this.groupVkr.TabStop = false;
-            this.groupVkr.Text = "Загрузка списка студентов, сдающих ВКР. Проверка ВКР на соответствие приказу.";
+            this.BtnExcel.Location = new System.Drawing.Point(9, 21);
+            this.BtnExcel.Name = "BtnExcel";
+            this.BtnExcel.Size = new System.Drawing.Size(119, 35);
+            this.BtnExcel.Style = MetroFramework.MetroColorStyle.Blue;
+            this.BtnExcel.TabIndex = 1;
+            this.BtnExcel.Text = "Выбор планов";
+            this.BtnExcel.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(1100, 537);
-            this.Controls.Add(this.groupVkr);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.menuStrip1);
+            this.ClientSize = new System.Drawing.Size(728, 378);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.menuStrip2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "VKRs&CourseWorks Automation";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Resizable = false;
+            this.Style = MetroFramework.MetroColorStyle.Blue;
+            this.Text = "VKRs and CourseWorks Automation";
             this.groupBox1.ResumeLayout(false);
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupVkr.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnExcel;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem settingsItem;
-        private System.Windows.Forms.ToolStripMenuItem mainMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnWordPdf;
-        private System.Windows.Forms.Button BtnVKRPr;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupVkr;
+        private System.Windows.Forms.ToolStripMenuItem WorkVKRToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private MetroFramework.Controls.MetroButton BtnExcel;
     }
 }
 
