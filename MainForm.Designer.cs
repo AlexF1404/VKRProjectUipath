@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new MetroFramework.Controls.MetroComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -165,12 +166,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Работа с Excel-планами и Курсовыми";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.Font = new System.Drawing.Font("Akrobat Bold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(442, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 24);
+            this.label2.TabIndex = 6;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
             this.ClientSize = new System.Drawing.Size(770, 413);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.menuStrip2);
             this.MaximizeBox = false;
@@ -203,6 +215,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BtnExcel;
         private System.Windows.Forms.Button btnWordPdf;
+        private System.Windows.Forms.Label label2;
     }
 }
 

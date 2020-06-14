@@ -138,13 +138,10 @@ namespace VKRProjectUipath
         {            
             if (thisDT != dTable)
             {
-                DialogResult result = MessageBox.Show(
-                "Закрыть без сохранения?",
-                "Все несохраненные данные будут утеряны!",
-                MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button1
-               );
+                Warning warning = new Warning("Закрыть без сохранения?\nВсе несохраненные данные будут утеряны!");
+                warning.ShowDialog();
+                DialogResult result = warning.DialogResult;              
+               
                 if (result == DialogResult.OK)
                 {
                     e.Cancel = false;

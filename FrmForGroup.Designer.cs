@@ -190,6 +190,7 @@
             this.Resizable = false;
             this.Style = MetroFramework.MetroColorStyle.Yellow;
             this.Text = "Добавление и изменение сокращений групп";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmForGroup_Closing);
             this.Load += new System.EventHandler(this.FrmForGroup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.settingsBindingSource)).EndInit();

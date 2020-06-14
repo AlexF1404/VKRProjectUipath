@@ -60,10 +60,12 @@ namespace VKRProjectUipath
                 {
                     try
                     {
+                        
                         Task<string> task = CompliteCmdAsync();
                         var awaiter = task.GetAwaiter();
                         awaiter.OnCompleted(() =>
                         {
+                            label2.Text = "";
                             string result = awaiter.GetResult();
                             if (result == "err") { return; }
                             else
@@ -100,6 +102,7 @@ namespace VKRProjectUipath
                             }
                         }
                         );
+                       
                     }
                     catch (System.NullReferenceException)
                     {
@@ -150,7 +153,9 @@ namespace VKRProjectUipath
                     {
                         Dictionary<string, string> keysforGr = GoDBForDictionary();
                         List<string> nameOfPredmets = GetNameOfPredmets();
+                        label2.Text = "Обработка файлов...";
                         VRKWordPdfSort(keysforGr, nameOfPredmets, session);
+                        label2.Text = "";
                     }
                     else return;
                 }
@@ -358,6 +363,7 @@ namespace VKRProjectUipath
         {
             try
             {
+                label2.Text = "Обработка планов...";
                 string ans = await Task.Run(() => VRKExcelAndClearList());               
                 return ans;
             }
@@ -402,7 +408,8 @@ namespace VKRProjectUipath
                 Arguments = "/C " + cmd1,
                 WindowStyle = ProcessWindowStyle.Hidden
             };           
-            Process.Start(proc1);           
+            Process.Start(proc1);
+            
         }     
         private Dictionary<string,string> GoDBForDictionary()
         {

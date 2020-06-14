@@ -173,5 +173,10 @@ namespace VKRProjectUipath
         {
 
         }
+
+        private void UiPathSettings_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

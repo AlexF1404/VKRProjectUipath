@@ -52,14 +52,14 @@
             // 
             // TxtBxURL
             // 
-            this.TxtBxURL.Location = new System.Drawing.Point(26, 89);
+            this.TxtBxURL.Location = new System.Drawing.Point(26, 83);
             this.TxtBxURL.Name = "TxtBxURL";
             this.TxtBxURL.Size = new System.Drawing.Size(392, 22);
             this.TxtBxURL.TabIndex = 2;
             // 
             // TxtBxKey
             // 
-            this.TxtBxKey.Location = new System.Drawing.Point(26, 156);
+            this.TxtBxKey.Location = new System.Drawing.Point(26, 131);
             this.TxtBxKey.Name = "TxtBxKey";
             this.TxtBxKey.Size = new System.Drawing.Size(392, 22);
             this.TxtBxKey.TabIndex = 4;
@@ -81,7 +81,7 @@
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(26, 60);
+            this.metroLabel1.Location = new System.Drawing.Point(23, 60);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(168, 20);
             this.metroLabel1.TabIndex = 7;
@@ -90,7 +90,7 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(26, 123);
+            this.metroLabel2.Location = new System.Drawing.Point(26, 108);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(92, 20);
             this.metroLabel2.TabIndex = 8;
@@ -99,7 +99,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 178);
+            this.label3.Location = new System.Drawing.Point(28, 178);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(0, 0);
             this.label3.TabIndex = 9;
@@ -124,6 +124,7 @@
             this.Style = MetroFramework.MetroColorStyle.Orange;
             this.Text = "Настройки UiPath";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UiPathSettings_FormClosed);
+            this.Load += new System.EventHandler(this.UiPathSettings_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
