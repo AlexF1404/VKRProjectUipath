@@ -52,6 +52,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>iconAppMain.ico</ApplicationIcon>
+  </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -334,7 +338,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="iconAppMain.ico" />
     <Content Include="MetroFramework.txt" />
+    <None Include="Resources\iconVkr.ico" />
+    <None Include="Resources\iconGroup.ico" />
+    <None Include="Resources\iconAppSettingsUIpath.ico" />
+    <None Include="Resources\iconAppSettings.ico" />
+    <None Include="Resources\iconAppMain.ico" />
     <None Include="Resources\warning-icon.png" />
     <None Include="Resources\584b98b289004158e74c7981.png" />
   </ItemGroup>

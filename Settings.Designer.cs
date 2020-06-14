@@ -28,18 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.BtnExit = new System.Windows.Forms.Button();
             this.grBxForExcel = new System.Windows.Forms.GroupBox();
+            this.btnChoosePathFolder = new System.Windows.Forms.Button();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.txtPathFolder = new MetroFramework.Controls.MetroTextBox();
             this.btnOpenAddAndEdit = new System.Windows.Forms.Button();
             this.BtnUipathSettings = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.folderBrowserDialog2 = new System.Windows.Forms.FolderBrowserDialog();
-            this.txtPathFolder = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.textBox1 = new MetroFramework.Controls.MetroTextBox();
-            this.btnChoosePathFolder = new System.Windows.Forms.Button();
             this.BtnChoosePath = new System.Windows.Forms.Button();
+            this.textBox1 = new MetroFramework.Controls.MetroTextBox();
+            this.folderBrowserDialog2 = new System.Windows.Forms.FolderBrowserDialog();
             this.grBxForExcel.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +72,42 @@
             this.grBxForExcel.TabIndex = 4;
             this.grBxForExcel.TabStop = false;
             this.grBxForExcel.Text = "Настройки учебных планов";
+            // 
+            // btnChoosePathFolder
+            // 
+            this.btnChoosePathFolder.BackColor = System.Drawing.Color.White;
+            this.btnChoosePathFolder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChoosePathFolder.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnChoosePathFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChoosePathFolder.Font = new System.Drawing.Font("Akrobat Bold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChoosePathFolder.Location = new System.Drawing.Point(268, 53);
+            this.btnChoosePathFolder.Name = "btnChoosePathFolder";
+            this.btnChoosePathFolder.Size = new System.Drawing.Size(101, 31);
+            this.btnChoosePathFolder.TabIndex = 10;
+            this.btnChoosePathFolder.Text = "Выбрать путь";
+            this.btnChoosePathFolder.UseVisualStyleBackColor = false;
+            this.btnChoosePathFolder.Click += new System.EventHandler(this.BtnChoosePathFolder_Click);
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(7, 30);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(181, 20);
+            this.metroLabel1.TabIndex = 8;
+            this.metroLabel1.Text = "Путь к директории планов";
+            // 
+            // txtPathFolder
+            // 
+            this.txtPathFolder.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.txtPathFolder.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.txtPathFolder.Location = new System.Drawing.Point(9, 53);
+            this.txtPathFolder.Name = "txtPathFolder";
+            this.txtPathFolder.ReadOnly = true;
+            this.txtPathFolder.Size = new System.Drawing.Size(253, 31);
+            this.txtPathFolder.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtPathFolder.TabIndex = 7;
+            this.txtPathFolder.UseStyleColors = true;
             // 
             // btnOpenAddAndEdit
             // 
@@ -113,55 +150,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Путь к UiPath (по умолчанию C:\\Program Files (x86)\\UiPath\\Studio)";
             // 
-            // txtPathFolder
-            // 
-            this.txtPathFolder.FontSize = MetroFramework.MetroTextBoxSize.Medium;
-            this.txtPathFolder.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtPathFolder.Location = new System.Drawing.Point(9, 53);
-            this.txtPathFolder.Name = "txtPathFolder";
-            this.txtPathFolder.ReadOnly = true;
-            this.txtPathFolder.Size = new System.Drawing.Size(253, 31);
-            this.txtPathFolder.Style = MetroFramework.MetroColorStyle.Blue;
-            this.txtPathFolder.TabIndex = 7;
-            this.txtPathFolder.UseStyleColors = true;
-            // 
-            // metroLabel1
-            // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(7, 30);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(181, 20);
-            this.metroLabel1.TabIndex = 8;
-            this.metroLabel1.Text = "Путь к директории планов";
-            // 
-            // textBox1
-            // 
-            this.textBox1.FontSize = MetroFramework.MetroTextBoxSize.Medium;
-            this.textBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textBox1.Location = new System.Drawing.Point(9, 37);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(253, 31);
-            this.textBox1.Style = MetroFramework.MetroColorStyle.Blue;
-            this.textBox1.TabIndex = 11;
-            this.textBox1.Text = "C:\\Program Files (x86)\\UiPath\\Studio";
-            this.textBox1.UseStyleColors = true;
-            // 
-            // btnChoosePathFolder
-            // 
-            this.btnChoosePathFolder.BackColor = System.Drawing.Color.White;
-            this.btnChoosePathFolder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnChoosePathFolder.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnChoosePathFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChoosePathFolder.Font = new System.Drawing.Font("Akrobat Bold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChoosePathFolder.Location = new System.Drawing.Point(268, 53);
-            this.btnChoosePathFolder.Name = "btnChoosePathFolder";
-            this.btnChoosePathFolder.Size = new System.Drawing.Size(101, 31);
-            this.btnChoosePathFolder.TabIndex = 10;
-            this.btnChoosePathFolder.Text = "Выбрать путь";
-            this.btnChoosePathFolder.UseVisualStyleBackColor = false;
-            this.btnChoosePathFolder.Click += new System.EventHandler(this.BtnChoosePathFolder_Click);
-            // 
             // BtnChoosePath
             // 
             this.BtnChoosePath.BackColor = System.Drawing.Color.White;
@@ -177,6 +165,19 @@
             this.BtnChoosePath.UseVisualStyleBackColor = false;
             this.BtnChoosePath.Click += new System.EventHandler(this.BtnChoosePath_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.textBox1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textBox1.Location = new System.Drawing.Point(9, 37);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(253, 31);
+            this.textBox1.Style = MetroFramework.MetroColorStyle.Blue;
+            this.textBox1.TabIndex = 11;
+            this.textBox1.Text = "C:\\Program Files (x86)\\UiPath\\Studio";
+            this.textBox1.UseStyleColors = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -187,6 +188,7 @@
             this.Controls.Add(this.BtnUipathSettings);
             this.Controls.Add(this.grBxForExcel);
             this.Controls.Add(this.BtnExit);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Settings";

@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Warning));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BtnCancel = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.BtnCancel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +63,21 @@
             this.panel1.Size = new System.Drawing.Size(532, 58);
             this.panel1.TabIndex = 3;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            this.button1.Location = new System.Drawing.Point(82, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(116, 32);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Ок";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // BtnCancel
             // 
             this.BtnCancel.BackColor = System.Drawing.Color.White;
@@ -78,21 +94,6 @@
             this.BtnCancel.UseVisualStyleBackColor = false;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(82, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 32);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Ок";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
             // Warning
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -100,6 +101,7 @@
             this.ClientSize = new System.Drawing.Size(530, 280);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Warning";
             this.Resizable = false;
             this.Style = MetroFramework.MetroColorStyle.Blue;

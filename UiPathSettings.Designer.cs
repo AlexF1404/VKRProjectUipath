@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UiPathSettings));
             this.Save = new System.Windows.Forms.Button();
             this.TxtBxURL = new System.Windows.Forms.TextBox();
             this.TxtBxKey = new System.Windows.Forms.TextBox();
@@ -117,6 +118,7 @@
             this.Controls.Add(this.TxtBxKey);
             this.Controls.Add(this.TxtBxURL);
             this.Controls.Add(this.Save);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UiPathSettings";
