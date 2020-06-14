@@ -38,7 +38,11 @@ namespace VKRProjectUipath
         private void btnloadDoc_Click(object sender, EventArgs e)
         {           
             if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
-            { MessageBox.Show("Укажите URL Uipath и MachineKey в настройках UiPath", "Настройка Uipath"); }
+            {
+               
+                Messege messege = new Messege("Укажите URL Uipath и MachineKey в настройках UiPath");
+                messege.Show();
+            }
             else
             {
                 VKRPath = "";
@@ -57,11 +61,15 @@ namespace VKRProjectUipath
 
                             try
                             {
-                               
+
                                 var jsons = JsonConvert.DeserializeObject<ListVKRStudent>(result);
                                 if (jsons.ListVKRStudents.Count == 0)
                                 {
-                                    { MessageBox.Show("Загружен неверный формат файла. Ошибка также может возникать, если файл открыт.", "Ошибка"); }
+                                    {
+
+                                        Messege messege = new Messege("Загружен неверный формат файла. Ошибка также может возникать, если файл открыт");
+                                        messege.Show();
+                                    }
                                     return;
                                 }
                                 else
@@ -69,7 +77,16 @@ namespace VKRProjectUipath
                                     LoadDataGrid(jsons);
                                 }
                             }
-                            catch(Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла","Ошибка"); }
+                            catch (System.NullReferenceException) 
+                            {
+                                Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
+                                messege.Show();
+                            }
+                            catch (Newtonsoft.Json.JsonReaderException)
+                            {
+                                Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
+                                messege.Show();
+                            }
                                                        
                         }
                         );
@@ -77,12 +94,15 @@ namespace VKRProjectUipath
                     }
                     catch (System.NullReferenceException)
                     {
-                        MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                        Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                        messege.Show();
                         return;
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                        Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                        messege.Show();
+                        
                         return;
                     }
 
@@ -110,15 +130,31 @@ namespace VKRProjectUipath
                         i++;
                     }
                 }
-                else { MessageBox.Show("Неверный формат файла или же в пути к UiPath допущена ошибка.", "Ошибка"); }
+                else 
+                { 
+                  
+                    Messege messege = new Messege("Неверный формат файла или же в пути к UiPath допущена ошибка");
+                    messege.Show();
+                }
                 File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");               
             }
-            catch (Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла.", "Ошибка"); }
+            catch (Newtonsoft.Json.JsonReaderException) 
+            { 
+               
+                Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
+                messege.Show();
+            }
             catch (IOException)
             {
-                MessageBox.Show("Возможно был удален файл с данными.", "Ошибка файла");
+                
+                Messege messege = new Messege("Возможно был удален файл с данными");
+                messege.Show();
             }
-            catch (NullReferenceException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла.", "Ошибка"); }
+            catch (NullReferenceException) 
+            {
+                Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
+                messege.Show();
+            }
 
         }
         public class ListVKRStudent
@@ -146,13 +182,15 @@ namespace VKRProjectUipath
             catch (System.NullReferenceException)
             {
                 label1.Text = "";
-                MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                messege.Show();
                 return "err";
             }
             catch (Exception)
             {
                 label1.Text = "";
-                MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                messege.Show();              
                 return "err";
             }
         }
@@ -164,9 +202,10 @@ namespace VKRProjectUipath
                 string line="";
                 string ans = await System.Threading.Tasks.Task.Run(() => VKRCheck());
                 if (ans == "err")
-                {
-                    MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла.");
-
+                {                   
+                    Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла.");
+                    messege.Show();
+                    return line;
                 }
                 else
                 {
@@ -181,8 +220,10 @@ namespace VKRProjectUipath
             }
             catch (System.NullReferenceException)
             {
-                label1.Text = "";
-                MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                label1.Text = "";              
+                Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                messege.Show();
+              
                 return "err";
             }
             catch (Exception)
@@ -222,9 +263,20 @@ namespace VKRProjectUipath
         private void CheckVkr_Click(object sender, EventArgs e)
         {
             List<string> listPathsVkr = new List<string>();
-            if (JsonVkrStudents == null) { MessageBox.Show("Для начала проверки ВКР загрузите приказ", "Ошибка"); return; }
+            if (JsonVkrStudents == "") 
+            {
+                Messege messege = new Messege("Для начала проверки ВКР загрузите приказ");
+                messege.Show();                
+                return; 
+            }
             if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
-            { MessageBox.Show("Укажите URL Uipath и MachineKey в настройках UiPath", "Настройка Uipath"); }
+            { 
+               
+                Messege messege = new Messege("Укажите URL Uipath и MachineKey в настройках UiPath");
+                messege.Show();
+                return;
+
+            }
             else
             {
                 InitializeOpenFileDialog("Все документы Word и Pdf (*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.pdf;", "Выберите файл ВКР");
@@ -306,22 +358,32 @@ namespace VKRProjectUipath
                                     }
                                     
                                 }
-                                catch (Newtonsoft.Json.JsonReaderException) { MessageBox.Show("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла", "Ошибка"); }
+                                catch (Newtonsoft.Json.JsonReaderException) 
+                                {
+                                    Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
+                                    messege.Show();                                    
+                                }
                             }
                             );
                         }
-                        else { MessageBox.Show("Для начала работы загрузите приказ","Ошибка"); }
+                        else {
+                            Messege messege = new Messege("Для начала проверки ВКР загрузите приказ");
+                            messege.Show();
+                            return;
+                        }
 
 
                     }
                     catch (System.NullReferenceException)
                     {
-                        MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                        Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                        messege.Show();                     
                         return;
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                        Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                        messege.Show();                   
                         return;
                     }
 
@@ -374,7 +436,8 @@ namespace VKRProjectUipath
             }
             catch (System.ComponentModel.Win32Exception)
             {
-                MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла.");
+                Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла");
+                messege.Show();                
                 return "err";
             }
 
@@ -418,7 +481,8 @@ namespace VKRProjectUipath
             }
             catch (System.ComponentModel.Win32Exception)
             {
-                MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio");
+                Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio");
+                messege.Show();               
                 return "err";
             }
 
@@ -435,8 +499,7 @@ namespace VKRProjectUipath
             }
             catch (Exception) { return; }
             try
-            {
-                
+            {                
                 System.Diagnostics.Process.Start(path.Trim());
             }
             catch (Exception) { return; }

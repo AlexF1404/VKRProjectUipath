@@ -50,83 +50,115 @@ namespace VKRProjectUipath
         }
         private void BtnExcel_Click(object sender, EventArgs e)
         {
-            pathsExcel.Clear();                  
-            InitializeOpenFileDialog("Файлы Excel (*.xl*;*.xlsx;*.xlsm;*.xlsb;*.xlam;*.xltx;*.xltm;*.xls;*.xla;*.xlt;*.xlm;*.xlw;)|*.xl*;*.xlsx;*.xlsm;*.xlsb;*.xlam;*.xltx;*.xltm;*.xls;*.xla;*.xlt;*.xlm;*.xlw;", "Выберите Excel файлы учебных планов");          
-            SelectListOfPathsInOpenFileDialog(out pathsExcel);
-          
-            if (pathsExcel.Count > 0)
+            if (ConnectionAvailable() == true)
             {
-                try
+                pathsExcel.Clear();
+                InitializeOpenFileDialog("Файлы Excel (*.xl*;*.xlsx;*.xlsm;*.xlsb;*.xlam;*.xltx;*.xltm;*.xls;*.xla;*.xlt;*.xlm;*.xlw;)|*.xl*;*.xlsx;*.xlsm;*.xlsb;*.xlam;*.xltx;*.xltm;*.xls;*.xla;*.xlt;*.xlm;*.xlw;", "Выберите Excel файлы учебных планов");
+                SelectListOfPathsInOpenFileDialog(out pathsExcel);
+
+                if (pathsExcel.Count > 0)
                 {
-                    Task<string> task = CompliteCmdAsync();
-                    var awaiter = task.GetAwaiter();
-                    awaiter.OnCompleted(() =>
+                    try
                     {
-                        string result = awaiter.GetResult();
-                        if (result == "err") { return; }
-                        else
+                        Task<string> task = CompliteCmdAsync();
+                        var awaiter = task.GetAwaiter();
+                        awaiter.OnCompleted(() =>
                         {
-                            try
+                            string result = awaiter.GetResult();
+                            if (result == "err") { return; }
+                            else
                             {
-                                if (ConnectionAvailable() == false)
+                                try
                                 {
-                                    MessageBox.Show("Возможно отсутствует подключение к Интернету. Для нормальной работы с приложением требуется подключение.", "Предупреждение");
-                                }
-                                else {
-                                    var jsons = JsonConvert.DeserializeObject<RootObject>(result);
-                                    if (jsons != null)
+                                    if (ConnectionAvailable() == false)
                                     {
-                                        AddDBNameOfDirection(jsons.stringNameNapr);
-                                    } 
-                                    else  {MessageBox.Show("Неверный формат Excel-файла или ошибка подключения UiPath", "Ошибка"); }
+
+                                        Messege messege = new Messege("Возможно отсутствует подключение к Интернету. Для нормальной работы с приложением требуется подключение");
+                                        messege.Show();
+
+                                    }
+                                    else
+                                    {
+                                        var jsons = JsonConvert.DeserializeObject<RootObject>(result);
+                                        if (jsons != null)
+                                        {
+                                            AddDBNameOfDirection(jsons.stringNameNapr);
+                                        }
+                                        else
+                                        {
+                                            Messege messege = new Messege("Неверный формат Excel-файла или ошибка подключения UiPath");
+                                            messege.Show();
+                                        }
+                                    }
+
                                 }
-                               
-                            }
-                            catch (NullReferenceException)
-                            {
-                            MessageBox.Show("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету.", "Ошибка");
+                                catch (NullReferenceException)
+                                {
+                                    Messege messege = new Messege("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету");
+                                    messege.Show();
+                                }
                             }
                         }
+                        );
                     }
-                    );
+                    catch (System.NullReferenceException)
+                    {
+                        Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                        messege.Show();
+                        return;
+                    }
+                    catch (Exception)
+                    {
+                        Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                        messege.Show();
+                        return;
+                    }
                 }
-                catch (System.NullReferenceException) 
+                else return;
+            }
+            else
                 {
-                    MessageBox.Show("Ошибка ответа, попробуйте еще раз");
-                    return;
+                    Messege messege = new Messege("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету");
+                    messege.Show();
                 }
-                catch (Exception)
-                {
-                    MessageBox.Show("Ошибка ответа, попробуйте еще раз");
-                    return;
-                }
-            }           
-            else return;
+            
         }        
         private void BtnWordPdf_Click(object sender, EventArgs e)
         {
-            bool session = true;
-            if (comboBox1.SelectedIndex == 0)
+            if (ConnectionAvailable() == true)
             {
-                session = false;
+                bool session = true;
+                if (comboBox1.SelectedIndex == 0)
+                {
+                    session = false;
+                }
+                else
+                {
+                    session = true;
+                }
+
+                if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
+                {
+                    Messege messege = new Messege("Укажите URL Uipath и MachineKey в настройках UiPath");
+                    messege.Show();
+                }
+                else
+                {
+                    InitializeOpenFileDialog("Все документы Word и Pdf (*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.htm;*.html;*.rtf;*.mht;*.mhtml;*.xml;*.odt;*.pdf;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.htm;*.html;*.rtf;*.mht;*.mhtml;*.xml;*.odt;*.pdf;", "Выберите Word/Pdf файлы курсовых работ");
+                    SelectListOfPathsInOpenFileDialog(out pathsWordPdf);
+                    if (pathsWordPdf.Count > 0)
+                    {
+                        Dictionary<string, string> keysforGr = GoDBForDictionary();
+                        List<string> nameOfPredmets = GetNameOfPredmets();
+                        VRKWordPdfSort(keysforGr, nameOfPredmets, session);
+                    }
+                    else return;
+                }
             }
-            else {
-               session = true;
-            }
-            Console.WriteLine(session.ToString());
-           if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
-            { MessageBox.Show("Укажите URL Uipath и MachineKey в настройках UiPath", "Настройка Uipath"); }                    
             else
             {
-                InitializeOpenFileDialog("Все документы Word и Pdf (*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.htm;*.html;*.rtf;*.mht;*.mhtml;*.xml;*.odt;*.pdf;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;*.htm;*.html;*.rtf;*.mht;*.mhtml;*.xml;*.odt;*.pdf;", "Выберите Word/Pdf файлы курсовых работ");
-                SelectListOfPathsInOpenFileDialog(out pathsWordPdf);
-                if (pathsWordPdf.Count > 0)
-                {
-                    Dictionary<string, string> keysforGr = GoDBForDictionary();
-                    List<string> nameOfPredmets = GetNameOfPredmets();
-                    VRKWordPdfSort(keysforGr, nameOfPredmets, session);
-                }
-                else return;
+                Messege messege = new Messege("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету");
+                messege.Show();
             }
         }
         private List<string> GetNameOfPredmets() 
@@ -153,8 +185,9 @@ namespace VKRProjectUipath
                 return nameofDirectionToBe;
             }
             catch (NullReferenceException)
-            {
-                MessageBox.Show("Ошибка соединения с базой данных.", "Ошибка");
+            {                
+                Messege messege = new Messege("Ошибка соединения с базой данных");
+                messege.Show();                
                 return null;
             }
 
@@ -179,7 +212,8 @@ namespace VKRProjectUipath
                 }
                 catch (SQLiteException ex)
                 {
-                    MessageBox.Show("Ошибка соединения с базой данных","Error: "+ex);
+                    Messege messege = new Messege("Ошибка соединения с базой данных");
+                    messege.Show();              
                     return m_dbConn;
                 }
            
@@ -222,23 +256,29 @@ namespace VKRProjectUipath
                         }
                         catch (SQLiteException)
                         {
-                            MessageBox.Show("Ошибка при заполнении бд.");
+                            Messege messege = new Messege("Ошибка соединения с базой данных");
+                            messege.Show();
+                            
                         }
                     }
                     catch (NullReferenceException)
                     {
-                        MessageBox.Show("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету.", "Ошибка");
+                        Messege messege = new Messege("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету");
+                        messege.Show();
+                       
                     }
 
                     catch (SQLiteException)
                     {
-                        MessageBox.Show("Ошибка соединения с базой данных.", "Ошибка");
+                        Messege messege = new Messege("Ошибка соединения с базой данных");
+                        messege.Show();
                     }
                 }
             }
             catch (NullReferenceException) 
             {
-                MessageBox.Show("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету.", "Ошибка");
+                Messege messege = new Messege("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету");
+                messege.Show();
             }
         }                      
         public class RootObject
@@ -303,8 +343,9 @@ namespace VKRProjectUipath
                 return json;
             }
             catch (System.ComponentModel.Win32Exception)
-            {
-                MessageBox.Show("Возможно, вы указали неверные данные в путях к UiPath Studio");
+            {                
+                Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio");
+                messege.Show();
                 return "err";
             }
            
@@ -321,13 +362,15 @@ namespace VKRProjectUipath
                 return ans;
             }
            catch (System.NullReferenceException) 
-            {
-                    MessageBox.Show("Ошибка ответа, попробуйте еще раз");
-                    return "err";
+            {                   
+                Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                messege.Show();
+                return "err";
             }
             catch (Exception)
             {
-                MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                messege.Show();
                 return "err";
             }
         }       
@@ -379,15 +422,17 @@ namespace VKRProjectUipath
             }
             catch (SQLiteException ex)
             {
-                MessageBox.Show("Для начала создайте сокращения для групп в разделе 'Настройки'");
+                Messege messege = new Messege("Для начала создайте сокращения для групп в разделе 'Настройки'");
+                messege.Show();                              
                 return keys;
             }
             DataTable dTable = new DataTable();
             String sqlQuery;
 
             if (m_dbConn.State != ConnectionState.Open)
-            {
-                MessageBox.Show("Попробуйте еще раз");
+            {               
+                Messege messege = new Messege("Попробуйте еще раз");
+                messege.Show();
                 return keys;
             }
 
@@ -408,13 +453,15 @@ namespace VKRProjectUipath
                 }
                 else
                 {
-                    MessageBox.Show("Добавьте записи в таблицу или загрузите их из файла.");
+                    Messege messege = new Messege("Добавьте записи в таблицу или загрузите их из файла");
+                    messege.Show();                  
                     return keys;
                 }
             }
             catch (SQLiteException ex)
             {
-                MessageBox.Show("Произошла ошибка: " + ex.Message);
+                Messege messege = new Messege("Произошла ошибка");
+                messege.Show();               
                 return keys;
             }
         }

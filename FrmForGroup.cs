@@ -54,17 +54,13 @@ namespace VKRProjectUipath
                 m_sqlCmd.ExecuteNonQuery();               
             }
             catch (SQLiteException ex)
-            {                
-                MessageBox.Show("Ошибка соединения с базой данных: " + ex.Message);
-            }
-           
-            String sqlQuery;
-
-            if (m_dbConn.State != ConnectionState.Open)
             {
-                MessageBox.Show("Open connection with database");
+                Messege messege = new Messege("Ошибка соединения с базой данных");
+                messege.Show();
                 return;
             }
+           
+            String sqlQuery;           
             try
             {
                 sqlQuery = "SELECT little, big FROM namegroup";
@@ -77,15 +73,21 @@ namespace VKRProjectUipath
 
                     for (int i = 0; i < dTable.Rows.Count; i++)
                     {
-                        dataGridView1.Rows.Add(dTable.Rows[i].ItemArray);                        
+                        dataGridView1.Rows.Add(dTable.Rows[i].ItemArray);
                     }
                 }
-                else
-                    MessageBox.Show("Добавьте записи в таблицу или загрузите из файла.");
+                else {
+                    Messege messege = new Messege("Добавьте записи в таблицу или загрузите из файла");
+                    messege.Show();
+                }
+
+                 
             }
             catch (SQLiteException ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                Messege messege = new Messege(ex.Message);
+                messege.Show();
+                
             }
         }
         private void BtnSave_Click(object sender, EventArgs e)
@@ -94,10 +96,11 @@ namespace VKRProjectUipath
             Close();
         }   
         private void BtnDel_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+        {           
+          
+            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
             {
-                dataGridView1.Rows.RemoveAt(row.Index);
+                dataGridView1.Rows.RemoveAt(cell.RowIndex);
             }
             SaveInDataBase();
 
@@ -125,7 +128,8 @@ namespace VKRProjectUipath
             }
             catch (SQLiteException)
             {
-                MessageBox.Show("Ваша база пуста. Добавьте записи.");
+                Messege messege = new Messege("Ваша база пуста. Добавьте записи");
+                messege.Show();                
                 return;
             }
             catch (System.NullReferenceException) { return; }
@@ -175,41 +179,37 @@ namespace VKRProjectUipath
             Dictionary<string, string> name = new Dictionary<string, string>();
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-               SelectFolder = folderBrowserDialog1.SelectedPath;
+                SelectFolder = folderBrowserDialog1.SelectedPath;
             }
+            else { return; }
             for (int i = 0; i < dataGridView1.Rows.Count-1; i++)
-            {
-                Console.WriteLine(dataGridView1.Rows[i].Cells[0].Value.ToString());
-                 name.Add(dataGridView1.Rows[i].Cells[0].Value.ToString(), dataGridView1.Rows[i].Cells[1].Value.ToString());
-                
+            {               
+                 name.Add(dataGridView1.Rows[i].Cells[0].Value.ToString(), dataGridView1.Rows[i].Cells[1].Value.ToString());                
             }
             savenameGr.nameGr = name;
             string jsonNameGroup = JsonConvert.SerializeObject(savenameGr.nameGr, Formatting.None);
-            Console.WriteLine(SelectFolder);
+           
             try
             {
                 using (StreamWriter sw = new StreamWriter(SelectFolder + "\\NameGroup.json", false, System.Text.Encoding.UTF8))
                 {
-                    sw.WriteLine("{ nameGr: " + jsonNameGroup + " }");
-                    MessageBox.Show("Файл сохранен в "+SelectFolder, "Сохранение файла");
+                    sw.WriteLine("{ nameGr: " + jsonNameGroup + " }");                    
                 }
             }
             catch (System.UnauthorizedAccessException) 
             {
-                MessageBox.Show("Попробуйте сохранить в папку без прав администратора", "Ошибка доступа к файлу");
+                Messege messege = new Messege("Попробуйте сохранить в папку без прав администратора");
+                messege.Show();              
             }
 
         }
 
         private void Btn_GivOutFile_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-                 "Все данные из таблицы будут перезаписаны!",
-                 "Предупреждение",
-                 MessageBoxButtons.OKCancel,
-                 MessageBoxIcon.Information,
-                 MessageBoxDefaultButton.Button1
-                );
+            Warning warning = new Warning("Все данные из таблицы будут перезаписаны!");
+            warning.ShowDialog();
+            DialogResult result = warning.DialogResult;
+                
             if (result == DialogResult.OK)
             {
                 InitializeOpenFileDialog("Json файл (*.json*;|*.json*;", "Выберите файл с сокращениями групп");

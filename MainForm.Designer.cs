@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnExcel = new System.Windows.Forms.Button();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.WorkVKRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new MetroFramework.Controls.MetroComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.BtnExcel = new System.Windows.Forms.Button();
             this.btnWordPdf = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new MetroFramework.Controls.MetroComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -56,6 +56,20 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Создание директорий (папок) для курсовых проектов и работ по учебным планам";
             // 
+            // BtnExcel
+            // 
+            this.BtnExcel.BackColor = System.Drawing.Color.White;
+            this.BtnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnExcel.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.BtnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnExcel.Location = new System.Drawing.Point(12, 41);
+            this.BtnExcel.Name = "BtnExcel";
+            this.BtnExcel.Size = new System.Drawing.Size(188, 36);
+            this.BtnExcel.TabIndex = 2;
+            this.BtnExcel.Text = "Выбор планов";
+            this.BtnExcel.UseVisualStyleBackColor = false;
+            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
+            // 
             // menuStrip2
             // 
             this.menuStrip2.BackColor = System.Drawing.Color.White;
@@ -65,7 +79,6 @@
             this.WorkVKRToolStripMenuItem,
             this.settingsItem});
             this.menuStrip2.Location = new System.Drawing.Point(21, 60);
-            this.menuStrip2.MinimumSize = new System.Drawing.Size(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(728, 26);
             this.menuStrip2.TabIndex = 3;
@@ -102,17 +115,29 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Сортировка курсовых работ и проектов";
             // 
-            // groupBox3
+            // btnWordPdf
             // 
-            this.groupBox3.Controls.Add(this.groupBox2);
-            this.groupBox3.Controls.Add(this.groupBox1);
-            this.groupBox3.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(9, 104);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(749, 300);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Работа с Excel-планами и Курсовыми";
+            this.btnWordPdf.BackColor = System.Drawing.Color.White;
+            this.btnWordPdf.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnWordPdf.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnWordPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWordPdf.Location = new System.Drawing.Point(9, 98);
+            this.btnWordPdf.Name = "btnWordPdf";
+            this.btnWordPdf.Size = new System.Drawing.Size(235, 36);
+            this.btnWordPdf.TabIndex = 7;
+            this.btnWordPdf.Text = "Выбор Word/PDF файлов курсовых";
+            this.btnWordPdf.UseVisualStyleBackColor = false;
+            this.btnWordPdf.Click += new System.EventHandler(this.BtnWordPdf_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(9, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(219, 18);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Выберите вид сессии (обязательно):";
             // 
             // comboBox1
             // 
@@ -128,43 +153,17 @@
             this.comboBox1.TabIndex = 3;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // label1
+            // groupBox3
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(9, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(219, 18);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Выберите вид сессии (обязательно):";
-            // 
-            // BtnExcel
-            // 
-            this.BtnExcel.BackColor = System.Drawing.Color.White;
-            this.BtnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnExcel.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.BtnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnExcel.Location = new System.Drawing.Point(12, 41);
-            this.BtnExcel.Name = "BtnExcel";
-            this.BtnExcel.Size = new System.Drawing.Size(188, 36);
-            this.BtnExcel.TabIndex = 2;
-            this.BtnExcel.Text = "Выбор планов";
-            this.BtnExcel.UseVisualStyleBackColor = false;
-            this.BtnExcel.Click += new System.EventHandler(this.BtnExcel_Click);
-            // 
-            // btnWordPdf
-            // 
-            this.btnWordPdf.BackColor = System.Drawing.Color.White;
-            this.btnWordPdf.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnWordPdf.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnWordPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWordPdf.Location = new System.Drawing.Point(9, 98);
-            this.btnWordPdf.Name = "btnWordPdf";
-            this.btnWordPdf.Size = new System.Drawing.Size(235, 36);
-            this.btnWordPdf.TabIndex = 7;
-            this.btnWordPdf.Text = "Выбор Word/PDF файлов курсовых";
-            this.btnWordPdf.UseVisualStyleBackColor = false;
-            this.btnWordPdf.Click += new System.EventHandler(this.BtnWordPdf_Click);
+            this.groupBox3.Controls.Add(this.groupBox2);
+            this.groupBox3.Controls.Add(this.groupBox1);
+            this.groupBox3.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox3.Location = new System.Drawing.Point(9, 104);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(749, 300);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Работа с Excel-планами и Курсовыми";
             // 
             // MainForm
             // 

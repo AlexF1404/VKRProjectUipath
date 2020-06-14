@@ -13,8 +13,7 @@ using MetroFramework.Components;
 using MetroFramework.Forms;
 using MetroFramework.Fonts;
 using MetroFramework.Drawing;
-
-
+using System.Net;
 
 namespace VKRProjectUipath
 {
@@ -70,42 +69,77 @@ namespace VKRProjectUipath
         {
             if (!String.IsNullOrEmpty(outLine.Data));
         }
+        public bool ConnectionAvailable()
+        {
+            try
+            {
+                HttpWebRequest reqFP = (HttpWebRequest)HttpWebRequest.Create("http://www.google.com");
+                HttpWebResponse rspFP = (HttpWebResponse)reqFP.GetResponse();
+                if (HttpStatusCode.OK == rspFP.StatusCode)
+                {
+                    rspFP.Close();
+                    return true;
+                }
+                else
+                {
+
+                    rspFP.Close();
+                    return false;
+                }
+            }
+            catch (WebException)
+            {
+                return false;
+            }
+        }
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-            if ((TxtBxKey.Text == "") || (TxtBxURL.Text == "")) { MessageBox.Show("Заполните все поля", "Ошибка"); }
-            else
+            if (ConnectionAvailable() == true)
             {
-                Task<string> task = CompliteCmdAsync();
-                var awaiter = task.GetAwaiter();
-                awaiter.OnCompleted(() =>
+                if ((TxtBxKey.Text == "") || (TxtBxURL.Text == ""))
                 {
-                    string result = awaiter.GetResult();
-                    if (result == "0")
+                    Messege messege = new Messege("Заполните все поля");
+                    messege.Show();
+                }
+                else
+                {
+                    Task<string> task = CompliteCmdAsync();
+                    var awaiter = task.GetAwaiter();
+                    awaiter.OnCompleted(() =>
                     {
-                        label3.Text = "Успешно";
-                        Properties.Settings.Default.URLUiPath = TxtBxURL.Text;
-                        Properties.Settings.Default.KeyMachine = TxtBxKey.Text;
-                        Properties.Settings.Default.Save();
-                        return;
-                    }
-                    if (result.Contains("По указанному URL-адресу отсутствует Orchestrator. Проверьте ссылку и повторите попытку."))
-                    {
-                        label3.Text = "Неправильный URL или key machine";
-                        return;
-                    }
-                    if (result.Contains("Orchestrator уже подключен!"))
-                    {
-                        label3.Text = "Orchestrator уже подключен!";
-                        TxtBxURL.Text = Properties.Settings.Default.URLUiPath;
-                        TxtBxKey.Text = Properties.Settings.Default.KeyMachine;
+                        string result = awaiter.GetResult();
+                        if (result == "0")
+                        {
+                            label3.Text = "Успешно";
+                            Properties.Settings.Default.URLUiPath = TxtBxURL.Text;
+                            Properties.Settings.Default.KeyMachine = TxtBxKey.Text;
+                            Properties.Settings.Default.Save();
+                            return;
+                        }
+                        if (result.Contains("По указанному URL-адресу отсутствует Orchestrator. Проверьте ссылку и повторите попытку."))
+                        {
+                            label3.Text = "Неправильный URL или key machine";
+                            return;
+                        }
+                        if (result.Contains("Orchestrator уже подключен!"))
+                        {
+                            label3.Text = "Orchestrator уже подключен!";
+                            TxtBxURL.Text = Properties.Settings.Default.URLUiPath;
+                            TxtBxKey.Text = Properties.Settings.Default.KeyMachine;
 
-                        return;
-                    }
-                    if (result.Contains("-1073741510")) { label3.Text = "Попробуйте еще раз"; return; }
-                    if (result.Contains("An error occurred while sending the request.")) { label3.Text = "Ошибка запроса или отсутствует подключение"; return; }
-                    else
-                    { label3.Text = "Непредвиденная ошибка. Попробуйте еще раз"; return; }
-                });
+                            return;
+                        }
+                        if (result.Contains("-1073741510")) { label3.Text = "Попробуйте еще раз"; return; }
+                        if (result.Contains("An error occurred while sending the request.")) { label3.Text = "Ошибка запроса или отсутствует подключение"; return; }
+                        else
+                        { label3.Text = "Непредвиденная ошибка. Попробуйте еще раз"; return; }
+                    });
+                }
+            }
+            else 
+            {
+                Messege messege = new Messege("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету");
+                messege.Show();
             }
         }
         async Task<string> CompliteCmdAsync()
@@ -123,7 +157,8 @@ namespace VKRProjectUipath
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                Messege messege = new Messege(e.ToString());
+                messege.Show();                
                 return "err";
             }
         }
