@@ -215,7 +215,7 @@ namespace VKRProjectUipath
                     m_sqlCmd.ExecuteNonQuery();
                     return m_dbConn;
                 }
-                catch (SQLiteException ex)
+                catch (SQLiteException)
                 {
                     Messege messege = new Messege("Ошибка соединения с базой данных");
                     messege.Show();              
@@ -427,7 +427,7 @@ namespace VKRProjectUipath
                 m_sqlCmd.CommandText = "CREATE TABLE IF NOT EXISTS namegroup (id INTEGER PRIMARY KEY AUTOINCREMENT, little TEXT, big TEXT)";
                 m_sqlCmd.ExecuteNonQuery();
             }
-            catch (SQLiteException ex)
+            catch (SQLiteException)
             {
                 Messege messege = new Messege("Для начала создайте сокращения для групп в разделе 'Настройки'");
                 messege.Show();                              
@@ -465,7 +465,7 @@ namespace VKRProjectUipath
                     return keys;
                 }
             }
-            catch (SQLiteException ex)
+            catch (SQLiteException)
             {
                 Messege messege = new Messege("Произошла ошибка");
                 messege.Show();               

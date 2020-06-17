@@ -43,6 +43,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -167,7 +168,7 @@
             this.CheckVkr.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.CheckVkr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CheckVkr.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
-            this.CheckVkr.Location = new System.Drawing.Point(742, 62);
+            this.CheckVkr.Location = new System.Drawing.Point(486, 63);
             this.CheckVkr.Name = "CheckVkr";
             this.CheckVkr.Size = new System.Drawing.Size(250, 28);
             this.CheckVkr.TabIndex = 2;
@@ -179,7 +180,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Akrobat ExtraBold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(416, 46);
+            this.label1.Location = new System.Drawing.Point(278, 46);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 46);
             this.label1.TabIndex = 3;
@@ -188,10 +189,25 @@
             // 
             this.openFileDialog2.Multiselect = true;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Akrobat Bold", 9F, System.Drawing.FontStyle.Bold);
+            this.button1.Location = new System.Drawing.Point(742, 63);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(250, 28);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Перенести правильные ВКР";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // WordVkrForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(998, 674);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CheckVkr);
             this.Controls.Add(this.btnloadDoc);
@@ -222,5 +238,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Group;
         private System.Windows.Forms.DataGridViewTextBoxColumn VkrTheme;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vkrmanager;
+        private System.Windows.Forms.Button button1;
     }
 }

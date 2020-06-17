@@ -53,7 +53,7 @@ namespace VKRProjectUipath
                 m_sqlCmd.CommandText = "CREATE TABLE IF NOT EXISTS namegroup (id INTEGER PRIMARY KEY AUTOINCREMENT, little TEXT, big TEXT)";
                 m_sqlCmd.ExecuteNonQuery();               
             }
-            catch (SQLiteException ex)
+            catch (SQLiteException)
             {
                 Messege messege = new Messege("Ошибка соединения с базой данных");
                 messege.Show();

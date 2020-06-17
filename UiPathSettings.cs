@@ -34,6 +34,8 @@ namespace VKRProjectUipath
         private void Save_Click(object sender, EventArgs e)
         {
             set.uipathsettings = this;
+            Properties.Settings.Default.URLUiPath = TxtBxURL.Text;
+            Properties.Settings.Default.KeyMachine = TxtBxKey.Text;
            Close();           
         }
         public string UiPathConnection() 
@@ -94,8 +96,7 @@ namespace VKRProjectUipath
         }
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-            if (ConnectionAvailable() == true)
-            {
+            
                 if ((TxtBxKey.Text == "") || (TxtBxURL.Text == ""))
                 {
                     Messege messege = new Messege("Заполните все поля");
@@ -123,24 +124,17 @@ namespace VKRProjectUipath
                         }
                         if (result.Contains("Orchestrator уже подключен!"))
                         {
-                            label3.Text = "Orchestrator уже подключен!";
-                            TxtBxURL.Text = Properties.Settings.Default.URLUiPath;
-                            TxtBxKey.Text = Properties.Settings.Default.KeyMachine;
-
+                            label3.Text = "Orchestrator уже подключен!";                                                       
                             return;
                         }
                         if (result.Contains("-1073741510")) { label3.Text = "Попробуйте еще раз"; return; }
                         if (result.Contains("An error occurred while sending the request.")) { label3.Text = "Ошибка запроса или отсутствует подключение"; return; }
                         else
-                        { label3.Text = "Непредвиденная ошибка. Попробуйте еще раз"; return; }
+                        { label3.Text = "Указан неправильный путь к Uipath"; return; }
                     });
                 }
-            }
-            else 
-            {
-                Messege messege = new Messege("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету");
-                messege.Show();
-            }
+            
+           
         }
         async Task<string> CompliteCmdAsync()
         {

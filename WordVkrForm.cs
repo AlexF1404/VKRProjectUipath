@@ -16,12 +16,16 @@ using MetroFramework.Components;
 using MetroFramework.Forms;
 using MetroFramework.Fonts;
 using MetroFramework.Drawing;
+using System.Data.SQLite;
 
 namespace VKRProjectUipath
 {
     public partial class WordVkrForm : MetroForm
     {
-        public string VKRPath="";
+        private String dbFileName;
+        private SQLiteConnection m_dbConn;
+        private SQLiteCommand m_sqlCmd;
+        public string VKRPath = "";
         public string JsonVkrStudents = "";
         List<string> PathsVkr = new List<string>();
         Dictionary<int, string> pathsWordIndex = new Dictionary<int, string>();
@@ -36,10 +40,10 @@ namespace VKRProjectUipath
         }
         //загрузка приказа
         private void btnloadDoc_Click(object sender, EventArgs e)
-        {           
+        {
             if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
             {
-               
+
                 Messege messege = new Messege("Укажите URL Uipath и MachineKey в настройках UiPath");
                 messege.Show();
             }
@@ -48,11 +52,11 @@ namespace VKRProjectUipath
                 VKRPath = "";
                 InitializeOpenFileDialog("Все документы Word(*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;)|*.docx;*.doc;*.docm;*.dotx;*.dotm;*.doc;*.dot;", "Выберите файл приказа");
                 SelectListOfPathsInOpenFileDialog();
-                if (VKRPath!="")
+                if (VKRPath != "")
                 {
                     try
                     {
-                       
+
                         Task<string> task = CompliteCmdAsync();
                         var awaiter = task.GetAwaiter();
                         awaiter.OnCompleted(() =>
@@ -77,7 +81,7 @@ namespace VKRProjectUipath
                                     LoadDataGrid(jsons);
                                 }
                             }
-                            catch (System.NullReferenceException) 
+                            catch (System.NullReferenceException)
                             {
                                 Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
                                 messege.Show();
@@ -87,7 +91,7 @@ namespace VKRProjectUipath
                                 Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
                                 messege.Show();
                             }
-                                                       
+
                         }
                         );
 
@@ -102,7 +106,7 @@ namespace VKRProjectUipath
                     {
                         Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
                         messege.Show();
-                        
+
                         return;
                     }
 
@@ -111,11 +115,11 @@ namespace VKRProjectUipath
             }
         }
         //заполнение таблицы по приказу
-         public void LoadDataGrid(ListVKRStudent json) 
-        
-         {
-            JsonVkrStudents = JsonConvert.SerializeObject(json);          
-            int i = 0;           
+        public void LoadDataGrid(ListVKRStudent json)
+
+        {
+            JsonVkrStudents = JsonConvert.SerializeObject(json);
+            int i = 0;
             try
             {
 
@@ -123,6 +127,7 @@ namespace VKRProjectUipath
                 if (json != null)
                 {
                     dataGridView1.Rows.Clear();
+                    pathsWordIndex.Clear();
                     foreach (VKRStudents rootObject in json.ListVKRStudents)
                     {
 
@@ -130,27 +135,27 @@ namespace VKRProjectUipath
                         i++;
                     }
                 }
-                else 
-                { 
-                  
+                else
+                {
+
                     Messege messege = new Messege("Неверный формат файла или же в пути к UiPath допущена ошибка");
                     messege.Show();
                 }
-                File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");               
+                File.Delete(Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt");
             }
-            catch (Newtonsoft.Json.JsonReaderException) 
-            { 
-               
+            catch (Newtonsoft.Json.JsonReaderException)
+            {
+
                 Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
                 messege.Show();
             }
             catch (IOException)
             {
-                
+
                 Messege messege = new Messege("Возможно был удален файл с данными");
                 messege.Show();
             }
-            catch (NullReferenceException) 
+            catch (NullReferenceException)
             {
                 Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
                 messege.Show();
@@ -162,8 +167,12 @@ namespace VKRProjectUipath
             public List<VKRStudents> ListVKRStudents { get; set; }
         }
         public class ListError
-        { 
+        {
             public List<List<string>> listError { get; set; }
+        }
+        public class Answ 
+        {
+            public List<string> Ans { get; set; }
         }
         async Task<string> CompliteCmdAsync()
         {
@@ -190,7 +199,7 @@ namespace VKRProjectUipath
             {
                 label1.Text = "";
                 Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
-                messege.Show();              
+                messege.Show();
                 return "err";
             }
         }
@@ -199,10 +208,10 @@ namespace VKRProjectUipath
             try
             {
                 label1.Text = "Загрузка..";
-                string line="";
+                string line = "";
                 string ans = await System.Threading.Tasks.Task.Run(() => VKRCheck());
                 if (ans == "err")
-                {                   
+                {
                     Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла.");
                     messege.Show();
                     return line;
@@ -220,10 +229,10 @@ namespace VKRProjectUipath
             }
             catch (System.NullReferenceException)
             {
-                label1.Text = "";              
+                label1.Text = "";
                 Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
                 messege.Show();
-              
+
                 return "err";
             }
             catch (Exception)
@@ -233,10 +242,47 @@ namespace VKRProjectUipath
                 return "err";
             }
         }
-        
+        async Task<string> CompliteVKRGo(List<string> VKRList, Dictionary<string, string> keys)
+        {
+            try
+            {
+                label1.Text = "Загрузка..";
+                string line = "";
+                string ans = await System.Threading.Tasks.Task.Run(() => VKRGo(VKRList,keys));
+                if (ans == "err")
+                {
+                    Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла.");
+                    messege.Show();
+                    label1.Text = "";
+                    
+                    return line;
+                }
+                else 
+                {
+                    label1.Text = "";
+                    return ans;
+                }
+
+                
+            }
+            catch (System.NullReferenceException)
+            {
+                label1.Text = "";
+                Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                messege.Show();
+
+                return "err";
+            }
+            catch (Exception)
+            {
+                label1.Text = "";
+                MessageBox.Show("Ошибка ответа, попробуйте еще раз");
+                return "err";
+            }
+        }
         private void SelectListOfPathsInOpenFileDialog()
         {
-            
+
             DialogResult dr = this.openFileDialog1.ShowDialog();
             if (dr == DialogResult.OK)
             {
@@ -259,19 +305,80 @@ namespace VKRProjectUipath
             else return;
 
         }
+        private Dictionary<string, string> GoDBForDictionary()
+        {
+            Dictionary<string, string> keys = new Dictionary<string, string>();
+            m_dbConn = new SQLiteConnection();
+            m_sqlCmd = new SQLiteCommand();
+            dbFileName = "dbForNameGroup";
+            if (!File.Exists(dbFileName))
+                SQLiteConnection.CreateFile(dbFileName);
+            try
+            {
+                m_dbConn = new SQLiteConnection("Data Source=" + dbFileName + ";Version=3;");
+                m_dbConn.Open();
+                m_sqlCmd.Connection = m_dbConn;
+                m_sqlCmd.CommandText = "CREATE TABLE IF NOT EXISTS namegroup (id INTEGER PRIMARY KEY AUTOINCREMENT, little TEXT, big TEXT)";
+                m_sqlCmd.ExecuteNonQuery();
+            }
+            catch (SQLiteException)
+            {
+                Messege messege = new Messege("Для начала создайте сокращения для групп в разделе 'Настройки'");
+                messege.Show();
+                return keys;
+            }
+            System.Data.DataTable dTable = new System.Data.DataTable();
+            String sqlQuery;
+
+            if (m_dbConn.State != ConnectionState.Open)
+            {
+                Messege messege = new Messege("Попробуйте еще раз");
+                messege.Show();
+                return keys;
+            }
+
+            try
+            {
+
+                sqlQuery = "SELECT little, big FROM namegroup";
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, m_dbConn);
+                adapter.Fill(dTable);
+
+                if (dTable.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dTable.Rows.Count; i++)
+                    {
+                        keys.Add(dTable.Rows[i].ItemArray[0].ToString().ToLower(), dTable.Rows[i].ItemArray[1].ToString().ToLower());
+                    }
+                    return keys;
+                }
+                else
+                {
+                    Messege messege = new Messege("Добавьте записи в таблицу или загрузите их из файла");
+                    messege.Show();
+                    return keys;
+                }
+            }
+            catch (SQLiteException)
+            {
+                Messege messege = new Messege("Произошла ошибка");
+                messege.Show();
+                return keys;
+            }
+        }
         //кнопка проверка ВКР
         private void CheckVkr_Click(object sender, EventArgs e)
         {
             List<string> listPathsVkr = new List<string>();
-            if (JsonVkrStudents == "") 
+            if (JsonVkrStudents == "")
             {
                 Messege messege = new Messege("Для начала проверки ВКР загрузите приказ");
-                messege.Show();                
-                return; 
+                messege.Show();
+                return;
             }
             if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
-            { 
-               
+            {
+
                 Messege messege = new Messege("Укажите URL Uipath и MachineKey в настройках UiPath");
                 messege.Show();
                 return;
@@ -297,71 +404,91 @@ namespace VKRProjectUipath
                             var awaiter = task.GetAwaiter();
                             awaiter.OnCompleted(() =>
                             {
-                                string result = awaiter.GetResult();
-                               
-                                try
+                            string result = awaiter.GetResult();
+
+                            try
+                            {
+
+                                var jsons = JsonConvert.DeserializeObject<ListError>(result);
+                                                             
+                                foreach (List<string> item in jsons.listError)
                                 {
-
-                                    var jsons = JsonConvert.DeserializeObject<ListError>(result);
-                                    pathsWordIndex.Clear();
-                                    foreach (List<string> item in jsons.listError) 
+                                    string FullError = "";
+                                    string[] mass = { };
+                                    string names = "";
+                                    foreach (string error in item)
                                     {
-                                        string FullError="";
-                                        string[] mass= { };
-                                        string names = "";
-                                        foreach (string error in item) 
-                                        {
 
-                                            if (error.Contains("!@"))
+                                        if (error.Contains("!@"))
+                                        {
+                                            string[] chars = { "!@" };
+                                            string[] namestud = error.Split(chars, StringSplitOptions.RemoveEmptyEntries);
+                                            foreach (DataGridViewRow dataRow in dataGridView1.Rows)
                                             {
-                                                string[] chars = { "!@" };
-                                                string[] namestud = error.Split(chars, StringSplitOptions.RemoveEmptyEntries);
-                                                foreach (DataGridViewRow dataRow in dataGridView1.Rows)
+                                                if (dataRow.Cells[1].Value.ToString() == namestud[0])
                                                 {
-                                                    if (dataRow.Cells[1].Value.ToString() == namestud[0])
-                                                    {
-                                                        dataRow.DefaultCellStyle.BackColor = Color.FromArgb(0, 255, 115);
-                                                        dataRow.Cells[1].ToolTipText="";
+                                                    dataRow.DefaultCellStyle.BackColor = Color.FromArgb(0, 255, 115);
+                                                    dataRow.Cells[1].ToolTipText = "";
+                                                        if (pathsWordIndex.ContainsKey(dataRow.Index))
+                                                        {
+                                                            pathsWordIndex[dataRow.Index] = namestud[1] + "!@" + namestud[2];
+                                                        }
+                                                        else
+                                                        {
+                                                            pathsWordIndex.Add(dataRow.Index, namestud[1] + "!@" + namestud[2]);
+                                                        }
                                                         break;
                                                     }
                                                 }
                                                 break;
                                             }
-                                            else 
-                                            {                                                                                                   
+                                           else
+                                            {
                                                 if (error.Contains("ВКР("))
-                                                {                                                          
+                                                {
                                                     string[] chars = { "ВКР(" };
                                                     string[] namestud = error.Split(chars, StringSplitOptions.RemoveEmptyEntries);
                                                     namestud = namestud[0].Split(')');
                                                     names = namestud[0];
                                                     string st = error.Replace("ВКР(" + namestud[0] + "):", "");
                                                     string[] s = { "**" };
-                                                     mass = st.Split(s, StringSplitOptions.None);
-                                                    FullError = FullError + mass[1] + "\n";                                                                                                   
-                                                }   
-                                            
+                                                    mass = st.Split(s, StringSplitOptions.None);
+                                                    FullError = FullError + mass[1] + "\n";
+                                                }
+                                                else
+                                                {
+                                                    Messege messege = new Messege(error);
+                                                    messege.Show();
+                                                }
+
                                             }
                                             
                                         }
-                                            foreach (DataGridViewRow dataRow in dataGridView1.Rows)
+                                        foreach (DataGridViewRow dataRow in dataGridView1.Rows)
+                                        {
+                                            if (dataRow.Cells[1].Value.ToString() == names)
                                             {
-                                                if (dataRow.Cells[1].Value.ToString() == names)
-                                                {
 
-                                                    dataRow.DefaultCellStyle.BackColor = Color.FromArgb(255, 124, 129);
-                                                    dataRow.Cells[1].ToolTipText = FullError;                                                    
-                                                    pathsWordIndex.Add(dataRow.Index, mass[0]);
-                                                    break;
+                                                dataRow.DefaultCellStyle.BackColor = Color.FromArgb(255, 124, 129);
+                                                dataRow.Cells[1].ToolTipText = FullError;
+                                                if (pathsWordIndex.ContainsKey(dataRow.Index))
+                                                {
+                                                    pathsWordIndex[dataRow.Index] = mass[0];
                                                 }
+                                                else
+                                                {
+                                                    pathsWordIndex.Add(dataRow.Index, mass[0]);
+                                                }
+                                                break;
                                             }
+                                        }
                                     }
-                                    
+
                                 }
-                                catch (Newtonsoft.Json.JsonReaderException) 
+                                catch (Newtonsoft.Json.JsonReaderException)
                                 {
                                     Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
-                                    messege.Show();                                    
+                                    messege.Show();
                                 }
                             }
                             );
@@ -377,13 +504,13 @@ namespace VKRProjectUipath
                     catch (System.NullReferenceException)
                     {
                         Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
-                        messege.Show();                     
+                        messege.Show();
                         return;
                     }
                     catch (Exception)
                     {
                         Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
-                        messege.Show();                   
+                        messege.Show();
                         return;
                     }
 
@@ -394,7 +521,7 @@ namespace VKRProjectUipath
 
         private static void ProcessOutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
-            if (!String.IsNullOrEmpty(outLine.Data));
+            if (!String.IsNullOrEmpty(outLine.Data)) ;
         }
         private string VKRListStudent()
         {
@@ -420,9 +547,9 @@ namespace VKRProjectUipath
             startInfo.RedirectStandardError = true;
             startInfo.WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString();
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C " + cmd1+ @">"+ Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt";
+            startInfo.Arguments = "/C " + cmd1 + @">" + Properties.Settings.Default.PathStringFolder + "JsonVKRStudents.txt";
             startInfo.CreateNoWindow = true;
-            startInfo.StandardOutputEncoding = Encoding.GetEncoding(850);            
+            startInfo.StandardOutputEncoding = Encoding.GetEncoding(850);
             try
             {
                 Process procCommand = new Process();
@@ -431,19 +558,19 @@ namespace VKRProjectUipath
                 procCommand.StartInfo = startInfo;
                 procCommand.Start();
                 procCommand.WaitForExit();
-                StreamReader srIncoming = procCommand.StandardOutput;               
+                StreamReader srIncoming = procCommand.StandardOutput;
                 return json;
             }
             catch (System.ComponentModel.Win32Exception)
             {
                 Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла");
-                messege.Show();                
+                messege.Show();
                 return "err";
             }
 
         }
         private string VKRCheck()
-        {            
+        {
             string cmd = @"UiRobot.exe connect --url " + Properties.Settings.Default.URLUiPath + " --key " + Properties.Settings.Default.KeyMachine;
             string pathStringWord = Newtonsoft.Json.JsonConvert.SerializeObject(PathsVkr, Formatting.None);
             string pathFolder = JsonConvert.SerializeObject(Properties.Settings.Default.PathStringFolder, Formatting.None);
@@ -482,16 +609,60 @@ namespace VKRProjectUipath
             catch (System.ComponentModel.Win32Exception)
             {
                 Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio");
-                messege.Show();               
+                messege.Show();
                 return "err";
             }
 
         }
-
+        private string VKRGo(List<string> listPath, Dictionary<string, string> keys)
+        {
+            string cmd = @"UiRobot.exe connect --url " + Properties.Settings.Default.URLUiPath + " --key " + Properties.Settings.Default.KeyMachine;
+            string pathFolder = JsonConvert.SerializeObject(Properties.Settings.Default.PathStringFolder, Formatting.None);
+            string pathStringWord = Newtonsoft.Json.JsonConvert.SerializeObject(listPath, Formatting.None);
+            string keysjson = Newtonsoft.Json.JsonConvert.SerializeObject(keys, Formatting.None);
+            string cmd1 = @"UiRobot.exe execute --process VKRGo --input " + "\"" + "{" + "\'" + "ListPaths" + "\'" + ": " + pathStringWord.Replace("\"", "'").Replace("\\x22", "\\\"") + ", " + "\'" + "listD" + "\'" + ": " + keysjson.Replace("\"", "'").Replace("\\x22", "\\\"") + ", " + "\'" + "pF" + "\'" + ": " + pathFolder.Replace("\"", "'").Replace("\\x22", "\\\"") + "}\"";
+            var proc = new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString(),
+                FileName = "cmd.exe",
+                Arguments = "/C " + cmd,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+            Process.Start(proc);
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardError = true;
+            startInfo.RedirectStandardError = true;
+            startInfo.WorkingDirectory = Properties.Settings.Default.PathUIPath.ToString();
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C " + cmd1;
+            startInfo.CreateNoWindow = true;
+            startInfo.StandardOutputEncoding = Encoding.GetEncoding(866);
+            try
+            {
+                Process procCommand = new Process();
+                procCommand.OutputDataReceived += new DataReceivedEventHandler(ProcessOutputHandler);
+                procCommand.ErrorDataReceived += new DataReceivedEventHandler(ProcessOutputHandler);
+                procCommand.StartInfo = startInfo;
+                procCommand.Start();
+                procCommand.WaitForExit();
+                StreamReader srIncoming = procCommand.StandardOutput;
+                string json = srIncoming.ReadToEnd();               
+                return json;
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio");
+                messege.Show();
+                return "err";
+            }
+        }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int index;
-            string path="";
+            string path = "";
             try
             {
                 index = e.RowIndex;
@@ -499,13 +670,74 @@ namespace VKRProjectUipath
             }
             catch (Exception) { return; }
             try
-            {                
+            {
                 System.Diagnostics.Process.Start(path.Trim());
             }
-            catch (Exception) { return; }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
-      
+        private void button1_Click(object sender, EventArgs e)
+        {
+            List<string> niceStudent = new List<string>();
 
+            foreach (DataGridViewRow dataRow in dataGridView1.Rows)
+            {
+                if (dataRow.DefaultCellStyle.BackColor == Color.FromArgb(0, 255, 115))
+                {
+                    niceStudent.Add(pathsWordIndex[dataRow.Index]);
+                }
+            }
+            if (niceStudent.Count == 0)
+            {
+                Messege messege = new Messege("В списке пока нет правильных ВКР");
+                messege.Show();
+                return;
+            }
+            Dictionary<string, string> keys = new Dictionary<string, string>();
+            keys = GoDBForDictionary();
+            try
+            {
+
+                Task<string> task = CompliteVKRGo(niceStudent,keys);
+                var awaiter = task.GetAwaiter();
+                awaiter.OnCompleted(() =>
+                {
+                    string result = awaiter.GetResult();
+                    var jsons = JsonConvert.DeserializeObject<Answ>(result);                    
+                    string[] chars = { "!@" };
+                    if (jsons.Ans.Count > 0) {
+                        foreach (string item in jsons.Ans)
+                        {
+                            if (item != "")
+                            {
+                                Messege messege = new Messege(item.Split(chars,StringSplitOptions.None)[0]+". "+ (item.Split(chars, StringSplitOptions.None)[1]));
+                                messege.Show();
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                   
+                });
+             }
+            catch (System.NullReferenceException)
+            {
+                Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                messege.Show();
+                return;
+            }
+            catch (Exception)
+            {
+                Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
+                messege.Show();
+
+                return;
+            }
+        } 
     }
 }
