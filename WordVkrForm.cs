@@ -679,7 +679,7 @@ namespace VKRProjectUipath
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void VKRGo_Click(object sender, EventArgs e)
         {
             List<string> niceStudent = new List<string>();
 
