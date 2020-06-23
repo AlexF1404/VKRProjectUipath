@@ -27,6 +27,7 @@ namespace VKRProjectUipath
         private DataTable thisDT = new DataTable();
         private DataTable dTable = new DataTable();
         Settings settings;
+        bool save = false;
 
         public FrmForGroup(Settings set)
         {
@@ -77,8 +78,7 @@ namespace VKRProjectUipath
                     }
                 }
                 else {
-                    Messege messege = new Messege("Добавьте записи в таблицу или загрузите из файла");
-                    messege.Show();
+                   
                 }
 
                  
@@ -92,17 +92,25 @@ namespace VKRProjectUipath
         }
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            SaveInDataBase();
-            Close();
+            save = false;
+            SaveInDataBase();           
         }   
         private void BtnDel_Click(object sender, EventArgs e)
-        {           
-          
-            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+        {
+            try
             {
-                dataGridView1.Rows.RemoveAt(cell.RowIndex);
+                if (dataGridView1.Rows.Count != 0)
+                {
+                    foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+                    {
+                        dataGridView1.Rows.RemoveAt(cell.RowIndex);
+                    }
+                }
+                else return;
             }
-            SaveInDataBase();
+            catch (InvalidOperationException) { return; }
+            btnSave.Enabled = true;
+            save = true;
 
         }
         public void SaveInDataBase() 
@@ -136,7 +144,7 @@ namespace VKRProjectUipath
         }
         private void FrmForGroup_Closing(object sender, FormClosingEventArgs e)
         {            
-            if (thisDT != dTable)
+            if (save == true)
             {
                 Warning warning = new Warning("Закрыть без сохранения?\nВсе несохраненные данные будут утеряны!");
                 warning.ShowDialog();
@@ -161,6 +169,7 @@ namespace VKRProjectUipath
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             btnSave.Enabled = true;
+            save = true;
             thisDT = (DataTable)dataGridView1.DataSource;
         }
         private class Group 
@@ -171,58 +180,78 @@ namespace VKRProjectUipath
 
         private void Bnt_SaveInFile_Click(object sender, EventArgs e)
         {
-            Group savenameGr = new Group();
-            string SelectFolder = "";
-            Dictionary<string, string> name = new Dictionary<string, string>();
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            if (dataGridView1.Rows.Count != 1)
             {
-                SelectFolder = folderBrowserDialog1.SelectedPath;
-            }
-            else { return; }
-            for (int i = 0; i < dataGridView1.Rows.Count-1; i++)
-            {               
-                 name.Add(dataGridView1.Rows[i].Cells[0].Value.ToString(), dataGridView1.Rows[i].Cells[1].Value.ToString());                
-            }
-            savenameGr.nameGr = name;
-            string jsonNameGroup = JsonConvert.SerializeObject(savenameGr.nameGr, Formatting.None);
-           
-            try
-            {
-                using (StreamWriter sw = new StreamWriter(SelectFolder + "\\NameGroup.json", false, System.Text.Encoding.UTF8))
+                Group savenameGr = new Group();
+                string SelectFolder = "";
+                Dictionary<string, string> name = new Dictionary<string, string>();
+                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    sw.WriteLine("{ nameGr: " + jsonNameGroup + " }");                    
+                    SelectFolder = folderBrowserDialog1.SelectedPath;
+                }
+                else { return; }
+                for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                {
+                    if (name.ContainsKey(dataGridView1.Rows[i].Cells[0].Value.ToString()))
+                    {
+                        name[dataGridView1.Rows[i].Cells[0].Value.ToString()] = dataGridView1.Rows[i].Cells[1].Value.ToString();
+                    }
+                    else
+                    {
+                        name.Add(dataGridView1.Rows[i].Cells[0].Value.ToString(), dataGridView1.Rows[i].Cells[1].Value.ToString());
+                    }
+                }
+                savenameGr.nameGr = name;
+                string jsonNameGroup = JsonConvert.SerializeObject(savenameGr.nameGr, Formatting.None);
+
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(SelectFolder + "\\NameGroup.json", false, System.Text.Encoding.UTF8))
+                    {
+                        sw.WriteLine("{ nameGr: " + jsonNameGroup + " }");
+                    }
+                }
+                catch (System.UnauthorizedAccessException)
+                {
+                    Messege messege = new Messege("Попробуйте сохранить в папку без прав администратора");
+                    messege.Show();
                 }
             }
-            catch (System.UnauthorizedAccessException) 
+            else
             {
-                Messege messege = new Messege("Попробуйте сохранить в папку без прав администратора");
-                messege.Show();              
+                Messege messege = new Messege("Таблица пуста");
+                messege.Show();
             }
 
         }
 
         private void Btn_GivOutFile_Click(object sender, EventArgs e)
         {
-            Warning warning = new Warning("Все данные из таблицы будут перезаписаны!");
-            warning.ShowDialog();
-            DialogResult result = warning.DialogResult;
-                
-            if (result == DialogResult.OK)
+            try
             {
-                InitializeOpenFileDialog("Json файл (*.json*;|*.json*;", "Выберите файл с сокращениями групп");
-                string SelectFolder = "";
-                string jsonpath = "";
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    SelectFolder = openFileDialog1.FileName;
-                }
-                if (SelectFolder != "")
-                {
-                    using (StreamReader sw = new StreamReader(SelectFolder))
-                    {
-                        jsonpath = sw.ReadToEnd();
+                Warning warning = new Warning("Все данные из таблицы будут перезаписаны!");
+                warning.ShowDialog();
+                DialogResult result = warning.DialogResult;
 
+                if (result == DialogResult.OK)
+                {
+                    InitializeOpenFileDialog("Json файл (*.json*;|*.json*;", "Выберите файл с сокращениями групп");
+                    string SelectFolder = "";
+                    string jsonpath = "";
+                    if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        SelectFolder = openFileDialog1.FileName;
                     }
+                    if (SelectFolder != "")
+                    {
+
+                        using (StreamReader sw = new StreamReader(SelectFolder))
+                        {
+                            jsonpath = sw.ReadToEnd();
+
+                        }
+                    }
+
                     Group group = JsonConvert.DeserializeObject<Group>(jsonpath);
                     dataGridView1.Rows.Clear();
                     foreach (KeyValuePair<string, string> entry in group.nameGr)
@@ -230,21 +259,21 @@ namespace VKRProjectUipath
 
                         dataGridView1.Rows.Add(entry.Key, entry.Value);
                     }
-                    SaveInDataBase();
+                    btnSave.Enabled = true;
+                    save = true;
                 }
-                else { return; }
-            }
             else
-            {
-                return;
+                {
+                    return;
+                }
             }
-            
+            catch (Exception) {
+                Messege messege = new Messege("Данный файл имеет другой формат");
+                messege.Show();
+            }
 
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
+        
+      
     }
 }

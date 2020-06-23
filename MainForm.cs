@@ -32,21 +32,13 @@ namespace VKRProjectUipath
         private SQLiteCommand m_sqlCmd;
         List<string> pathsExcel = new List<string>();
         List<string> pathsWordPdf = new List<string>();
-
-
         Settings settings;
         WordVkrForm vkrform;
         public MainForm()
-        {
-          
-
-
-            InitializeComponent();
-           
+        {          
+            InitializeComponent();           
             comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            btnWordPdf.Enabled = false;
-             
-            
+            btnWordPdf.Enabled = false;                         
         }
         private void BtnExcel_Click(object sender, EventArgs e)
         {
@@ -59,8 +51,7 @@ namespace VKRProjectUipath
                 if (pathsExcel.Count > 0)
                 {
                     try
-                    {
-                        
+                    {                        
                         Task<string> task = CompliteCmdAsync();
                         var awaiter = task.GetAwaiter();
                         awaiter.OnCompleted(() =>
@@ -74,10 +65,8 @@ namespace VKRProjectUipath
                                 {
                                     if (ConnectionAvailable() == false)
                                     {
-
                                         Messege messege = new Messege("Возможно отсутствует подключение к Интернету. Для нормальной работы с приложением требуется подключение");
                                         messege.Show();
-
                                     }
                                     else
                                     {
@@ -92,7 +81,6 @@ namespace VKRProjectUipath
                                             messege.Show();
                                         }
                                     }
-
                                 }
                                 catch (NullReferenceException)
                                 {
@@ -101,8 +89,7 @@ namespace VKRProjectUipath
                                 }
                             }
                         }
-                        );
-                       
+                        );                       
                     }
                     catch (System.NullReferenceException)
                     {
@@ -139,7 +126,6 @@ namespace VKRProjectUipath
                 {
                     session = true;
                 }
-
                 if ((Properties.Settings.Default.KeyMachine == "") || (Properties.Settings.Default.URLUiPath == ""))
                 {
                     Messege messege = new Messege("Укажите URL Uipath и MachineKey в настройках UiPath");
@@ -153,9 +139,25 @@ namespace VKRProjectUipath
                     {
                         Dictionary<string, string> keysforGr = GoDBForDictionary();
                         List<string> nameOfPredmets = GetNameOfPredmets();
-                        label2.Text = "Обработка файлов...";
-                        VRKWordPdfSort(keysforGr, nameOfPredmets, session);
-                        label2.Text = "";
+                        if (keysforGr.Count != 0)
+                        {
+
+                            if (nameOfPredmets.Count != 0)
+                            {
+                                label2.Text = "Обработка файлов...";
+                                VRKWordPdfSort(keysforGr, nameOfPredmets, session);
+                                label2.Text = "";
+                            }
+                            else 
+                            {
+                                Messege messege = new Messege("Для начала работы требуется загрузить учебные планы.");
+                                messege.Show();
+                            }
+                        }
+                        else 
+                        {
+                            return;
+                        }
                     }
                     else return;
                 }
@@ -195,7 +197,6 @@ namespace VKRProjectUipath
                 messege.Show();                
                 return null;
             }
-
         }
         private SQLiteConnection OpenOrCreateDataBase(string DbName,string TableName)
         {
@@ -220,8 +221,7 @@ namespace VKRProjectUipath
                     Messege messege = new Messege("Ошибка соединения с базой данных");
                     messege.Show();              
                     return m_dbConn;
-                }
-           
+                }           
         }
         private void AddDBNameOfDirection(List<string> addNameOfPredmets)
         {
@@ -235,7 +235,6 @@ namespace VKRProjectUipath
                         foreach (string item in addNameOfPredmets)
                         {
                             namePredmetsToBe.Add(item);
-
                         }
                         var data = new HashSet<string>(namePredmetsToBe, StringComparer.OrdinalIgnoreCase);
                   
@@ -262,15 +261,13 @@ namespace VKRProjectUipath
                         catch (SQLiteException)
                         {
                             Messege messege = new Messege("Ошибка соединения с базой данных");
-                            messege.Show();
-                            
+                            messege.Show();                            
                         }
                     }
                     catch (NullReferenceException)
                     {
                         Messege messege = new Messege("Ошибка соединения с роботом. Возможно отсутствует подключение к Интернету");
-                        messege.Show();
-                       
+                        messege.Show();                       
                     }
 
                     catch (SQLiteException)
@@ -299,11 +296,9 @@ namespace VKRProjectUipath
                 foreach (string file in openFileDialog1.FileNames)
                 {
                     listFiles.Add(file);
-                }
-               
+                }               
             }
-            else return;
-          
+            else return;          
         }
         private void InitializeOpenFileDialog(string Filter, string Title) {
             this.openFileDialog1.Filter = Filter;
@@ -343,8 +338,7 @@ namespace VKRProjectUipath
                 procCommand.Start();
                 procCommand.WaitForExit();
                 StreamReader srIncoming = procCommand.StandardOutput;
-                string json = srIncoming.ReadToEnd().ToString();
-                Console.WriteLine(json);
+                string json = srIncoming.ReadToEnd().ToString();               
                 return json;
             }
             catch (System.ComponentModel.Win32Exception)
@@ -352,8 +346,7 @@ namespace VKRProjectUipath
                 Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio");
                 messege.Show();
                 return "err";
-            }
-           
+            }           
         }
         private static void ProcessOutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
             {
@@ -397,7 +390,7 @@ namespace VKRProjectUipath
                 Arguments = "/C " + cmd,
                 WindowStyle = ProcessWindowStyle.Hidden
             };
-           
+            
             Process.Start(proc);
              string cmd1 = @"UiRobot.exe execute --process VKRWord --input " + "\"" + "{" +"\'" + "dabr" + "\'" + ": " + dabr.Replace("\"", "'").Replace("\\x22", "\\\"") + ", " +"\'" + "pF" + "\'" + ": " + pF.Replace("\"", "'").Replace("\\x22", "\\\"") + ", " +"\'" + "wpF" + "\'" + ": " + wpF.Replace("\"", "'").Replace("\\x22", "\\\"") + ", "+ "\'" + "nOfD" + "\'" + ": " + nOfD.Replace("\"", "'").Replace("\\x22", "\\\"") + ", "+ "\'" + "ses" + "\'" + ": " + ses.Replace("\"", "'").Replace("\\x22", "\\\"")+ "}\"";                             
             var proc1 = new ProcessStartInfo()
@@ -408,8 +401,7 @@ namespace VKRProjectUipath
                 Arguments = "/C " + cmd1,
                 WindowStyle = ProcessWindowStyle.Hidden
             };           
-            Process.Start(proc1);
-            
+            Process.Start(proc1);            
         }     
         private Dictionary<string,string> GoDBForDictionary()
         {
@@ -442,25 +434,26 @@ namespace VKRProjectUipath
                 messege.Show();
                 return keys;
             }
-
             try
-            {
-               
+            {               
                 sqlQuery = "SELECT little, big FROM namegroup";
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, m_dbConn);
                 adapter.Fill(dTable);
-
                 if (dTable.Rows.Count > 0)
                 {                   
                     for (int i = 0; i < dTable.Rows.Count; i++)
                     {
-                        keys.Add(dTable.Rows[i].ItemArray[0].ToString().ToLower(), dTable.Rows[i].ItemArray[1].ToString().ToLower());
+                        if (!keys.ContainsKey(dTable.Rows[i].ItemArray[0].ToString().ToLower()))
+                        {
+                            keys.Add(dTable.Rows[i].ItemArray[0].ToString().ToLower(), dTable.Rows[i].ItemArray[1].ToString().ToLower());
+                        }
+                        else continue;
                     }
                     return keys;
                 }
                 else
                 {
-                    Messege messege = new Messege("Добавьте записи в таблицу или загрузите их из файла");
+                    Messege messege = new Messege("Заполните таблицу в разделе 'Настройки' - 'Добавить сокращения групп'");
                     messege.Show();                  
                     return keys;
                 }
@@ -471,11 +464,7 @@ namespace VKRProjectUipath
                 messege.Show();               
                 return keys;
             }
-        }
-        private void MainMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
+        }      
         private void SettingsItem_Click(object sender, EventArgs e)
         {
            
@@ -490,16 +479,10 @@ namespace VKRProjectUipath
            }
             
         }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnWordPdf.Enabled = true;
-        }
-
-        private void BtnVKRPr_Click(object sender, EventArgs e)
-        {
-           
-        }
+        }        
         public bool ConnectionAvailable()
         {
             try
@@ -512,8 +495,7 @@ namespace VKRProjectUipath
                     return true;
                 }
                 else
-                {
-                   
+                {                   
                     rspFP.Close();
                     return false;
                 }
@@ -535,12 +517,7 @@ namespace VKRProjectUipath
             {
                 vkrform.Focus();
             }
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
+        }        
     }
 
 }

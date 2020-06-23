@@ -56,8 +56,7 @@
             this.groupBox1.Size = new System.Drawing.Size(737, 97);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Создание директорий (папок):";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.groupBox1.Text = "Создание директорий (папок):";            
             // 
             // BtnExcel
             // 

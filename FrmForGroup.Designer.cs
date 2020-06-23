@@ -34,8 +34,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmForGroup));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Clmlittle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClmGrBig = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.bnt_SaveInFile = new System.Windows.Forms.Button();
@@ -44,6 +42,8 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.settingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Clmlittle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClmGrBig = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.settingsBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -73,28 +73,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(750, 376);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
-            // 
-            // Clmlittle
-            // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Clmlittle.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Clmlittle.Frozen = true;
-            this.Clmlittle.HeaderText = "Сокращение группы";
-            this.Clmlittle.MinimumWidth = 6;
-            this.Clmlittle.Name = "Clmlittle";
-            this.Clmlittle.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Clmlittle.Width = 125;
-            // 
-            // ClmGrBig
-            // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ClmGrBig.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ClmGrBig.Frozen = true;
-            this.ClmGrBig.HeaderText = "Полное название группы";
-            this.ClmGrBig.MinimumWidth = 6;
-            this.ClmGrBig.Name = "ClmGrBig";
-            this.ClmGrBig.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ClmGrBig.Width = 650;
             // 
             // btnSave
             // 
@@ -174,6 +152,34 @@
             // 
             this.settingsBindingSource.DataSource = typeof(VKRProjectUipath.Settings);
             // 
+            // Clmlittle
+            // 
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            this.Clmlittle.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Clmlittle.Frozen = true;
+            this.Clmlittle.HeaderText = "Сокращение группы";
+            this.Clmlittle.MinimumWidth = 6;
+            this.Clmlittle.Name = "Clmlittle";
+            this.Clmlittle.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Clmlittle.Width = 125;
+            // 
+            // ClmGrBig
+            // 
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.ClmGrBig.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ClmGrBig.Frozen = true;
+            this.ClmGrBig.HeaderText = "Полное название группы";
+            this.ClmGrBig.MinimumWidth = 6;
+            this.ClmGrBig.Name = "ClmGrBig";
+            this.ClmGrBig.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ClmGrBig.Width = 650;
+            // 
             // FrmForGroup
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -207,12 +213,12 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.BindingSource settingsBindingSource;
         private System.Windows.Forms.Button btnDel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Clmlittle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ClmGrBig;
         private System.Windows.Forms.Button bnt_SaveInFile;
         private System.Windows.Forms.Button btn_GivOutFile;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private MetroFramework.Controls.MetroLabel metroLabel1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Clmlittle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClmGrBig;
     }
 }
