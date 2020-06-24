@@ -1,22 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using MetroFramework.Forms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VKRStudents = VKRStudent.VKRStudent;
-using Microsoft.Office.Interop.Word;
-using MetroFramework.Components;
-using MetroFramework.Forms;
-using MetroFramework.Fonts;
-using MetroFramework.Drawing;
-using System.Data.SQLite;
 
 namespace VKRProjectUipath
 {
@@ -37,11 +31,13 @@ namespace VKRProjectUipath
         {
             this.openFileDialog1.Filter = Filter;
             this.openFileDialog1.Title = Title;
+            this.openFileDialog1.FileName = "";
         }
         private void InitializeOpenFileDialog2(string Filter, string Title)
         {
             this.openFileDialog2.Filter = Filter;
             this.openFileDialog2.Title = Title;
+            this.openFileDialog2.FileName = "";
         }
         //загрузка приказа
         private void btnloadDoc_Click(object sender, EventArgs e)
@@ -64,9 +60,10 @@ namespace VKRProjectUipath
                         var awaiter = task.GetAwaiter();
                         awaiter.OnCompleted(() =>
                         {
-                            
+
                             try
-                            {string result = awaiter.GetResult();
+                            {
+                                string result = awaiter.GetResult();
                                 var jsons = JsonConvert.DeserializeObject<ListVKRStudent>(result);
                                 if (jsons.ListVKRStudents.Count == 0)
                                 {
@@ -169,7 +166,7 @@ namespace VKRProjectUipath
         {
             public List<List<string>> listError { get; set; }
         }
-        public class Answ 
+        public class Answ
         {
             public List<string> Ans { get; set; }
         }
@@ -246,20 +243,20 @@ namespace VKRProjectUipath
             {
                 label1.Text = "Загрузка..";
                 string line = "";
-                string ans = await System.Threading.Tasks.Task.Run(() => VKRGo(VKRList,keys));
+                string ans = await System.Threading.Tasks.Task.Run(() => VKRGo(VKRList, keys));
                 if (ans == "err")
                 {
                     Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio. Ошибка также может возникать, если был загружен неверный формат файла.");
                     messege.Show();
                     label1.Text = "";
-                    
+
                     return line;
                 }
-                else 
+                else
                 {
                     label1.Text = "";
                     return ans;
-                }                
+                }
             }
             catch (System.NullReferenceException)
             {
@@ -484,14 +481,16 @@ namespace VKRProjectUipath
                                     Messege messege = new Messege("Ошибка ответа робота. Возможно нет подключения к Интернету. Также ошибка может возникать, если загружен неверный формат файла");
                                     messege.Show();
                                 }
-                                catch (NullReferenceException) {
+                                catch (NullReferenceException)
+                                {
                                     Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio");
                                     messege.Show();
                                 }
                             }
                             );
                         }
-                        else {
+                        else
+                        {
                             Messege messege = new Messege("Для начала проверки ВКР загрузите приказ");
                             messege.Show();
                             return;
@@ -519,7 +518,7 @@ namespace VKRProjectUipath
 
         private static void ProcessOutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
-            if (!String.IsNullOrEmpty(outLine.Data));
+            if (!String.IsNullOrEmpty(outLine.Data)) ;
         }
         private string VKRListStudent()
         {
@@ -584,7 +583,8 @@ namespace VKRProjectUipath
             {
                 Process.Start(proc);
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio");
                 messege.Show();
                 return "err";
@@ -654,7 +654,7 @@ namespace VKRProjectUipath
                 procCommand.Start();
                 procCommand.WaitForExit();
                 StreamReader srIncoming = procCommand.StandardOutput;
-                string json = srIncoming.ReadToEnd();               
+                string json = srIncoming.ReadToEnd();
                 return json;
             }
             catch (System.ComponentModel.Win32Exception)
@@ -710,7 +710,7 @@ namespace VKRProjectUipath
             try
             {
 
-                Task<string> task = CompliteVKRGo(niceStudent,keys);
+                Task<string> task = CompliteVKRGo(niceStudent, keys);
                 var awaiter = task.GetAwaiter();
                 awaiter.OnCompleted(() =>
                 {
@@ -735,12 +735,13 @@ namespace VKRProjectUipath
                             }
                         }
                     }
-                    catch (Exception) {
+                    catch (Exception)
+                    {
                         Messege messege = new Messege("Возможно, вы указали неверные данные в путях к UiPath Studio");
                         messege.Show();
                     }
                 });
-             }
+            }
             catch (System.NullReferenceException)
             {
                 Messege messege = new Messege("Ошибка ответа, попробуйте еще раз");
@@ -754,6 +755,6 @@ namespace VKRProjectUipath
 
                 return;
             }
-        } 
+        }
     }
 }

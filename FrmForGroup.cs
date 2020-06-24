@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using MetroFramework.Forms;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
-using Newtonsoft.Json;
-using MetroFramework.Components;
-using MetroFramework.Forms;
-using MetroFramework.Fonts;
-using MetroFramework.Drawing;
+using System.Windows.Forms;
 
 
 namespace VKRProjectUipath
@@ -45,14 +36,14 @@ namespace VKRProjectUipath
             dbFileName = "dbForNameGroup";
             if (!File.Exists(dbFileName))
                 SQLiteConnection.CreateFile(dbFileName);
-            
+
             try
             {
                 m_dbConn = new SQLiteConnection("Data Source=" + dbFileName + ";Version=3;");
                 m_dbConn.Open();
                 m_sqlCmd.Connection = m_dbConn;
                 m_sqlCmd.CommandText = "CREATE TABLE IF NOT EXISTS namegroup (id INTEGER PRIMARY KEY AUTOINCREMENT, little TEXT, big TEXT)";
-                m_sqlCmd.ExecuteNonQuery();               
+                m_sqlCmd.ExecuteNonQuery();
             }
             catch (SQLiteException)
             {
@@ -60,12 +51,12 @@ namespace VKRProjectUipath
                 messege.Show();
                 return;
             }
-           
-            String sqlQuery;           
+
+            String sqlQuery;
             try
             {
                 sqlQuery = "SELECT little, big FROM namegroup";
-                SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, m_dbConn);                
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, m_dbConn);
                 adapter.Fill(dTable);
                 thisDT = dTable;
                 if (dTable.Rows.Count > 0)
@@ -77,24 +68,25 @@ namespace VKRProjectUipath
                         dataGridView1.Rows.Add(dTable.Rows[i].ItemArray);
                     }
                 }
-                else {
-                   
+                else
+                {
+
                 }
 
-                 
+
             }
             catch (SQLiteException ex)
             {
                 Messege messege = new Messege(ex.Message);
                 messege.Show();
-                
+
             }
         }
         private void BtnSave_Click(object sender, EventArgs e)
         {
             save = false;
-            SaveInDataBase();           
-        }   
+            SaveInDataBase();
+        }
         private void BtnDel_Click(object sender, EventArgs e)
         {
             try
@@ -113,7 +105,7 @@ namespace VKRProjectUipath
             save = true;
 
         }
-        public void SaveInDataBase() 
+        public void SaveInDataBase()
         {
             string sqlrefresh = "DELETE FROM namegroup";
             m_sqlCmd.CommandText = sqlrefresh;
@@ -137,19 +129,19 @@ namespace VKRProjectUipath
             catch (SQLiteException)
             {
                 Messege messege = new Messege("Ваша база пуста. Добавьте записи");
-                messege.Show();                
+                messege.Show();
                 return;
             }
             catch (System.NullReferenceException) { return; }
         }
         private void FrmForGroup_Closing(object sender, FormClosingEventArgs e)
-        {            
+        {
             if (save == true)
             {
                 Warning warning = new Warning("Закрыть без сохранения?\nВсе несохраненные данные будут утеряны!");
                 warning.ShowDialog();
-                DialogResult result = warning.DialogResult;              
-               
+                DialogResult result = warning.DialogResult;
+
                 if (result == DialogResult.OK)
                 {
                     e.Cancel = false;
@@ -159,7 +151,7 @@ namespace VKRProjectUipath
                 {
                     e.Cancel = true;
                 }
-            }            
+            }
         }
         private void InitializeOpenFileDialog(string Filter, string Title)
         {
@@ -172,10 +164,10 @@ namespace VKRProjectUipath
             save = true;
             thisDT = (DataTable)dataGridView1.DataSource;
         }
-        private class Group 
+        private class Group
         {
             [JsonProperty("nameGr")]
-            public Dictionary<string,string> nameGr { get; set; }      
+            public Dictionary<string, string> nameGr { get; set; }
         }
 
         private void Bnt_SaveInFile_Click(object sender, EventArgs e)
@@ -262,18 +254,19 @@ namespace VKRProjectUipath
                     btnSave.Enabled = true;
                     save = true;
                 }
-            else
+                else
                 {
                     return;
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 Messege messege = new Messege("Данный файл имеет другой формат");
                 messege.Show();
             }
 
         }
-        
-      
+
+
     }
 }
