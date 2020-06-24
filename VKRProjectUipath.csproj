@@ -298,7 +298,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="VKRExcel.1.0.1.nupkg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

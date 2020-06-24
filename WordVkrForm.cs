@@ -461,6 +461,7 @@ namespace VKRProjectUipath
                                             {
 
                                                 dataRow.DefaultCellStyle.BackColor = Color.FromArgb(255, 124, 129);
+                                               
                                                 dataRow.Cells[1].ToolTipText = FullError;
                                                 if (pathsWordIndex.ContainsKey(dataRow.Index))
                                                 {
